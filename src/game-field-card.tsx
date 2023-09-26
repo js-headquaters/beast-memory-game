@@ -1,6 +1,7 @@
 import { useContext } from "preact/hooks";
 import { GameState } from ".";
 import { GameFieldCard } from "./types";
+import { cardImageMap } from "./image-helper";
 
 export function GameFieldCardComponent(card: GameFieldCard) {
   const gameState = useContext(GameState);
@@ -21,7 +22,7 @@ export function GameFieldCardComponent(card: GameFieldCard) {
       <div class="game-field-card__back">
         <img
           class="game-field-card__image"
-          src={`/src/assets/${card.value}.png`}
+          src={cardImageMap.get(card.value)}
           alt={card.value}
         />
       </div>
