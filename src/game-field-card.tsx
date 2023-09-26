@@ -12,13 +12,19 @@ export function GameFieldCardComponent(card: GameFieldCard) {
   const getCardClasses = (card: GameFieldCard) => {
     return `game-field-card ${
       gameState.isCardOpen(card) && " game-field-card_open"
-    }`;
+    } `;
   };
 
   const cardContent = (
     <div class="game-field-card__inner">
       <div class="game-field-card__front"></div>
-      <div class="game-field-card__back">{card.value}</div>
+      <div class="game-field-card__back">
+        <img
+          class="game-field-card__image"
+          src={`/src/assets/${card.value}.png`}
+          alt={card.value}
+        />
+      </div>
     </div>
   );
 

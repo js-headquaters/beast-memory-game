@@ -1,7 +1,16 @@
 import { computed, signal } from "@preact/signals";
-import { GameField, GameFieldCard, GameState } from "./types";
+import { CardType, GameField, GameFieldCard, GameState } from "./types";
 
-const cards = ["A", "B", "C", "D", "E", "F", "G", "H"];
+const animalCards: CardType[] = [
+  "cat",
+  "dog",
+  "bear",
+  "chicken",
+  "donkey",
+  "horse",
+  "monkey",
+  "pig",
+];
 
 export class GameStateService {
   readonly gameField = signal<GameField>({ cards: [] });
@@ -52,8 +61,8 @@ export class GameStateService {
 
   private createGameField(): GameField {
     const gameFieldCards: GameFieldCard[] = this.shuffleArray([
-      ...cards,
-      ...cards,
+      ...animalCards,
+      ...animalCards,
     ]).map((card) => ({ value: card, isActive: true }));
 
     const gameField: GameField = { cards: gameFieldCards };

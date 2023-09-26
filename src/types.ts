@@ -3,8 +3,18 @@ export interface GameField {
 }
 
 export interface GameFieldCard {
-  value: string;
+  value: CardType;
   isActive: boolean;
 }
 
 export type GameState = "init" | "run" | "game_over";
+
+export type CardType =
+  | "dog"
+  | "cat"
+  | "chicken"
+  | "pig"
+  | "monkey"
+  | "horse"
+  | "donkey"
+  | "bear";

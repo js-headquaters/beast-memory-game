@@ -60,14 +60,20 @@ body {
 
 .game-field-card__back {
   display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   transform: rotateY(180deg);
 }
 
+.game-field-card__image {
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .game-field-card__front {
-  background: #bbb;
+  background-image: url("assets/card-backing.png");
+  background-size: cover;
+  background-position: center;
 }
 
 .game-field-card__back,

@@ -13,20 +13,6 @@ export function App() {
     gameStateService.start();
   };
 
-  const handleCardClick = (card: GameFieldCard) => {
-    gameStateService.openCard(card);
-  };
-
-  const getCardClasses = (card: GameFieldCard) => {
-    let className = "game-field-card";
-
-    if (!card.isActive) {
-      className += " game-field-card_success";
-    }
-
-    return className;
-  };
-
   return (
     <GameState.Provider value={gameStateService}>
       <div class="controls">
