@@ -5,6 +5,8 @@ import preact from '@preact/preset-vite';
 export default defineConfig({
 	plugins: [preact()],
 	build: {
-		assetsDir: '.'
+		assetsDir: '.',
+		assetsInlineLimit: 30000000,
+		cssCodeSplit: false,
 	}
 });
