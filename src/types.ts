@@ -1,5 +1,7 @@
 export interface GameField {
   cards: GameFieldCard[];
+  horizontalCardsCount: number;
+  verticalCardsCount: number;
 }
 
 export interface GameFieldCard {

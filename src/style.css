@@ -29,13 +29,14 @@ body {
   align-items: center;
   justify-content: center;
   margin: 8px;
+  gap: 8px;
 }
 
 .game-field {
   flex: 1 0 auto;
   display: grid;
   gap: 8px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(var(--horizontal-card-count), 1fr);
 }
 
 .game-field-card {

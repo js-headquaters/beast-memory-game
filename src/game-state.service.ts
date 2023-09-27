@@ -1,5 +1,6 @@
 import { computed, signal } from "@preact/signals";
 import { CardType, GameField, GameFieldCard, GameState } from "./types";
+import { createContext } from "preact";
 
 const animalCards: CardType[] = [
   "cat",
@@ -13,7 +14,11 @@ const animalCards: CardType[] = [
 ];
 
 export class GameStateService {
-  readonly gameField = signal<GameField>({ cards: [] });
+  readonly gameField = signal<GameField>({
+    cards: [],
+    horizontalCardsCount: 0,
+    verticalCardsCount: 0,
+  });
   readonly gameState = signal<GameState>("init");
 
   readonly openCards = signal<GameFieldCard[]>([]);
@@ -22,8 +27,12 @@ export class GameStateService {
     () => this.openCards.value[0].value === this.openCards.value[1].value
   );
 
-  start() {
-    this.gameField.value = this.createGameField();
+  start(horizontalCardsCount: number, verticalCardsCount: number) {
+    debugger;
+    this.gameField.value = this.createGameField(
+      horizontalCardsCount,
+      verticalCardsCount
+    );
     this.gameState.value = "run";
   }
 
@@ -59,13 +68,26 @@ export class GameStateService {
     }, 1000);
   }
 
-  private createGameField(): GameField {
+  private createGameField(
+    horizontalCardsCount: number,
+    verticalCardsCount: number
+  ): GameField {
+    const totalCardCount = horizontalCardsCount * verticalCardsCount;
+    const usedAnimalsCards = animalCards.slice(
+      0,
+      Math.floor(totalCardCount / 2)
+    );
+
     const gameFieldCards: GameFieldCard[] = this.shuffleArray([
-      ...animalCards,
-      ...animalCards,
+      ...usedAnimalsCards,
+      ...usedAnimalsCards,
     ]).map((card) => ({ value: card, isActive: true }));
 
-    const gameField: GameField = { cards: gameFieldCards };
+    const gameField: GameField = {
+      cards: gameFieldCards,
+      verticalCardsCount,
+      horizontalCardsCount,
+    };
 
     return gameField;
   }
@@ -78,3 +100,5 @@ export class GameStateService {
     return array;
   }
 }
+
+export const GameStateContext = createContext<GameStateService>(null);

@@ -1,29 +1,50 @@
-import { Fragment, createContext, render } from "preact";
+import { render } from "preact";
 import "./style.css";
-import { GameStateService } from "./game-state.service";
-import { GameFieldCard } from "./types";
-import { GameFieldCardComponent } from "./game-field-card";
+import { GameStateContext, GameStateService } from "./game-state.service";
+import { GameFieldComponent } from "./game-field";
+import { useSignal } from "@preact/signals";
 
 const gameStateService = new GameStateService();
 
-export const GameState = createContext<GameStateService>(null);
-
 export function App() {
+  const horizontalCardsCount = useSignal(4);
+  const verticalCardsCount = useSignal(4);
+
+  const handleHorizontalCardsCountChange = (event) => {
+    horizontalCardsCount.value = event.target.value;
+  };
+
+  const handleVerticalCardsCountChange = (event) => {
+    verticalCardsCount.value = event.target.value;
+  };
+
   const handleClick = () => {
-    gameStateService.start();
+    gameStateService.start(
+      horizontalCardsCount.value,
+      verticalCardsCount.value
+    );
   };
 
   return (
-    <GameState.Provider value={gameStateService}>
+    <GameStateContext.Provider value={gameStateService}>
       <div class="controls">
+        <input
+          style="width: 30px"
+          type="number"
+          value={horizontalCardsCount.value}
+          onInput={handleHorizontalCardsCountChange}
+        ></input>
+        <span>X</span>
+        <input
+          style="width: 30px"
+          type="number"
+          value={verticalCardsCount.value}
+          onInput={handleVerticalCardsCountChange}
+        ></input>
         <button onClick={handleClick}>new game</button>
       </div>
-      <div class="game-field">
-        {gameStateService.gameField.value.cards.map((card) => {
-          return <GameFieldCardComponent {...card} />;
-        })}
-      </div>
-    </GameState.Provider>
+      <GameFieldComponent />
+    </GameStateContext.Provider>
   );
 }
 

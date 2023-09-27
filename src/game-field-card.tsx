@@ -1,10 +1,10 @@
 import { useContext } from "preact/hooks";
-import { GameState } from ".";
 import { GameFieldCard } from "./types";
 import { cardImageMap } from "./image-helper";
+import { GameStateContext } from "./game-state.service";
 
 export function GameFieldCardComponent(card: GameFieldCard) {
-  const gameState = useContext(GameState);
+  const gameState = useContext(GameStateContext);
 
   const handleClick = () => {
     gameState.openCard(card);
