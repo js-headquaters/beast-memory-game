@@ -1,5 +1,8 @@
-name: Build artifact
+name: Deploy
 on: push
+
+permissions:
+  contents: write
 
 jobs:
   build:
