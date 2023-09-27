@@ -20,8 +20,7 @@ body {
 .app-root {
   display: flex;
   flex-flow: column nowrap;
-  min-height: calc(100vh - 16px);
-  margin: 8px;
+  min-height: 100vh;
 }
 
 .controls {
@@ -33,10 +32,14 @@ body {
 }
 
 .game-field {
-  flex: 1 0 auto;
   display: grid;
   gap: 8px;
-  grid-template-columns: repeat(var(--horizontal-card-count), 1fr);
+  grid-template-columns: repeat(
+    var(--horizontal-card-count),
+    minmax(64px, 1fr)
+  );
+  grid-template-rows: repeat(var(--vertical-card-count), minmax(64px, 96px));
+  margin: auto;
 }
 
 .game-field-card {
@@ -69,6 +72,7 @@ body {
 .game-field-card__image {
   max-width: 100%;
   max-height: 100%;
+  object-fit: contain;
 }
 
 .game-field-card__front {

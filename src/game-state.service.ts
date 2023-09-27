@@ -21,11 +21,15 @@ const animalCards: CardType[] = [
   "dolphin",
 ];
 
+const INIT_GAME_FIELD: GameField = {
+  cards: [],
+  horizontalCardsCount: 0,
+  verticalCardsCount: 0,
+};
+
 export class GameStateService {
   readonly gameField = signal<GameField>({
-    cards: [],
-    horizontalCardsCount: 0,
-    verticalCardsCount: 0,
+    ...INIT_GAME_FIELD,
   });
   readonly gameState = signal<GameState>("init");
 
@@ -36,7 +40,7 @@ export class GameStateService {
   );
 
   start(horizontalCardsCount: number, verticalCardsCount: number) {
-    debugger;
+    this.resetState();
     this.gameField.value = this.createGameField(
       horizontalCardsCount,
       verticalCardsCount
@@ -106,6 +110,12 @@ export class GameStateService {
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+  }
+
+  private resetState() {
+    this.openCards.value = [];
+    this.gameState.value = "run";
+    this.gameField.value = { ...INIT_GAME_FIELD };
   }
 }
 
