@@ -1,5 +1,11 @@
 import { computed, signal } from "@preact/signals";
-import { CardType, GameField, GameFieldCard, GameState } from "./types";
+import {
+  CardType,
+  GameField,
+  GameFieldCard,
+  GameState,
+  GameDifficulty,
+} from "./types";
 import { createContext } from "preact";
 
 const animalCards: CardType[] = [
@@ -27,6 +33,14 @@ const INIT_GAME_FIELD: GameField = {
   verticalCardsCount: 0,
 };
 
+const gameDifficultyMap = new Map<GameDifficulty, Omit<GameField, "cards">>([
+  [1, { horizontalCardsCount: 3, verticalCardsCount: 2 }],
+  [2, { horizontalCardsCount: 4, verticalCardsCount: 3 }],
+  [3, { horizontalCardsCount: 4, verticalCardsCount: 4 }],
+  [4, { horizontalCardsCount: 5, verticalCardsCount: 4 }],
+  [5, { horizontalCardsCount: 5, verticalCardsCount: 6 }],
+]);
+
 export class GameStateService {
   readonly gameField = signal<GameField>({
     ...INIT_GAME_FIELD,
@@ -39,8 +53,10 @@ export class GameStateService {
     () => this.openCards.value[0].value === this.openCards.value[1].value
   );
 
-  start(horizontalCardsCount: number, verticalCardsCount: number) {
+  start(gameDifficulty: GameDifficulty) {
     this.resetState();
+    const { horizontalCardsCount, verticalCardsCount } =
+      gameDifficultyMap.get(gameDifficulty);
     this.gameField.value = this.createGameField(
       horizontalCardsCount,
       verticalCardsCount

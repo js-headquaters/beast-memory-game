@@ -28,3 +28,5 @@ export type CardType =
   | "wasp"
   | "crab"
   | "dolphin";
+
+export type GameDifficulty = 1 | 2 | 3 | 4 | 5;
