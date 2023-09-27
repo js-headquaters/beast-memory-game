@@ -1,7 +1,7 @@
+import { GameDifficulty } from "@interfaces/index";
 import { useSignal } from "@preact/signals";
+import { GameStateContext } from "@services/game-state.service";
 import { useContext } from "preact/hooks";
-import { GameStateContext } from "./game-state.service";
-import { GameDifficulty } from "./types";
 
 export function GameControlsComponent() {
   const gameState = useContext(GameStateContext);

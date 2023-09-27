@@ -1,7 +1,7 @@
+import { GameFieldCard } from "@interfaces/index";
+import { GameStateContext } from "@services/game-state.service";
+import { cardImageMap } from "@utils/card-image.utils";
 import { useContext } from "preact/hooks";
-import { GameFieldCard } from "./types";
-import { cardImageMap } from "./image-helper";
-import { GameStateContext } from "./game-state.service";
 
 export function GameFieldCardComponent(card: GameFieldCard) {
   const gameState = useContext(GameStateContext);

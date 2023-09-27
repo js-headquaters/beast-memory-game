@@ -1,11 +1,14 @@
+import { GameControlsComponent } from "@components/game-controls";
+import { GameFieldComponent } from "@components/game-field";
+import {
+  GameStateContext,
+  GameStateService,
+} from "@services/game-state.service";
 import { render } from "preact";
 import "./style.css";
-import { GameStateContext, GameStateService } from "./game-state.service";
-import { GameFieldComponent } from "./game-field";
-import { useSignal } from "@preact/signals";
-import { GameControlsComponent } from "./game-controls";
 
 const gameStateService = new GameStateService();
+gameStateService.start(3);
 
 export function App() {
   return (

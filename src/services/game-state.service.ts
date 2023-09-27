@@ -1,11 +1,11 @@
-import { computed, signal } from "@preact/signals";
 import {
   CardType,
+  GameDifficulty,
   GameField,
   GameFieldCard,
   GameState,
-  GameDifficulty,
-} from "./types";
+} from "@interfaces/index";
+import { computed, signal } from "@preact/signals";
 import { createContext } from "preact";
 
 const animalCards: CardType[] = [
@@ -46,7 +46,6 @@ export class GameStateService {
     ...INIT_GAME_FIELD,
   });
   readonly gameState = signal<GameState>("init");
-
   readonly openCards = signal<GameFieldCard[]>([]);
 
   readonly isCardMatched = computed(

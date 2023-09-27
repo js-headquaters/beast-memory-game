@@ -1,6 +1,6 @@
+import { GameFieldCardComponent } from "@components/game-field-card";
+import { GameStateContext } from "@services/game-state.service";
 import { useContext } from "preact/hooks";
-import { GameStateContext } from "./game-state.service";
-import { GameFieldCardComponent } from "./game-field-card";
 
 export function GameFieldComponent() {
   const gameState = useContext(GameStateContext);
