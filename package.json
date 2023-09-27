@@ -1,5 +1,6 @@
 {
-	"name": "example",
+	"name": "beast-memory",
+	"description": "Unleash the power of your memory with BeastMemory, a fun and engaging card matching game featuring a world of wonderful creatures",
 	"private": true,
 	"type": "module",
 	"scripts": {
