@@ -19,4 +19,8 @@ export type CardType =
   | "monkey"
   | "horse"
   | "donkey"
-  | "bear";
+  | "bear"
+  | "frog"
+  | "lion"
+  | "wolf"
+  | "turtle";

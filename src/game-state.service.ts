@@ -11,6 +11,10 @@ const animalCards: CardType[] = [
   "horse",
   "monkey",
   "pig",
+  "frog",
+  "lion",
+  "wolf",
+  "turtle",
 ];
 
 export class GameStateService {
