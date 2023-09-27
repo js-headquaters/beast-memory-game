@@ -6,7 +6,7 @@
 		"dev": "vite",
 		"build": "vite build",
 		"preview": "vite preview",
-		"build-prod": "vite build --base=https://jscommander.stream/memory-game/"
+		"build-github-pages": "vite build --base=https://js-headquaters.github.io/telegram-mini-app-playground"
 	},
 	"dependencies": {
 		"@preact/signals": "^1.2.1",

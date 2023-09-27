@@ -4,24 +4,23 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
-      
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Run build
-      run: npm run build-prod
-      
-    - name: Archive build artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: build-artifacts
-        path: dist
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run build
+        run: npm run build-github-pages
+
+      - name: Deploy to github pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
