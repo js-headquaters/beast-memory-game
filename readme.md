@@ -20,7 +20,6 @@ Start your memory-enhancing adventure now with BeastMemory!
 
 ## TODO
 
-- [ ] Add MIT license
 - [ ] Create game GUI prototype
 - [ ] Add game config
 - [ ] Add telegram theme support
@@ -30,6 +29,8 @@ Start your memory-enhancing adventure now with BeastMemory!
 
 ---
 
+- [x] Add MIT license
+- [x] Rename repository
 - [x] Determine the appropriate game field size (4x4, 5x5, 6x6) to ensure compatibility with small screens.
 - [x] Implement auto-deployment.
 
