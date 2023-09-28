@@ -20,8 +20,17 @@ Start your memory-enhancing adventure now with BeastMemory!
 
 ## TODO
 
-- [ ] Determine the appropriate game field size (4x4, 5x5, 6x6) to ensure compatibility with small screens.
-- [ ] Explore methods to increase difficulty levels.
+- [ ] Add MIT license
+- [ ] Create game GUI prototype
+- [ ] Add game config
+- [ ] Add telegram theme support
+- [ ] Check if local storage is working, save user statistic here
+- [ ] Explore methods to increase difficulty levels
+- [ ] Add new high quality assets
+
+---
+
+- [x] Determine the appropriate game field size (4x4, 5x5, 6x6) to ensure compatibility with small screens.
 - [x] Implement auto-deployment.
 
 ## Mobile Card Game Design Guidelines
