@@ -45,11 +45,15 @@ export class GameStateService {
   readonly gameField = signal<GameField>({
     ...INIT_GAME_FIELD,
   });
-  readonly gameState = signal<GameState>("init");
+  readonly currentGameState = signal<GameState>("init");
   readonly openCards = signal<GameFieldCard[]>([]);
 
   readonly isCardMatched = computed(
     () => this.openCards.value[0].value === this.openCards.value[1].value
+  );
+
+  readonly isEmptyField = computed(() =>
+    this.gameField.value.cards.every((card) => !card.isActive)
   );
 
   start(gameDifficulty: GameDifficulty) {
@@ -60,7 +64,7 @@ export class GameStateService {
       horizontalCardsCount,
       verticalCardsCount
     );
-    this.gameState.value = "run";
+    this.currentGameState.value = "run";
   }
 
   openCard(card: GameFieldCard) {
@@ -90,6 +94,11 @@ export class GameStateService {
       if (removeFromField) {
         this.openCards.value[0].isActive = false;
         this.openCards.value[1].isActive = false;
+
+        if (this.isEmptyField.value) {
+          this.currentGameState.value = "game_over";
+          window.Telegram.WebApp.showAlert("Great success!");
+        }
       }
       this.openCards.value = [];
     }, 1000);
@@ -129,7 +138,7 @@ export class GameStateService {
 
   private resetState() {
     this.openCards.value = [];
-    this.gameState.value = "run";
+    this.currentGameState.value = "run";
     this.gameField.value = { ...INIT_GAME_FIELD };
   }
 }

@@ -39,7 +39,8 @@ body {
     minmax(64px, 1fr)
   );
   grid-template-rows: repeat(var(--vertical-card-count), minmax(64px, 96px));
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .game-field-card {

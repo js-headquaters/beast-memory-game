@@ -6,15 +6,19 @@ import {
 } from "@services/game-state.service";
 import { render } from "preact";
 import "./style.css";
+import { GameGUIComponent } from "@components/game-gui";
+import { setReady } from "@utils/telegram.utils";
 
 const gameStateService = new GameStateService();
 gameStateService.start(3);
+setReady();
 
 export function App() {
   return (
     <GameStateContext.Provider value={gameStateService}>
-      <GameControlsComponent />
+      <GameGUIComponent />
       <GameFieldComponent />
+      <GameControlsComponent />
     </GameStateContext.Provider>
   );
 }
