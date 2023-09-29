@@ -1,12 +1,6 @@
 # BeastMemory
 
-1. [Welcome to BeastMemory](#welcome-to-beastmemory)
-2. [Running BeastMemory Locally](#running-beastmemory-locally)
-3. [Game Concept](#game-concept)
-4. [Technology Stack](#technology-stack)
-5. [TODO](#todo)
-
-## Welcome to BeastMemory
+**Welcome to BeastMemory!** 🧠🐾
 
 **BeastMemory** is a delightful memory card game with colorful and adorable animal characters, perfect for all ages and an excellent tool for enhancing memory skills.
 
@@ -27,6 +21,13 @@
 - [Website](https://js-headquaters.github.io/beast-memory-game/)
 
 Embark on your journey of fun and cognitive enhancement with BeastMemory today!
+
+## Table of Contents
+
+1. [Running BeastMemory Locally](#running-beastmemory-locally)
+2. [Game Concept](#game-concept)
+3. [Technology Stack](#technology-stack)
+4. [TODO](#todo)
 
 ## Running BeastMemory Locally
 
