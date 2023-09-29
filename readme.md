@@ -116,14 +116,10 @@ By choosing these technologies and platforms, we ensure an efficient, enjoyable,
 
 ## TODO
 
-- [ ] Create game GUI prototype
 - [ ] Add game config
 - [ ] Add telegram theme support. Not sure if better to use css vars or data from https://core.telegram.org/bots/webapps#themeparams . Not sure if data is always available. Also, better to have some theme if app open by link (not in webapp context)
 - [ ] Use cloud storage and save user statistic here
-- [ ] Explore methods to increase difficulty levels
 - [ ] Add new high quality assets
-- [ ] Make responsive design for game field
-- [ ] Make better card design
 - [ ] Add menu button that opens popup with statistic, setting and etc
 - [ ] Add game time and errors count (user already knows where pair card located but open other card)
 - [ ] Add game over screen with game time, error counts, and buttons: play again, raise difficulty
