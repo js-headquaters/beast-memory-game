@@ -17,7 +17,7 @@
 
 🎮 **Play Now**:
 
-- [Telegram WebApp](t.me/BeastMemoryBot/gamee)
+- [Telegram WebApp](https://t.me/BeastMemoryBot/game)
 - [Website](https://js-headquaters.github.io/beast-memory-game/)
 
 Embark on your journey of fun and cognitive enhancement with BeastMemory today!
