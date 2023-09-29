@@ -18,17 +18,17 @@ export function GameCardComponent(card: GameCard) {
 
   const cardContent = (
     <div class="game-card__inner">
-      <div class="game-card__front">
+      <div class="game-card__backing">
         <img
-          class="game-card__image"
+          class="game-card__backing-image"
           src={cardBackingImage}
           alt="card backing"
           loading="eager"
         />
       </div>
-      <div class="game-card__back">
+      <div class="game-card__animal">
         <img
-          class="game-card__image"
+          class="game-card__animal-image"
           src={cardImageMap.get(card.animalType)}
           alt={card.animalType}
         />

@@ -69,9 +69,9 @@ export class GameStateService {
     effect(() => {
       if (this.isAllCardInactive.value) {
         this.currentState.value = "game_over";
+        alert("OMG! Very Impressive");
 
         setTimeout(() => {
-          alert("OMG! Very Impressive");
           this.increaseLevel();
           this.start();
         }, 500);
