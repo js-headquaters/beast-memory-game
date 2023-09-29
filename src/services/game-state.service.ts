@@ -65,12 +65,38 @@ export class GameStateService {
     return this.cards.value.every((card) => !card.isActive);
   });
 
+  readonly timeSpent = computed<string | null>(() => {
+    const format = (value: number) => value.toString().padStart(2, "0");
+
+    const start = this.startTimestamp.value;
+    const current = this.currentTimestamp.value;
+
+    if (!start || !current || current - start < 0) {
+      return null;
+    }
+
+    const spentSeconds = Math.floor((current - start) / 1000);
+    const minutes = format(Math.floor(spentSeconds / 60));
+    const seconds = format(spentSeconds % 60);
+
+    return `${minutes}:${seconds}`;
+  });
+
+  private readonly startTimestamp = signal<number | null>(null);
+  private readonly currentTimestamp = signal<number | null>(null);
+  private timer: number;
+
   constructor() {
     effect(() => {
       if (this.isAllCardInactive.value) {
         this.currentState.value = "game_over";
-        alert("OMG! Very Impressive");
+      }
+    });
 
+    effect(() => {
+      if (this.currentState.value === "game_over") {
+        alert(`Very Impressive! time spent: ${this.timeSpent.value}`);
+        this.stopTimer();
         setTimeout(() => {
           this.increaseLevel();
           this.start();
@@ -87,6 +113,7 @@ export class GameStateService {
     this.cards.value = this.createGameCards(pairsCount);
     this.horizontalCardsCount.value = horizontalCardsCount;
     this.currentState.value = "run";
+    this.startTimer();
   };
 
   openCard = (card: GameCard) => {
@@ -180,8 +207,19 @@ export class GameStateService {
 
   private resetState() {
     this.openCards.value = [];
-    this.currentState.value = "run";
+    this.currentState.value = "init";
     this.cards.value = [];
+  }
+
+  private startTimer() {
+    this.startTimestamp.value = Date.now();
+    this.timer = setInterval(() => {
+      this.currentTimestamp.value = Date.now();
+    }, 1000);
+  }
+
+  private stopTimer() {
+    clearInterval(this.timer);
   }
 }
 
