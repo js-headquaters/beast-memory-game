@@ -57,6 +57,28 @@ Follow these simple steps to run BeastMemory on your local machine:
 
 Enjoy exploring and playing with BeastMemory on your local machine!
 
+## 🧠 Game Concept
+
+**BeastMemory** is a memory card game designed to effectively enhance memory skills. It meticulously combines captivating animal artwork with gameplay intricacies to ensure a delightful and mentally stimulating experience.
+
+### 🃏 Gameplay
+
+Players embark on a quest to match pairs of cards, with the game’s complexity adjustable by varying the number of card pairs.
+
+### 🎨 Aesthetic Appeal
+
+Utmost importance is placed on vibrant and appealing animal arts, ensuring sustained user engagement and enjoyment.
+
+### 📊 Feedback and Encouragement
+
+Post-game, players receive timely feedback, including the time taken to complete a level and an uplifting message if their performance improves. This immediate response fuels motivation and the ambition to advance.
+
+### 📈 Performance Monitoring
+
+Attention is also given to track the excess openings made by a user, indicating cards that have been previously revealed, aiding in self-assessment and improvement. However, maintaining a positive and encouraging environment is paramount. Thus, only the time taken is displayed in cases of lesser performance, avoiding any discouragement or negative feedback.
+
+Through these thoughtfully implemented features and mechanisms, **BeastMemory** stands as a cherished tool for augmenting memory, while assuring an entertaining and positive gaming encounter.
+
 ## Technology Stack 🛠️
 
 During the development of **BeastMemory**, we adhered to the following principles:
