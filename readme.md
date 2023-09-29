@@ -1,6 +1,12 @@
 # BeastMemory
 
-**Welcome to BeastMemory!** 🧠🐾
+1. [Welcome to BeastMemory](#welcome-to-beastmemory)
+2. [Running BeastMemory Locally](#running-beastmemory-locally)
+3. [Game Concept](#game-concept)
+4. [Technology Stack](#technology-stack)
+5. [TODO](#todo)
+
+## Welcome to BeastMemory
 
 **BeastMemory** is a delightful memory card game with colorful and adorable animal characters, perfect for all ages and an excellent tool for enhancing memory skills.
 
@@ -22,7 +28,7 @@
 
 Embark on your journey of fun and cognitive enhancement with BeastMemory today!
 
-## Running BeastMemory Locally 🏠
+## Running BeastMemory Locally
 
 Before starting, ensure you have `git` and `Node.js` installed on your machine. If not, you can download and install them from the following links:
 
@@ -57,7 +63,7 @@ Follow these simple steps to run BeastMemory on your local machine:
 
 Enjoy exploring and playing with BeastMemory on your local machine!
 
-## 🧠 Game Concept
+## Game Concept
 
 **BeastMemory** is a memory card game designed to effectively enhance memory skills. It meticulously combines captivating animal artwork with gameplay intricacies to ensure a delightful and mentally stimulating experience.
 
@@ -79,7 +85,7 @@ Attention is also given to track the excess openings made by a user, indicating 
 
 Through these thoughtfully implemented features and mechanisms, **BeastMemory** stands as a cherished tool for augmenting memory, while assuring an entertaining and positive gaming encounter.
 
-## Technology Stack 🛠️
+## Technology Stack
 
 During the development of **BeastMemory**, we adhered to the following principles:
 
