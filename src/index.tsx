@@ -16,9 +16,8 @@ setReady();
 export function App() {
   return (
     <GameStateContext.Provider value={gameStateService}>
-      <GameGUIComponent />
-      <GameFieldComponent />
       <GameControlsComponent />
+      <GameFieldComponent />
     </GameStateContext.Provider>
   );
 }
