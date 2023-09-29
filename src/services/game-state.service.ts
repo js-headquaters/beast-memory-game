@@ -37,8 +37,9 @@ const gameDifficultyMap = new Map<GameDifficulty, Omit<GameField, "cards">>([
   [1, { horizontalCardsCount: 3, verticalCardsCount: 2 }],
   [2, { horizontalCardsCount: 4, verticalCardsCount: 3 }],
   [3, { horizontalCardsCount: 4, verticalCardsCount: 4 }],
-  [4, { horizontalCardsCount: 5, verticalCardsCount: 4 }],
-  [5, { horizontalCardsCount: 5, verticalCardsCount: 6 }],
+  [4, { horizontalCardsCount: 4, verticalCardsCount: 5 }],
+  [5, { horizontalCardsCount: 4, verticalCardsCount: 6 }],
+  [6, { horizontalCardsCount: 5, verticalCardsCount: 6 }],
 ]);
 
 export class GameStateService {
