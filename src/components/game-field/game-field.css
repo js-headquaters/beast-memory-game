@@ -1,0 +1,8 @@
+.game-field {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(
+    var(--horizontal-cards-count),
+    minmax(64px, 1fr)
+  );
+}

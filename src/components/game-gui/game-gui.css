@@ -1,0 +1,13 @@
+.game-gui {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  gap: 0.5rem;
+}
+
+.game-gui__level {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 0.5rem;
+}

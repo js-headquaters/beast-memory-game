@@ -1,17 +1,17 @@
-export interface GameField {
-  cards: GameFieldCard[];
-  horizontalCardsCount: number;
-  verticalCardsCount: number;
+export interface GameCard {
+  id: `${CardAnimalType}-${number}`;
+  animalType: CardAnimalType;
+  isActive: boolean;
 }
 
-export interface GameFieldCard {
-  value: CardType;
-  isActive: boolean;
+export interface GameInitParams {
+  pairsCount: number;
+  horizontalCardsCount: number;
 }
 
 export type GameState = "init" | "run" | "game_over";
 
-export type CardType =
+export type CardAnimalType =
   | "dog"
   | "cat"
   | "chicken"
@@ -29,4 +29,4 @@ export type CardType =
   | "crab"
   | "dolphin";
 
-export type GameDifficulty = 1 | 2 | 3 | 4 | 5;
+export type GameLevel = 1 | 2 | 3 | 4 | 5 | 6;

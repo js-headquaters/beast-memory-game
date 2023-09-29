@@ -1,0 +1,15 @@
+.game {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 100vh;
+
+  --game-card-size: 4rem;
+}
+
+.game__spacer {
+  flex: 1 1 0;
+}
+
+.game__content {
+  flex: 0 1 calc(var(--game-card-size) * var(--horizontal-cards-count));
+}
