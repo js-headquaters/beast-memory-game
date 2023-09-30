@@ -59,7 +59,7 @@ export class GameStateService {
   );
 
   readonly isAllCardInactive = computed(() => {
-    if (this.cards.value.length === 0) {
+    if (this.currentState.value !== "run") {
       return false;
     }
     return this.cards.value.every((card) => !card.isActive);
