@@ -17,15 +17,15 @@ export type CardAnimalType =
   | "chicken"
   | "pig"
   | "monkey"
-  | "horse"
-  | "donkey"
   | "bear"
   | "frog"
   | "lion"
-  | "wolf"
   | "turtle"
   | "bee"
-  | "crab"
-  | "dolphin";
+  | "panda"
+  | "sheep"
+  | "hedgehog"
+  | "mouse"
+  | "rabbit";
 
 export type GameLevel = 1 | 2 | 3 | 4 | 5 | 6;

@@ -15,16 +15,15 @@ const animalCardTypes: CardAnimalType[] = [
   "chicken",
   "dog",
   "frog",
+  "hedgehog",
   "lion",
   "monkey",
+  "mouse",
+  "panda",
   "pig",
+  "rabbit",
+  "sheep",
   "turtle",
-
-  "donkey",
-  "horse",
-  "wolf",
-  "crab",
-  "dolphin",
 ];
 
 const gameDifficultyMap = new Map<GameLevel, GameInitParams>([
@@ -182,14 +181,12 @@ export class GameStateService {
       };
     };
 
-    const firstAnimalCards = animalCardTypes
-      .slice(0, pairsCount)
-      .map((type) => createCard(type, 1));
-    const secondAnimalCards = animalCardTypes
-      .slice(0, pairsCount)
-      .map((type) => createCard(type, 2));
+    const animalTypes = this.getRandomAnimalTypes(pairsCount);
 
-    const gameCards: GameCard[] = this.shuffleArray([
+    const firstAnimalCards = animalTypes.map((type) => createCard(type, 1));
+    const secondAnimalCards = animalTypes.map((type) => createCard(type, 2));
+
+    const gameCards: GameCard[] = this.getShuffledArray([
       ...firstAnimalCards,
       ...secondAnimalCards,
     ]);
@@ -197,7 +194,7 @@ export class GameStateService {
     return gameCards;
   }
 
-  private shuffleArray<T>(array: T[]): T[] {
+  private getShuffledArray<T>(array: T[]): T[] {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
@@ -220,6 +217,10 @@ export class GameStateService {
 
   private stopTimer() {
     clearInterval(this.timer);
+  }
+
+  private getRandomAnimalTypes(count: number): CardAnimalType[] {
+    return this.getShuffledArray([...animalCardTypes]).slice(0, count);
   }
 }
 
