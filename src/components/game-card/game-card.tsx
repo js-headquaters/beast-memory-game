@@ -3,7 +3,7 @@ import { GameStateContext } from "@services/game-state.service";
 import { cardImageMap } from "@utils/card-image.utils";
 import { useContext } from "preact/hooks";
 import "./game-card.css";
-import cardBackingImage from "@assets/card-backing.png";
+import cardBackingImage from "@assets/backing.jpg";
 
 export function GameCardComponent(card: GameCard) {
   const { openCard, isCardOpen } = useContext(GameStateContext);

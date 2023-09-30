@@ -25,7 +25,6 @@ export type CardAnimalType =
   | "wolf"
   | "turtle"
   | "bee"
-  | "wasp"
   | "crab"
   | "dolphin";
 

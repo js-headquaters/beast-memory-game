@@ -9,20 +9,20 @@ import { computed, effect, signal } from "@preact/signals";
 import { createContext } from "preact";
 
 const animalCardTypes: CardAnimalType[] = [
-  "cat",
-  "dog",
   "bear",
+  "bee",
+  "cat",
   "chicken",
-  "donkey",
-  "horse",
-  "monkey",
-  "pig",
+  "dog",
   "frog",
   "lion",
-  "wolf",
+  "monkey",
+  "pig",
   "turtle",
-  "bee",
-  "wasp",
+
+  "donkey",
+  "horse",
+  "wolf",
   "crab",
   "dolphin",
 ];
