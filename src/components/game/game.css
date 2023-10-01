@@ -11,5 +11,5 @@
 }
 
 .game__content {
-  flex: 0 1 calc(var(--game-card-size) * var(--horizontal-cards-count));
+  flex: 0 1 0;
 }

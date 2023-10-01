@@ -1,0 +1,31 @@
+:root {
+  --default-background-color: #ffffff;
+  --default-text-color: #000000;
+  --default-hint-color: #888888;
+  --default-link-color: #0000ff;
+  --default-button-background-color: #dddddd;
+  --default-button-text-color: #000000;
+  --default-secondary-background-color: #f2f2f2;
+
+  /* Theme vars */
+  --theme-background-color: var(
+    --tg-theme-bg-color,
+    var(--default-background-color)
+  );
+  --theme-text-color: var(--tg-theme-text-color, var(--default-text-color));
+  --theme-hint-color: var(--tg-theme-hint-color, var(--default-hint-color));
+  --theme-link-color: var(--tg-theme-link-color, var(--default-link-color));
+  --theme-button-background-color: var(
+    --tg-theme-button-background-color,
+    var(--default-button-background-color)
+  );
+  --theme-button-text-color: var(
+    --tg-theme-button-text-color,
+    var(--default-button-text-color)
+  );
+  --theme-secondary-background-color: var(
+    --tg-theme-secondary-bg-color,
+    var(--default-secondary-background-color)
+  );
+  --theme-border-color: var(--tg-theme-text-color, var(--default-text-color));
+}

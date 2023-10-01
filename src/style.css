@@ -1,18 +1,14 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color: #222;
-  background-color: #ffffff;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  color: var(--theme-text-color);
+  background-color: var(--theme-background-color);
 }
 
 body {
   margin: 0;
+}
+
+/* TODO do we need buttons in final design? Maybe better to use icons? */
+button {
+  background: var(--theme-button-background-color);
+  color: var(--theme-button-text-color);
 }

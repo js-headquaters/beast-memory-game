@@ -33,7 +33,7 @@
   backface-visibility: hidden;
   overflow: hidden;
   border-radius: 0.5rem;
-  border: 1px black solid;
+  border: 1px solid var(--theme-border-color);
 }
 
 .game-card__backing-image,
