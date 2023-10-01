@@ -2,7 +2,7 @@ import { signal } from "@preact/signals";
 import { createContext } from "preact";
 
 export class DebugService {
-  readonly isDebugModeActive = signal(true);
+  readonly isDebugModeActive = signal(false);
 
   getTelegramData(): string {
     return JSON.stringify(window.Telegram, null, 2);
