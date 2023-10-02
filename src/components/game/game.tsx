@@ -8,6 +8,8 @@ import {
   GameStateService,
 } from "@services/game-state.service";
 import "./game.css";
+import { GameDebugComponent } from "@components/game-debug/game-debug";
+import { isRunningInTelegram } from "@utils/telegram.utils";
 
 const gameStateService = new GameStateService();
 const gameMenuService = new GameMenuService();
@@ -21,7 +23,7 @@ const statesComponents = new Map<GameState, GameStateComponent>([
 
 export function GameComponent() {
   const { currentState } = gameStateService;
-  const { isMenuOpen } = gameMenuService;
+  const { isMenuOpen, toggleMenu } = gameMenuService;
 
   const StateComponent = statesComponents.get(currentState.value);
 
@@ -31,6 +33,12 @@ export function GameComponent() {
         <div class="game__spacer"></div>
         <div class="game__content">
           {isMenuOpen.value ? <GameMenuComponent /> : <StateComponent />}
+
+          {!isRunningInTelegram() && (
+            <button onClick={toggleMenu}>
+              {isMenuOpen ? "Close" : "Menu"}
+            </button>
+          )}
         </div>
         <div class="game__spacer"></div>
       </div>

@@ -15,3 +15,7 @@ export function getBackButton(): BackButton {
 export function getTelegramData(): string {
   return JSON.stringify(window.Telegram, null, 2);
 }
+
+export function isRunningInTelegram(): boolean {
+  return window.Telegram.WebApp.platform !== "unknown";
+}

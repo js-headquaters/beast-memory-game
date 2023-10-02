@@ -7,11 +7,11 @@ export class GameMenuService {
 
   constructor() {
     this.mainButton.setText("Menu");
-    this.mainButton.onClick(this.mainButtonClickHandler);
+    this.mainButton.onClick(this.toggleMenu);
     this.mainButton.show();
   }
 
-  private mainButtonClickHandler = () => {
+  toggleMenu = () => {
     if (this.isMenuOpen.value) {
       this.closeMenu();
     } else {
