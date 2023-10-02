@@ -52,13 +52,6 @@ export class GameStateService {
     }, new Map<GameCard["id"], GameCard>());
   });
 
-  readonly isAllCardInactive = computed(() => {
-    if (this.currentState.value !== "run") {
-      return false;
-    }
-    return this.cards.value.every((card) => !card.isActive);
-  });
-
   readonly timeSpent = computed<string | null>(() => {
     const format = (value: number) => value.toString().padStart(2, "0");
 
@@ -81,33 +74,11 @@ export class GameStateService {
   private timer: number;
 
   constructor() {
-    effect(() => {
-      if (this.isAllCardInactive.value) {
-        this.currentState.value = "game_over";
-      }
-    });
-
-    effect(() => {
-      if (this.currentState.value === "game_over") {
-        alert(`Very Impressive! time spent: ${this.timeSpent.value}`);
-        this.stopTimer();
-        setTimeout(() => {
-          this.increaseLevel();
-          this.start();
-        }, 500);
-      }
-    });
+    this.start();
   }
 
   start = () => {
-    this.resetState();
-    const { horizontalCardsCount, pairsCount } = gameDifficultyMap.get(
-      this.gameLevel.value
-    );
-    this.cards.value = this.createGameCards(pairsCount);
-    this.horizontalCardsCount.value = horizontalCardsCount;
-    this.currentState.value = "run";
-    this.startTimer();
+    this.setState("run");
   };
 
   openCard = (card: GameCard) => {
@@ -160,7 +131,11 @@ export class GameStateService {
         firstCard.isActive = false;
         secondCard.isActive = false;
 
-        this.cards.value = [...this.cards.value];
+        if (this.cards.value.every((card) => !card.isActive)) {
+          this.setState("game_over");
+        } else {
+          this.cards.value = [...this.cards.value];
+        }
       }
       this.openCardsIds.value = [];
     }, 1000);
@@ -199,12 +174,6 @@ export class GameStateService {
     return array;
   }
 
-  private resetState() {
-    this.openCardsIds.value = [];
-    this.currentState.value = "init";
-    this.cards.value = [];
-  }
-
   private startTimer() {
     this.startTimestamp.value = Date.now();
     this.timer = setInterval(() => {
@@ -218,6 +187,25 @@ export class GameStateService {
 
   private getRandomAnimalTypes(count: number): CardAnimalType[] {
     return this.getShuffledArray([...animalCardTypes]).slice(0, count);
+  }
+
+  private setState(state: GameState) {
+    if (state === "run") {
+      this.openCardsIds.value = [];
+
+      const { horizontalCardsCount, pairsCount } = gameDifficultyMap.get(
+        this.gameLevel.value
+      );
+      this.cards.value = this.createGameCards(pairsCount);
+      this.horizontalCardsCount.value = horizontalCardsCount;
+      this.startTimer();
+    }
+
+    if (state === "game_over") {
+      this.stopTimer();
+    }
+
+    this.currentState.value = state;
   }
 }
 
