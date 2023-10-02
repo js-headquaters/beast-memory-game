@@ -1,28 +1,35 @@
-import { GameControlsComponent } from "@components/game-gui/game-gui";
 import { GameFieldComponent } from "@components/game-field/game-field";
+import { GameOverComponent } from "@components/game-over/game-over";
+import { GameState } from "@interfaces/index";
+import { DebugContext, DebugService } from "@services/debug.service";
 import {
   GameStateContext,
   GameStateService,
 } from "@services/game-state.service";
 import "./game.css";
-import { DebugContext, DebugService } from "@services/debug.service";
-import { GameDebugComponent } from "@components/game-debug/game-debug";
 
 const gameStateService = new GameStateService();
 const debugService = new DebugService();
-gameStateService.start();
+
+type GameStateComponent = typeof GameFieldComponent | typeof GameOverComponent;
+
+const statesComponents = new Map<GameState, GameStateComponent>([
+  ["run", GameFieldComponent],
+  ["game_over", GameOverComponent],
+]);
 
 export function GameComponent() {
+  const { currentState } = gameStateService;
+
+  const StateComponent = statesComponents.get(currentState.value);
+
   return (
     <GameStateContext.Provider value={gameStateService}>
       <DebugContext.Provider value={debugService}>
         <div class="game">
           <div class="game__spacer"></div>
           <div class="game__content">
-            <GameControlsComponent />
-            <GameFieldComponent />
-            {/* TODO move to menu */}
-            <GameDebugComponent />
+            <StateComponent />
           </div>
           <div class="game__spacer"></div>
         </div>
