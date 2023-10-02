@@ -78,7 +78,7 @@ export class GameStateService {
   }
 
   start = () => {
-    this.setState("game_over");
+    this.setState("run");
   };
 
   openCard = (card: GameCard) => {
