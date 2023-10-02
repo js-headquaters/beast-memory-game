@@ -1,27 +1,26 @@
 import { GameStateContext } from "@services/game-state.service";
-import { getWebAppUser } from "@utils/telegram.utils";
 import { useContext } from "preact/hooks";
-import "./game-over.css";
+import "./game-menu.css";
+import { GameDebugComponent } from "@components/game-debug/game-debug";
 
-export function GameOverComponent() {
+export function GameMenuComponent() {
   const { timeSpent, increaseLevel, degreesLevel, gameLevel, start } =
     useContext(GameStateContext);
 
-  const username = getWebAppUser()?.first_name ?? "player";
-
   return (
-    <div class="game-over">
-      <div>Very Impressive {username}!</div>
+    <div class="game-menu">
       <div>Time spent: {timeSpent.value}</div>
 
       <div>Set Difficulty</div>
-      <div class="game-over__level-select">
+      <div class="game-menu__level-select">
         <button onClick={degreesLevel}>-</button>
         <span>{gameLevel.value}</span>
         <button onClick={increaseLevel}>+</button>
       </div>
 
-      <button onClick={start}>Play again</button>
+      <button onClick={start}>Restart</button>
+
+      <GameDebugComponent />
     </div>
   );
 }

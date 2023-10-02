@@ -1,7 +1,8 @@
 import { GameFieldComponent } from "@components/game-field/game-field";
+import { GameMenuComponent } from "@components/game-menu/game-menu";
 import { GameOverComponent } from "@components/game-over/game-over";
 import { GameState } from "@interfaces/index";
-import { DebugContext, DebugService } from "@services/debug.service";
+import { GameMenuService } from "@services/game-menu.service";
 import {
   GameStateContext,
   GameStateService,
@@ -9,7 +10,7 @@ import {
 import "./game.css";
 
 const gameStateService = new GameStateService();
-const debugService = new DebugService();
+const gameMenuService = new GameMenuService();
 
 type GameStateComponent = typeof GameFieldComponent | typeof GameOverComponent;
 
@@ -20,20 +21,19 @@ const statesComponents = new Map<GameState, GameStateComponent>([
 
 export function GameComponent() {
   const { currentState } = gameStateService;
+  const { isMenuOpen } = gameMenuService;
 
   const StateComponent = statesComponents.get(currentState.value);
 
   return (
     <GameStateContext.Provider value={gameStateService}>
-      <DebugContext.Provider value={debugService}>
-        <div class="game">
-          <div class="game__spacer"></div>
-          <div class="game__content">
-            <StateComponent />
-          </div>
-          <div class="game__spacer"></div>
+      <div class="game">
+        <div class="game__spacer"></div>
+        <div class="game__content">
+          {isMenuOpen.value ? <GameMenuComponent /> : <StateComponent />}
         </div>
-      </DebugContext.Provider>
+        <div class="game__spacer"></div>
+      </div>
     </GameStateContext.Provider>
   );
 }
