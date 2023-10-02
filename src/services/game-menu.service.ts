@@ -8,6 +8,7 @@ export class GameMenuService {
     const mainButton = getMainButton();
     mainButton.setText("Menu");
     mainButton.onClick(this.mainButtonClickHandler);
+    mainButton.show();
 
     const backButton = getBackButton();
     backButton.onClick(this.backButtonClickHandler);
