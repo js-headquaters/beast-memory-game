@@ -12,4 +12,5 @@
 
 .game__content {
   flex: 0 1 auto;
+  min-width: 0;
 }

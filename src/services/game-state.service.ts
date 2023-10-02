@@ -41,7 +41,7 @@ export class GameStateService {
   readonly cards = signal<GameCard[]>([]);
   readonly horizontalCardsCount = signal<number>(0);
   readonly currentState = signal<GameState>("init");
-  readonly openCards = signal<GameCard[]>([]);
+  readonly openCardsIds = signal<GameCard["id"][]>([]);
   readonly gameLevel = signal<GameLevel>(1);
 
   readonly cardsMap = computed(() => {
@@ -49,13 +49,8 @@ export class GameStateService {
       acc.set(card.id, card);
 
       return acc;
-    }, new Map());
+    }, new Map<GameCard["id"], GameCard>());
   });
-
-  readonly isCardMatched = computed(
-    () =>
-      this.openCards.value[0].animalType === this.openCards.value[1].animalType
-  );
 
   readonly isAllCardInactive = computed(() => {
     if (this.currentState.value !== "run") {
@@ -119,23 +114,23 @@ export class GameStateService {
     if (
       this.currentState.value !== "run" ||
       !card.isActive ||
-      this.openCards.value.length >= 2 ||
+      this.openCardsIds.value.length >= 2 ||
       this.isCardOpen(card)
     ) {
       return;
     }
 
-    this.openCards.value = [...this.openCards.value, card];
+    this.openCardsIds.value = [...this.openCardsIds.value, card.id];
 
-    if (this.openCards.value.length < 2) {
+    if (this.openCardsIds.value.length < 2) {
       return;
     }
 
-    this.closeCards(this.isCardMatched.value);
+    this.closeCards();
   };
 
   isCardOpen = (card: GameCard): boolean => {
-    return this.openCards.value.includes(card);
+    return this.openCardsIds.value.includes(card.id);
   };
 
   increaseLevel = () => {
@@ -152,20 +147,22 @@ export class GameStateService {
     }
   };
 
-  private closeCards(removeFromField = false) {
-    setTimeout(() => {
-      if (removeFromField) {
-        const cardsMap = this.cardsMap.value;
-        const openCards = this.openCards.value;
-        const firstCard = cardsMap.get(openCards[0].id);
-        const secondCard = cardsMap.get(openCards[1].id);
+  private closeCards() {
+    const cardsMap = this.cardsMap.value;
+    const openCardsIds = this.openCardsIds.value;
+    const firstCard = cardsMap.get(openCardsIds[0]);
+    const secondCard = cardsMap.get(openCardsIds[1]);
 
+    const isCardMatched = firstCard.animalType === secondCard.animalType;
+
+    setTimeout(() => {
+      if (isCardMatched) {
         firstCard.isActive = false;
         secondCard.isActive = false;
 
         this.cards.value = [...this.cards.value];
       }
-      this.openCards.value = [];
+      this.openCardsIds.value = [];
     }, 1000);
   }
 
@@ -203,7 +200,7 @@ export class GameStateService {
   }
 
   private resetState() {
-    this.openCards.value = [];
+    this.openCardsIds.value = [];
     this.currentState.value = "init";
     this.cards.value = [];
   }
