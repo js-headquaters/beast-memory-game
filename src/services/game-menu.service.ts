@@ -3,24 +3,29 @@ import { getBackButton, getMainButton } from "@utils/telegram.utils";
 
 export class GameMenuService {
   readonly isMenuOpen = signal(false);
+  readonly mainButton = getMainButton();
 
   constructor() {
-    const mainButton = getMainButton();
-    mainButton.setText("Menu");
-    mainButton.onClick(this.mainButtonClickHandler);
-    mainButton.show();
-
-    const backButton = getBackButton();
-    backButton.onClick(this.backButtonClickHandler);
+    this.mainButton.setText("Menu");
+    this.mainButton.onClick(this.mainButtonClickHandler);
+    this.mainButton.show();
   }
 
   private mainButtonClickHandler = () => {
-    this.isMenuOpen.value = true;
-    getBackButton().show();
+    if (this.isMenuOpen.value) {
+      this.closeMenu();
+    } else {
+      this.openMenu();
+    }
   };
 
-  private backButtonClickHandler = () => {
+  private openMenu() {
+    this.isMenuOpen.value = true;
+    this.mainButton.setText("Close");
+  }
+
+  private closeMenu() {
     this.isMenuOpen.value = false;
-    getBackButton().hide();
-  };
+    this.mainButton.setText("Menu");
+  }
 }
