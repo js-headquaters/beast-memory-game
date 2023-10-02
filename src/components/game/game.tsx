@@ -2,7 +2,11 @@ import { GameFieldComponent } from "@components/game-field/game-field";
 import { GameMenuComponent } from "@components/game-menu/game-menu";
 import { GameOverComponent } from "@components/game-over/game-over";
 import { GameState } from "@interfaces/index";
-import { gameMenuService } from "@services/game-menu.service";
+import {
+  MENU_BUTTON_CLOSED_TEXT,
+  MENU_BUTTON_OPENED_TEXT,
+  gameMenuService,
+} from "@services/game-menu.service";
 import { gameStateService } from "@services/game-state.service";
 import { isRunningInTelegram } from "@utils/telegram.utils";
 import "./game.css";
@@ -20,17 +24,19 @@ export function GameComponent() {
 
   const StateComponent = statesComponents.get(currentState.value);
 
+  const fallbackMenuButton = (
+    <button class="game__fallback-menu" onClick={toggleMenu}>
+      {isMenuOpen.value ? MENU_BUTTON_OPENED_TEXT : MENU_BUTTON_CLOSED_TEXT}
+    </button>
+  );
+
   return (
     <div class="game">
       <div class="game__spacer"></div>
       <div class="game__content">
         {isMenuOpen.value ? <GameMenuComponent /> : <StateComponent />}
-
-        {!isRunningInTelegram() && (
-          <button onClick={toggleMenu}>
-            {isMenuOpen.value ? "Close" : "Menu"}
-          </button>
-        )}
+        <div class="game__spacer"></div>
+        {!isRunningInTelegram() && fallbackMenuButton}
       </div>
       <div class="game__spacer"></div>
     </div>
