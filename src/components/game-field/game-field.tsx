@@ -3,12 +3,10 @@ import { gameStateService } from "@services/game-state.service";
 import "./game-field.css";
 
 export function GameFieldComponent() {
-  const { cards, horizontalCardsCount } = gameStateService;
-
-  const style = `--horizontal-cards-count: ${horizontalCardsCount.value};`;
+  const { cards } = gameStateService;
 
   return (
-    <div style={style} class="game-field">
+    <div class="game-field">
       {cards.value.map((card) => {
         return <GameCardComponent {...card} />;
       })}

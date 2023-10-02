@@ -12,6 +12,7 @@ export function GameOverComponent() {
     <div class="game-over">
       <div>Very Impressive {username}!</div>
       <div>Time spent: {timeSpent.value}</div>
+      <div>Average time spent: TODO</div>
 
       <div>Set Difficulty</div>
       <div class="game-over__level-select">

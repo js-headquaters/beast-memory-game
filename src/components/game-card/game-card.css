@@ -1,8 +1,6 @@
 .game-card {
   background-color: transparent;
   perspective: 1000px;
-  width: var(--game-card-size);
-  aspect-ratio: 9 / 13;
 }
 
 .game-card__inner {

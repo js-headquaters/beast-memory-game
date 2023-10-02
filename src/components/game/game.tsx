@@ -10,6 +10,7 @@ import {
 import { gameStateService } from "@services/game-state.service";
 import { isRunningInTelegram } from "@utils/telegram.utils";
 import "./game.css";
+import { Fragment } from "preact/jsx-runtime";
 
 type GameStateComponent = typeof GameFieldComponent | typeof GameOverComponent;
 
@@ -19,24 +20,31 @@ const statesComponents = new Map<GameState, GameStateComponent>([
 ]);
 
 export function GameComponent() {
-  const { currentState } = gameStateService;
+  const { currentState, horizontalCardsCount, verticalCardsCount } =
+    gameStateService;
   const { isMenuOpen, toggleMenu } = gameMenuService;
 
   const StateComponent = statesComponents.get(currentState.value);
 
-  const fallbackMenuButton = (
-    <button class="game__fallback-menu" onClick={toggleMenu}>
-      {isMenuOpen.value ? MENU_BUTTON_OPENED_TEXT : MENU_BUTTON_CLOSED_TEXT}
-    </button>
-  );
+  let style = `--horizontal-cards-count: ${horizontalCardsCount.value};`;
+  style += `--vertical-cards-count: ${verticalCardsCount.value};`;
 
   return (
-    <div class="game">
+    <div style={style} class="game">
       <div class="game__spacer"></div>
       <div class="game__content">
         {isMenuOpen.value ? <GameMenuComponent /> : <StateComponent />}
-        <div class="game__spacer"></div>
-        {!isRunningInTelegram() && fallbackMenuButton}
+
+        {!isRunningInTelegram() && (
+          <Fragment>
+            <div class="game__spacer"></div>
+            <button class="game__fallback-menu" onClick={toggleMenu}>
+              {isMenuOpen.value
+                ? MENU_BUTTON_OPENED_TEXT
+                : MENU_BUTTON_CLOSED_TEXT}
+            </button>
+          </Fragment>
+        )}
       </div>
       <div class="game__spacer"></div>
     </div>

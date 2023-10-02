@@ -39,6 +39,8 @@ export class GameStateService {
 
   readonly cards = signal<GameCard[]>([]);
   readonly horizontalCardsCount = signal<number>(0);
+  readonly verticalCardsCount = signal<number>(0);
+
   readonly currentState = signal<GameState>("init");
   readonly openCardsIds = signal<GameCard["id"][]>([]);
   readonly gameLevel = signal<GameLevel>(1);
@@ -197,6 +199,8 @@ export class GameStateService {
       );
       this.cards.value = this.createGameCards(pairsCount);
       this.horizontalCardsCount.value = horizontalCardsCount;
+      this.verticalCardsCount.value =
+        this.cards.value.length / horizontalCardsCount;
       this.startTimer();
     }
 
