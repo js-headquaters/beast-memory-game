@@ -1,11 +1,10 @@
-import { GameStateContext } from "@services/game-state.service";
+import { gameStateService } from "@services/game-state.service";
 import { getWebAppUser } from "@utils/telegram.utils";
-import { useContext } from "preact/hooks";
 import "./game-over.css";
 
 export function GameOverComponent() {
   const { timeSpent, increaseLevel, degreesLevel, gameLevel, start } =
-    useContext(GameStateContext);
+    gameStateService;
 
   const username = getWebAppUser()?.first_name ?? "player";
 

@@ -1,11 +1,10 @@
-import { GameStateContext } from "@services/game-state.service";
-import { useContext } from "preact/hooks";
-import "./game-menu.css";
 import { GameDebugComponent } from "@components/game-debug/game-debug";
+import { gameStateService } from "@services/game-state.service";
+import "./game-menu.css";
 
 export function GameMenuComponent() {
   const { timeSpent, increaseLevel, degreesLevel, gameLevel, start } =
-    useContext(GameStateContext);
+    gameStateService;
 
   return (
     <div class="game-menu">

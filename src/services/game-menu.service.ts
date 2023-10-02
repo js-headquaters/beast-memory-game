@@ -1,5 +1,5 @@
 import { signal } from "@preact/signals";
-import { getBackButton, getMainButton } from "@utils/telegram.utils";
+import { getMainButton } from "@utils/telegram.utils";
 
 export class GameMenuService {
   readonly isMenuOpen = signal(false);
@@ -29,3 +29,5 @@ export class GameMenuService {
     this.mainButton.setText("Menu");
   }
 }
+
+export const gameMenuService = new GameMenuService();

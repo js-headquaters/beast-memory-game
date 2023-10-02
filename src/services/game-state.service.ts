@@ -1,12 +1,11 @@
 import {
   CardAnimalType,
-  GameLevel,
   GameCard,
-  GameState,
   GameInitParams,
+  GameLevel,
+  GameState,
 } from "@interfaces/index";
-import { computed, effect, signal } from "@preact/signals";
-import { createContext } from "preact";
+import { computed, signal } from "@preact/signals";
 
 const animalCardTypes: CardAnimalType[] = [
   "bear",
@@ -209,4 +208,4 @@ export class GameStateService {
   }
 }
 
-export const GameStateContext = createContext<GameStateService>(null);
+export const gameStateService = new GameStateService();

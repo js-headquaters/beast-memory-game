@@ -2,17 +2,10 @@ import { GameFieldComponent } from "@components/game-field/game-field";
 import { GameMenuComponent } from "@components/game-menu/game-menu";
 import { GameOverComponent } from "@components/game-over/game-over";
 import { GameState } from "@interfaces/index";
-import { GameMenuService } from "@services/game-menu.service";
-import {
-  GameStateContext,
-  GameStateService,
-} from "@services/game-state.service";
-import "./game.css";
-import { GameDebugComponent } from "@components/game-debug/game-debug";
+import { gameMenuService } from "@services/game-menu.service";
+import { gameStateService } from "@services/game-state.service";
 import { isRunningInTelegram } from "@utils/telegram.utils";
-
-const gameStateService = new GameStateService();
-const gameMenuService = new GameMenuService();
+import "./game.css";
 
 type GameStateComponent = typeof GameFieldComponent | typeof GameOverComponent;
 
@@ -28,20 +21,18 @@ export function GameComponent() {
   const StateComponent = statesComponents.get(currentState.value);
 
   return (
-    <GameStateContext.Provider value={gameStateService}>
-      <div class="game">
-        <div class="game__spacer"></div>
-        <div class="game__content">
-          {isMenuOpen.value ? <GameMenuComponent /> : <StateComponent />}
+    <div class="game">
+      <div class="game__spacer"></div>
+      <div class="game__content">
+        {isMenuOpen.value ? <GameMenuComponent /> : <StateComponent />}
 
-          {!isRunningInTelegram() && (
-            <button onClick={toggleMenu}>
-              {isMenuOpen.value ? "Close" : "Menu"}
-            </button>
-          )}
-        </div>
-        <div class="game__spacer"></div>
+        {!isRunningInTelegram() && (
+          <button onClick={toggleMenu}>
+            {isMenuOpen.value ? "Close" : "Menu"}
+          </button>
+        )}
       </div>
-    </GameStateContext.Provider>
+      <div class="game__spacer"></div>
+    </div>
   );
 }
