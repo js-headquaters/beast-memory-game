@@ -7,6 +7,7 @@ import {
 } from "@interfaces/index";
 import { computed, effect, signal } from "@preact/signals";
 import { createContext } from "preact";
+import { getLatestResultForLevel, setLastResultForLevel } from "./results-storage.service";
 
 const animalCardTypes: CardAnimalType[] = [
   "bear",
@@ -43,6 +44,7 @@ export class GameStateService {
   readonly currentState = signal<GameState>("init");
   readonly openCardsIds = signal<GameCard["id"][]>([]);
   readonly gameLevel = signal<GameLevel>(1);
+  readonly currentLevelResults = signal<string[]>([]);
 
   readonly cardsMap = computed(() => {
     return this.cards.value.reduce((acc, card) => {
@@ -79,6 +81,7 @@ export class GameStateService {
 
   start = () => {
     this.setState("run");
+    this.setState("game_over");
   };
 
   openCard = (card: GameCard) => {
@@ -110,6 +113,10 @@ export class GameStateService {
       this.gameLevel.value = value;
     }
   };
+
+  latestResults = () => {
+    return (this.currentLevelResults.value || []).join(', ');
+  }
 
   degreesLevel = () => {
     const value = (this.gameLevel.value - 1) as GameLevel;
@@ -203,9 +210,23 @@ export class GameStateService {
 
     if (state === "game_over") {
       this.stopTimer();
+      this.updateAndShowResults();
     }
 
     this.currentState.value = state;
+  }
+
+  private async updateAndShowResults() {
+    debugger;
+    const latestResults = await getLatestResultForLevel(this.gameLevel.value);
+    console.log('>> latest results', latestResults);
+
+    this.currentLevelResults.value = latestResults;
+
+    await setLastResultForLevel(this.gameLevel.value, this.timeSpent.value || '00:12');
+
+    const veryLatestResults = await getLatestResultForLevel(this.gameLevel.value);
+    console.log('>> very latest results', veryLatestResults);
   }
 }
 
