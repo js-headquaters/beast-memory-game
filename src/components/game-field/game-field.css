@@ -6,8 +6,10 @@
 }
 
 .game-field__cards {
-  flex: 0 1 var(--game-height);
+  flex: 0 1 auto;
   display: grid;
   gap: 0.25rem;
   grid-template-columns: repeat(var(--horizontal-cards-count), 1fr);
+  min-height: 0;
+  height: var(--game-height);
 }
