@@ -26,19 +26,19 @@ export function GameComponent() {
   let style = `--horizontal-cards-count: ${horizontalCardsCount.value};`;
   style += `--vertical-cards-count: ${verticalCardsCount.value};`;
 
+  const showFallbackMenuButton =
+    !isRunningInTelegram() && isMenuButtonVisible.value;
+
   return (
     <div style={style} class="game">
       <div class="game__spacer"></div>
       <div class="game__content">
         {isMenuOpen.value ? <GameMenuComponent /> : <StateComponent />}
 
-        {!isRunningInTelegram() && isMenuButtonVisible.value && (
-          <Fragment>
-            <div class="game__spacer"></div>
-            <button class="game__fallback-menu" onClick={toggleMenu}>
-              {menuButtonText.value}
-            </button>
-          </Fragment>
+        {showFallbackMenuButton && (
+          <button class="game__fallback-menu" onClick={toggleMenu}>
+            {menuButtonText.value}
+          </button>
         )}
       </div>
       <div class="game__spacer"></div>

@@ -7,9 +7,11 @@ export function GameFieldComponent() {
 
   return (
     <div class="game-field">
-      {cards.value.map((card) => {
-        return <GameCardComponent {...card} />;
-      })}
+      <div class="game-field__cards">
+        {cards.value.map((card) => {
+          return <GameCardComponent {...card} />;
+        })}
+      </div>
     </div>
   );
 }
