@@ -1,9 +1,6 @@
 import { computed, effect, signal } from "@preact/signals";
 import { getMainButton } from "@utils/telegram.utils";
 
-export const MENU_BUTTON_CLOSED_TEXT = "Menu";
-export const MENU_BUTTON_OPENED_TEXT = "Close";
-
 export class GameMenuService {
   readonly isMenuOpen = signal(false);
   readonly isMenuButtonVisible = signal(true);
@@ -14,14 +11,15 @@ export class GameMenuService {
     return this.debugClickCount.value > 3;
   });
 
+  readonly menuButtonText = computed(() => {
+    return this.isMenuOpen.value ? "Close" : "Open";
+  });
+
   constructor() {
     this.mainButton.onClick(this.toggleMenu);
 
     effect(() => {
-      const text = this.isMenuOpen.value
-        ? MENU_BUTTON_CLOSED_TEXT
-        : MENU_BUTTON_OPENED_TEXT;
-      this.mainButton.setText(text);
+      this.mainButton.setText(this.menuButtonText.value);
     });
 
     effect(() => {
