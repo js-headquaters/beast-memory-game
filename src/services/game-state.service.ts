@@ -4,10 +4,8 @@ import {
   GameInitParams,
   GameLevel,
   GameState,
-  Time,
 } from "@interfaces/index";
 import { computed, signal } from "@preact/signals";
-import { getLatestResultForLevel, setLastResultForLevel } from "./results-storage.service";
 import { gameMenuService } from "./game-menu.service";
 import { gameStatisticService } from "./game-statistic.service";
 
@@ -48,7 +46,7 @@ export class GameStateService {
   readonly openCardsIds = signal<GameCard["id"][]>([]);
   readonly gameLevel = signal<GameLevel>(1);
   readonly cardsFlipCount = signal<number>(0);
-  readonly currentLevelResults = signal<string[]>([]);
+  readonly currentLevelResults = signal<number[]>([]);
 
   readonly cardsMap = computed(() =>
     this.cards.value.reduce((acc, card) => {
@@ -75,6 +73,7 @@ export class GameStateService {
   }
 
   start = () => {
+    gameStatisticService.loadGameStatistic();
     this.setState("run");
     this.setState("game_over");
   };
@@ -107,6 +106,8 @@ export class GameStateService {
     const value = (this.gameLevel.value + 1) as GameLevel;
     if (value <= this.maxDifficulty) {
       this.gameLevel.value = value;
+      // FIXME: shitty sync, should be implemented other way??
+      gameStatisticService.gameLevel.value = value;
     }
   };
 
@@ -118,6 +119,8 @@ export class GameStateService {
     const value = (this.gameLevel.value - 1) as GameLevel;
     if (value > 0) {
       this.gameLevel.value = value;
+      // FIXME: shitty sync, should be implemented other way??
+      gameStatisticService.gameLevel.value = value;
     }
   };
 
@@ -215,11 +218,10 @@ export class GameStateService {
 
     if (state === "game_over") {
       this.stopTimer();
-      this.updateAndShowResults();
       gameMenuService.hideMenu();
-      gameStatisticService.addGameStatistic({
-        timeSpentInSeconds: this.timeSpentInSeconds.value,
-        cardFlipsCount: this.cardsFlipCount.value,
+      gameStatisticService.addGameStatistic(this.gameLevel.value, {
+        timeSpentInSeconds: this.timeSpentInSeconds.value || getRandomIntInRange(8, 30),
+        cardFlipsCount: this.cardsFlipCount.value || getRandomIntInRange(6, 20),
       });
     }
 
@@ -236,18 +238,10 @@ export class GameStateService {
 
     return `${minutesText}:${secondsText}`;
   }
-
-  private async updateAndShowResults() {
-    const latestResults = await getLatestResultForLevel(this.gameLevel.value);
-    console.log('>> latest results', latestResults);
-
-    this.currentLevelResults.value = latestResults;
-
-    await setLastResultForLevel(this.gameLevel.value, this.timeSpent.value || '00:12');
-
-    const veryLatestResults = await getLatestResultForLevel(this.gameLevel.value);
-    console.log('>> very latest results', veryLatestResults);
-  }
 }
 
 export const gameStateService = new GameStateService();
+
+function getRandomIntInRange(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}

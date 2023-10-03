@@ -40,3 +40,6 @@ export interface GameStatistic {
   timeSpentInSeconds: number;
   cardFlipsCount: number;
 }
+
+export type GameStatisticWithLevel = Record<GameLevel, GameStatistic[]>;
+

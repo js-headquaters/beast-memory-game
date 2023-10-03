@@ -1,29 +1,48 @@
-import { GameStatistic } from "@interfaces/index";
+import {GameStatistic, GameStatisticWithLevel} from "@interfaces/index";
 import { computed, signal } from "@preact/signals";
+import {getResultsStorage, persistGameStatisticsByLevel} from './results-storage.service';
+
+const AMOUNT_OF_SAVED_RESULTS = 5;
 
 export class GameStatisticService {
-  readonly statistic = signal<GameStatistic[]>([]);
+  readonly statistic = signal<GameStatisticWithLevel>({} as GameStatisticWithLevel);
 
-  readonly lastGameStatistic = computed(() => {
-    const index =
-      this.statistic.value.length > 0 ? this.statistic.value.length - 1 : 0;
-    return this.statistic.value[index];
-  });
+  readonly lastGameStatistic = signal<GameStatistic | null>(null);
+  readonly gameLevel = signal<number>(1);
 
   readonly averageTimeSpentInSeconds = computed(() => {
-    const avg = this.statistic.value.reduce(
-      (acc, value) => (acc += value.timeSpentInSeconds),
+    if (!this.gameLevel.value) {
+      return null;
+    }
+    const statsByLevel = this.statistic.value[this.gameLevel.value] || [];
+
+    if (statsByLevel.length === 0) {
+      return null;
+    }
+
+    const avg = statsByLevel.reduce(
+      (acc, value, index) => (acc += index === 0 ? 0 : value.timeSpentInSeconds),
       0
     );
 
-    return Math.floor(avg / this.statistic.value.length);
+    return Math.floor(avg / statsByLevel.length);
   });
+
   readonly averageCardFlipsCount = computed(() => {
-    const avg = this.statistic.value.reduce(
-      (acc, value) => (acc += value.cardFlipsCount),
+    if (!this.gameLevel.value) {
+      return null;
+    }
+    const statsByLevel = this.statistic.value[this.gameLevel.value] || [];
+
+    if (statsByLevel.length === 0) {
+      return null;
+    }
+
+    const avg = statsByLevel.reduce(
+      (acc, value, index) => (acc += index === 0 ? 0 : value.cardFlipsCount),
       0
     );
-    return Math.floor(avg / this.statistic.value.length);
+    return Math.floor(avg / statsByLevel.length);
   });
 
   readonly timeSpentMessage = computed(() => {
@@ -42,9 +61,21 @@ export class GameStatisticService {
     );
   });
 
-  addGameStatistic = (statistic: GameStatistic) => {
-    this.statistic.value = [...this.statistic.value, statistic];
+  addGameStatistic = async (level: number, statistic: GameStatistic) => {
+    this.lastGameStatistic.value = statistic;
+    await this.loadGameStatistic();
+    this.statistic.value[level] = [statistic, ...(this.statistic.value?.[level] || [])].slice(0, AMOUNT_OF_SAVED_RESULTS);
+    this.saveGameStatistic();
   };
+
+  loadGameStatistic = async () => {
+    const gameStatsWithLevels = await getResultsStorage();
+    this.statistic.value = gameStatsWithLevels;
+  };
+
+  private saveGameStatistic = async () => {
+    persistGameStatisticsByLevel(this.statistic.value);
+  }
 
   private getTimeSpentMessage(
     timeSpentInSeconds: number,
