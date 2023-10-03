@@ -33,4 +33,6 @@
 .game__fallback-menu {
   position: sticky;
   bottom: 0.5rem;
+  padding: 0.25rem;
+  margin-top: 0.25rem;
 }

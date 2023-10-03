@@ -7,6 +7,7 @@ import {
 } from "@interfaces/index";
 import { computed, signal } from "@preact/signals";
 import { getLatestResultForLevel, setLastResultForLevel } from "./results-storage.service";
+import { gameMenuService } from "./game-menu.service";
 
 const animalCardTypes: CardAnimalType[] = [
   "bear",
@@ -41,40 +42,35 @@ export class GameStateService {
   readonly cards = signal<GameCard[]>([]);
   readonly horizontalCardsCount = signal<number>(0);
   readonly verticalCardsCount = signal<number>(0);
-
   readonly currentState = signal<GameState>("init");
   readonly openCardsIds = signal<GameCard["id"][]>([]);
   readonly gameLevel = signal<GameLevel>(1);
+  readonly totalOpenCardsCount = signal<number>(0);
   readonly currentLevelResults = signal<string[]>([]);
 
-  readonly cardsMap = computed(() => {
-    return this.cards.value.reduce((acc, card) => {
+  readonly cardsMap = computed(() =>
+    this.cards.value.reduce((acc, card) => {
       acc.set(card.id, card);
 
       return acc;
-    }, new Map<GameCard["id"], GameCard>());
-  });
+    }, new Map<GameCard["id"], GameCard>())
+  );
 
-  readonly timeSpent = computed<string | null>(() => {
-    const format = (value: number) => value.toString().padStart(2, "0");
-
+  readonly timeSpent = computed<number>(() => {
     const start = this.startTimestamp.value;
     const current = this.currentTimestamp.value;
+    const diff = current - start;
 
-    if (!start || !current || current - start < 0) {
-      return null;
-    }
-
-    const spentSeconds = Math.floor((current - start) / 1000);
-    const minutes = format(Math.floor(spentSeconds / 60));
-    const seconds = format(spentSeconds % 60);
-
-    return `${minutes}:${seconds}`;
+    return diff > 0 ? diff : 0;
   });
 
+  readonly formattedTimeSpent = computed<string | null>(() =>
+    this.formatTime(this.timeSpent.value)
+  );
+
+  private timer: number;
   private readonly startTimestamp = signal<number | null>(null);
   private readonly currentTimestamp = signal<number | null>(null);
-  private timer: number;
 
   constructor() {
     this.start();
@@ -96,6 +92,7 @@ export class GameStateService {
     }
 
     this.openCardsIds.value = [...this.openCardsIds.value, card.id];
+    this.totalOpenCardsCount.value += 1;
 
     if (this.openCardsIds.value.length < 2) {
       return;
@@ -124,6 +121,20 @@ export class GameStateService {
     if (value > 0) {
       this.gameLevel.value = value;
     }
+  };
+
+  startTimer = () => {
+    this.timer = setInterval(() => {
+      this.currentTimestamp.value = Date.now();
+    }, 1000);
+  };
+
+  stopTimer = () => {
+    clearInterval(this.timer);
+  };
+
+  resetTimer = () => {
+    this.startTimestamp.value = Date.now();
   };
 
   private closeCards() {
@@ -182,25 +193,18 @@ export class GameStateService {
     return array;
   }
 
-  private startTimer() {
-    this.startTimestamp.value = Date.now();
-    this.timer = setInterval(() => {
-      this.currentTimestamp.value = Date.now();
-    }, 1000);
-  }
-
-  private stopTimer() {
-    clearInterval(this.timer);
-  }
-
   private getRandomAnimalTypes(count: number): CardAnimalType[] {
     return this.getShuffledArray([...animalCardTypes]).slice(0, count);
   }
 
   private setState(state: GameState) {
     if (state === "run") {
-      this.openCardsIds.value = [];
+      this.resetTimer();
+      this.startTimer();
+      gameMenuService.showMenu();
 
+      this.openCardsIds.value = [];
+      this.totalOpenCardsCount.value = 0;
       const { horizontalCardsCount, pairsCount } = gameDifficultyMap.get(
         this.gameLevel.value
       );
@@ -208,19 +212,29 @@ export class GameStateService {
       this.horizontalCardsCount.value = horizontalCardsCount;
       this.verticalCardsCount.value =
         this.cards.value.length / horizontalCardsCount;
-      this.startTimer();
     }
 
     if (state === "game_over") {
       this.stopTimer();
       this.updateAndShowResults();
+      gameMenuService.hideMenu();
     }
 
     this.currentState.value = state;
   }
 
+  private formatTime(value: number): string {
+    const format = (value: number) => value.toString().padStart(2, "0");
+
+    const spentSeconds = Math.floor(value / 1000);
+    let minutesText = format(Math.floor(spentSeconds / 60));
+    minutesText = minutesText.length > 2 ? "99" : minutesText;
+    const secondsText = format(spentSeconds % 60);
+
+    return `${minutesText}:${secondsText}`;
+  }
+
   private async updateAndShowResults() {
-    debugger;
     const latestResults = await getLatestResultForLevel(this.gameLevel.value);
     console.log('>> latest results', latestResults);
 
