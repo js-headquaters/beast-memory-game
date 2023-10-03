@@ -2,7 +2,7 @@ export class Storage {
     static hasTelegramAPI() {
         return !!window.Telegram?.WebApp?.CloudStorage && window.Telegram.WebApp.isVersionAtLeast('6.9');
     }
-    static async setItem(key, value): Promise<unknown> {
+    static async setItem(key, value): Promise<boolean> {
         if (!Storage.hasTelegramAPI()) {
             localStorage.setItem(key, value)
             return;
@@ -11,9 +11,9 @@ export class Storage {
         debugger;
         return new Promise(resolve => {
             debugger;
-            window.Telegram.WebApp.CloudStorage.setItem(key, value, (x) => {
+            window.Telegram.WebApp.CloudStorage.setItem(key, value, (err, isStored) => {
                 debugger;
-                resolve(x);
+                resolve(isStored);
             });
         })
     }
@@ -27,9 +27,9 @@ export class Storage {
         debugger;
         return new Promise(resolve => {
             debugger;
-            window.Telegram.WebApp.CloudStorage.getItem(key, (v) => {
+            window.Telegram.WebApp.CloudStorage.getItem(key, (err, value) => {
                 debugger;
-                resolve(v)
+                resolve(value)
             })
         });
     }
