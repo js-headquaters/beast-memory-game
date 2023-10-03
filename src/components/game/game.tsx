@@ -5,7 +5,6 @@ import { GameState } from "@interfaces/index";
 import { gameMenuService } from "@services/game-menu.service";
 import { gameStateService } from "@services/game-state.service";
 import { isRunningInTelegram } from "@utils/telegram.utils";
-import { Fragment } from "preact/jsx-runtime";
 import "./game.css";
 
 type GameStateComponent = typeof GameFieldComponent | typeof GameOverComponent;

@@ -5,7 +5,7 @@ import { gameMenuService } from "@services/game-menu.service";
 
 export function GameMenuComponent() {
   const {
-    formattedTimeSpent: timeSpent,
+    timeSpent: timeSpent,
     increaseLevel,
     degreesLevel,
     gameLevel,

@@ -1,37 +1,40 @@
+import { useSignal } from "@preact/signals";
 import { gameStateService } from "@services/game-state.service";
-import { getWebAppUser } from "@utils/telegram.utils";
+import { gameStatisticService } from "@services/game-statistic.service";
+import { getRandomCongratulation } from "@utils/text.utils";
 import "./game-over.css";
 
 export function GameOverComponent() {
-  const {
-    formattedTimeSpent: timeSpent,,,
-    latestResults,
-    increaseLevel,
-    degreesLevel,
-    gameLevel,
-    start,
-    totalOpenCardsCount,
-  } = gameStateService;
+  const { increaseLevel, start } = gameStateService;
 
-  const username = getWebAppUser()?.first_name ?? "player";
+  const { timeSpentMessage, cardFlipsCountMessage } = gameStatisticService;
+
+  const headerMessage = useSignal(getRandomCongratulation());
+  const levelChooseHandler = (shouldIncreaseLevel) => {
+    if (shouldIncreaseLevel) {
+      increaseLevel();
+    }
+    start();
+  };
 
   return (
     <div class="game-over">
-      <div>Very Impressive {username}!</div>
-      <div>Time spent: {timeSpent.value}</div>
-      <div>Latest results!</div>
-      <div>They are: {latestResults()}</div>
-      <div>Total opened cards: {totalOpenCardsCount.value}</div>
-      <div>Average time spent: TODO</div>
-
-      <div>Set Difficulty</div>
-      <div class="game-over__level-select">
-        <button onClick={degreesLevel}>-</button>
-        <span>{gameLevel.value}</span>
-        <button onClick={increaseLevel}>+</button>
+      <div class="game-over__header">{headerMessage.value}</div>
+      <div class="game-over__statistic">
+        <div class="game-over__statistic-message">{timeSpentMessage.value}</div>
+        <div class="game-over__statistic-message">
+          {cardFlipsCountMessage.value}
+        </div>
       </div>
-
-      <button onClick={start}>Play again</button>
+      <div class="game-over__level-settings">
+        <div class="game-over__level-settings-message">
+          Do you want to increase the game's difficulty?
+        </div>
+        <div class="game-over__level-settings-actions">
+          <button onClick={() => levelChooseHandler(false)}>Nope</button>
+          <button onClick={() => levelChooseHandler(true)}>I'm in</button>
+        </div>
+      </div>
     </div>
   );
 }

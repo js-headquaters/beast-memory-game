@@ -29,3 +29,14 @@ export type CardAnimalType =
   | "rabbit";
 
 export type GameLevel = 1 | 2 | 3 | 4 | 5 | 6;
+
+export interface Time {
+  seconds: number;
+  minutes: number;
+  hours: number;
+}
+
+export interface GameStatistic {
+  timeSpentInSeconds: number;
+  cardFlipsCount: number;
+}
