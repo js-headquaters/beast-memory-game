@@ -73,9 +73,9 @@ export class GameStateService {
   }
 
   start = () => {
-    gameStatisticService.loadGameStatistic();
+    // gameStatisticService.loadGameStatistic();
     this.setState("run");
-    this.setState("game_over");
+    // this.setState("game_over");
   };
 
   openCard = (card: GameCard) => {
@@ -111,10 +111,6 @@ export class GameStateService {
     }
     this.start();
   };
-
-  latestResults = () => {
-    return (this.currentLevelResults.value || []).join(', ');
-  }
 
   degreesLevel = () => {
     const value = (this.gameLevel.value - 1) as GameLevel;
