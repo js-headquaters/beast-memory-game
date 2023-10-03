@@ -105,6 +105,7 @@ export class GameStateService {
     if (value <= this.maxDifficulty) {
       this.gameLevel.value = value;
     }
+    this.start();
   };
 
   degreesLevel = () => {
@@ -112,6 +113,7 @@ export class GameStateService {
     if (value > 0) {
       this.gameLevel.value = value;
     }
+    this.start();
   };
 
   startTimer = () => {

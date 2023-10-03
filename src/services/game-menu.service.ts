@@ -12,7 +12,7 @@ export class GameMenuService {
   });
 
   readonly menuButtonText = computed(() => {
-    return this.isMenuOpen.value ? "Close" : "Menu";
+    return this.isMenuOpen.value ? "Close" : "Settings";
   });
 
   constructor() {

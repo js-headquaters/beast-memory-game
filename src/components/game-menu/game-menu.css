@@ -1,7 +1,29 @@
 .game-menu {
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
   gap: 0.5rem;
+  align-items: center;
   height: 100%;
+}
+
+.game-menu__header {
+  font-weight: bold;
+  text-align: center;
+}
+
+.game-menu__item {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 1rem;
+}
+
+.game-menu__item-value {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 0.5rem;
+}
+
+.game-menu__debug {
+  white-space: pre;
+  overflow: auto;
 }
