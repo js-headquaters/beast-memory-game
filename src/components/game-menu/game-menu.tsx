@@ -4,8 +4,13 @@ import "./game-menu.css";
 import { gameMenuService } from "@services/game-menu.service";
 
 export function GameMenuComponent() {
-  const { timeSpent, increaseLevel, degreesLevel, gameLevel, start } =
-    gameStateService;
+  const {
+    formattedTimeSpent: timeSpent,
+    increaseLevel,
+    degreesLevel,
+    gameLevel,
+    start,
+  } = gameStateService;
 
   const { incrementDebugClickCount, isDebugActive } = gameMenuService;
 

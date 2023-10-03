@@ -54,22 +54,17 @@ export class GameStateService {
     }, new Map<GameCard["id"], GameCard>());
   });
 
-  readonly timeSpent = computed<string | null>(() => {
-    const format = (value: number) => value.toString().padStart(2, "0");
-
+  readonly timeSpent = computed<number>(() => {
     const start = this.startTimestamp.value;
     const current = this.currentTimestamp.value;
+    const diff = current - start;
 
-    if (!start || !current || current - start < 0) {
-      return null;
-    }
-
-    const spentSeconds = Math.floor((current - start) / 1000);
-    const minutes = format(Math.floor(spentSeconds / 60));
-    const seconds = format(spentSeconds % 60);
-
-    return `${minutes}:${seconds}`;
+    return diff > 0 ? diff : 0;
   });
+
+  readonly formattedTimeSpent = computed<string | null>(() =>
+    this.formatTime(this.timeSpent.value)
+  );
 
   private readonly startTimestamp = signal<number | null>(null);
   private readonly currentTimestamp = signal<number | null>(null);
@@ -118,6 +113,20 @@ export class GameStateService {
     if (value > 0) {
       this.gameLevel.value = value;
     }
+  };
+
+  startTimer = () => {
+    this.timer = setInterval(() => {
+      this.currentTimestamp.value = Date.now();
+    }, 1000);
+  };
+
+  stopTimer = () => {
+    clearInterval(this.timer);
+  };
+
+  resetTimer = () => {
+    this.startTimestamp.value = Date.now();
   };
 
   private closeCards() {
@@ -176,17 +185,6 @@ export class GameStateService {
     return array;
   }
 
-  private startTimer() {
-    this.startTimestamp.value = Date.now();
-    this.timer = setInterval(() => {
-      this.currentTimestamp.value = Date.now();
-    }, 1000);
-  }
-
-  private stopTimer() {
-    clearInterval(this.timer);
-  }
-
   private getRandomAnimalTypes(count: number): CardAnimalType[] {
     return this.getShuffledArray([...animalCardTypes]).slice(0, count);
   }
@@ -202,6 +200,7 @@ export class GameStateService {
       this.horizontalCardsCount.value = horizontalCardsCount;
       this.verticalCardsCount.value =
         this.cards.value.length / horizontalCardsCount;
+      this.resetTimer();
       this.startTimer();
       gameMenuService.showMenu();
     }
@@ -212,6 +211,17 @@ export class GameStateService {
     }
 
     this.currentState.value = state;
+  }
+
+  private formatTime(value: number): string {
+    const format = (value: number) => value.toString().padStart(2, "0");
+
+    const spentSeconds = Math.floor(value / 1000);
+    let minutesText = format(Math.floor(spentSeconds / 60));
+    minutesText = minutesText.length > 2 ? "99" : minutesText;
+    const secondsText = format(spentSeconds % 60);
+
+    return `${minutesText}:${secondsText}`;
   }
 }
 

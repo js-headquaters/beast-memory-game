@@ -3,8 +3,13 @@ import { getWebAppUser } from "@utils/telegram.utils";
 import "./game-over.css";
 
 export function GameOverComponent() {
-  const { timeSpent, increaseLevel, degreesLevel, gameLevel, start } =
-    gameStateService;
+  const {
+    formattedTimeSpent: timeSpent,
+    increaseLevel,
+    degreesLevel,
+    gameLevel,
+    start,
+  } = gameStateService;
 
   const username = getWebAppUser()?.first_name ?? "player";
 
