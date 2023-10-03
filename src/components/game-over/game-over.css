@@ -5,3 +5,17 @@
   gap: 0.5rem;
   height: 100%;
 }
+
+.game-over__header {
+  font-weight: bold;
+}
+
+.game-over__statistic-message + .game-over__statistic-message {
+  margin-top: 0.5rem;
+}
+
+.game-over__level-settings-actions {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 1rem;
+}

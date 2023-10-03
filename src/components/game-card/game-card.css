@@ -1,6 +1,11 @@
 .game-card {
+  opacity: 0;
   background-color: transparent;
   perspective: 1000px;
+  transition: opacity 0.8s;
+}
+.game-card_active {
+  opacity: 1;
 }
 
 .game-card__inner {

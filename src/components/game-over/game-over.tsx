@@ -21,16 +21,19 @@ export function GameOverComponent() {
     <div class="game-over">
       <div class="game-over__header">{headerMessage.value}</div>
       <div class="game-over__statistic">
-        {timeSpentMessage.value}
-
-        {cardFlipsCountMessage.value}
+        <div class="game-over__statistic-message">{timeSpentMessage.value}</div>
+        <div class="game-over__statistic-message">
+          {cardFlipsCountMessage.value}
+        </div>
       </div>
-      <div class="game-over__controls">
-        <div>Do you want to increase the game's difficulty?</div>
-        <button onClick={() => levelChooseHandler(true)}>I'm in</button>
-        <button onClick={() => levelChooseHandler(false)}>
-          Let's keep it this way
-        </button>
+      <div class="game-over__level-settings">
+        <div class="game-over__level-settings-message">
+          Do you want to increase the game's difficulty?
+        </div>
+        <div class="game-over__level-settings-actions">
+          <button onClick={() => levelChooseHandler(false)}>Nope</button>
+          <button onClick={() => levelChooseHandler(true)}>I'm in</button>
+        </div>
       </div>
     </div>
   );
