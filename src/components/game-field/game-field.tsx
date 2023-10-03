@@ -1,15 +1,12 @@
 import { GameCardComponent } from "@components/game-card/game-card";
-import { GameStateContext } from "@services/game-state.service";
-import { useContext } from "preact/hooks";
+import { gameStateService } from "@services/game-state.service";
 import "./game-field.css";
 
 export function GameFieldComponent() {
-  const { cards, horizontalCardsCount } = useContext(GameStateContext);
-
-  const style = `--horizontal-cards-count: ${horizontalCardsCount.value};`;
+  const { cards } = gameStateService;
 
   return (
-    <div style={style} class="game-field">
+    <div class="game-field">
       {cards.value.map((card) => {
         return <GameCardComponent {...card} />;
       })}

@@ -1,17 +1,21 @@
-import { WebApp, WebAppInitData } from "@twa-dev/types";
+import { BackButton, MainButton, WebAppUser } from "@twa-dev/types";
 
-export function getCurrentTheme(): WebApp["colorScheme"] {
-  return window.Telegram.WebApp.colorScheme;
+export function getWebAppUser(): WebAppUser | undefined {
+  return window.Telegram.WebApp.initDataUnsafe?.user;
 }
 
-export function getCurrentPlatform(): WebApp["platform"] {
-  return window.Telegram.WebApp.platform;
+export function getMainButton(): MainButton {
+  return window.Telegram.WebApp.MainButton;
 }
 
-export function getCurrentUser(): WebAppInitData["user"] {
-  return window.Telegram.WebApp.initDataUnsafe.user;
+export function getBackButton(): BackButton {
+  return window.Telegram.WebApp.BackButton;
 }
 
-export function setReady() {
-  return window.Telegram.WebApp.ready();
+export function getTelegramData(): string {
+  return JSON.stringify(window.Telegram, null, 2);
+}
+
+export function isRunningInTelegram(): boolean {
+  return window.Telegram.WebApp.platform !== "unknown";
 }

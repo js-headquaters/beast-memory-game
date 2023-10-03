@@ -1,12 +1,11 @@
-import { GameCard } from "@interfaces/index";
-import { GameStateContext } from "@services/game-state.service";
-import { cardImageMap } from "@utils/card-image.utils";
-import { useContext } from "preact/hooks";
-import "./game-card.css";
 import cardBackingImage from "@assets/backing.jpg";
+import { GameCard } from "@interfaces/index";
+import { gameStateService } from "@services/game-state.service";
+import { cardImageMap } from "@utils/card-image.utils";
+import "./game-card.css";
 
 export function GameCardComponent(card: GameCard) {
-  const { openCard, isCardOpen } = useContext(GameStateContext);
+  const { openCard, isCardOpen } = gameStateService;
 
   const handleClick = () => {
     openCard(card);

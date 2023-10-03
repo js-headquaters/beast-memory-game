@@ -3,7 +3,19 @@
   flex-flow: row nowrap;
   height: 100vh;
 
-  --game-card-size: 4rem;
+  --game-card-width: 4rem;
+  --game-card-height: 6rem;
+  --game-card-gap: 0.5rem;
+  --game-card-total-width: calc(var(--game-card-width) + var(--game-card-gap));
+  --game-card-total-height: calc(
+    var(--game-card-height) + var(--game-card-gap)
+  );
+  --game-width: calc(
+    var(--horizontal-cards-count) * var(--game-card-total-width)
+  );
+  --game-height: calc(
+    var(--vertical-cards-count) * var(--game-card-total-height)
+  );
 }
 
 .game__spacer {
@@ -11,7 +23,14 @@
 }
 
 .game__content {
-  flex: 0 1 auto;
+  flex: 0 1 var(--game-width);
+  display: flex;
+  flex-flow: column nowrap;
   min-width: 0;
   padding: 0.5rem;
+}
+
+.game__fallback-menu {
+  position: sticky;
+  bottom: 0.5rem;
 }
