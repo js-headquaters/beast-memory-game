@@ -46,7 +46,6 @@ export class GameStateService {
   readonly openCardsIds = signal<GameCard["id"][]>([]);
   readonly gameLevel = signal<GameLevel>(1);
   readonly cardsFlipCount = signal<number>(0);
-  readonly currentLevelResults = signal<number[]>([]);
 
   readonly cardsMap = computed(() =>
     this.cards.value.reduce((acc, card) => {
@@ -73,9 +72,8 @@ export class GameStateService {
   }
 
   start = () => {
-    // gameStatisticService.loadGameStatistic();
+    gameStatisticService.loadGameStatistic();
     this.setState("run");
-    // this.setState("game_over");
   };
 
   openCard = (card: GameCard) => {

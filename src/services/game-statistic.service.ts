@@ -20,12 +20,12 @@ export class GameStatisticService {
       return null;
     }
 
-    const avg = statsByLevel.reduce(
-      (acc, value, index) => (acc += index === 0 ? 0 : value.timeSpentInSeconds),
+    const total = statsByLevel.reduce(
+      (acc, value) => (acc += value.timeSpentInSeconds),
       0
     );
 
-    return Math.floor(avg / statsByLevel.length);
+    return Math.floor(total / statsByLevel.length);
   });
 
   readonly averageCardFlipsCount = computed(() => {
@@ -38,11 +38,11 @@ export class GameStatisticService {
       return null;
     }
 
-    const avg = statsByLevel.reduce(
-      (acc, value, index) => (acc += index === 0 ? 0 : value.cardFlipsCount),
+    const total = statsByLevel.reduce(
+      (acc, value) => (acc += value.cardFlipsCount),
       0
     );
-    return Math.floor(avg / statsByLevel.length);
+    return Math.floor(total / statsByLevel.length);
   });
 
   readonly timeSpentMessage = computed(() => {
@@ -63,14 +63,11 @@ export class GameStatisticService {
 
   addGameStatistic = async (level: number, statistic: GameStatistic) => {
     this.lastGameStatistic.value = statistic;
-    await this.loadGameStatistic();
     this.statistic.value[level] = [statistic, ...(this.statistic.value?.[level] || [])].slice(0, AMOUNT_OF_SAVED_RESULTS);
-    debugger;
     await this.saveGameStatistic();
   };
 
   loadGameStatistic = async () => {
-    debugger;
     const gameStatsWithLevels = await getResultsStorage();
     this.statistic.value = gameStatsWithLevels;
   };
