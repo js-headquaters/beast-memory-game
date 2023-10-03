@@ -22,7 +22,7 @@ const statesComponents = new Map<GameState, GameStateComponent>([
 export function GameComponent() {
   const { currentState, horizontalCardsCount, verticalCardsCount } =
     gameStateService;
-  const { isMenuOpen, toggleMenu } = gameMenuService;
+  const { isMenuOpen, toggleMenu, isMenuButtonVisible } = gameMenuService;
 
   const StateComponent = statesComponents.get(currentState.value);
 
@@ -35,7 +35,7 @@ export function GameComponent() {
       <div class="game__content">
         {isMenuOpen.value ? <GameMenuComponent /> : <StateComponent />}
 
-        {!isRunningInTelegram() && (
+        {!isRunningInTelegram() && isMenuButtonVisible.value && (
           <Fragment>
             <div class="game__spacer"></div>
             <button class="game__fallback-menu" onClick={toggleMenu}>

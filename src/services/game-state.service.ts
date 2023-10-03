@@ -6,6 +6,7 @@ import {
   GameState,
 } from "@interfaces/index";
 import { computed, signal } from "@preact/signals";
+import { gameMenuService } from "./game-menu.service";
 
 const animalCardTypes: CardAnimalType[] = [
   "bear",
@@ -202,10 +203,12 @@ export class GameStateService {
       this.verticalCardsCount.value =
         this.cards.value.length / horizontalCardsCount;
       this.startTimer();
+      gameMenuService.showMenu();
     }
 
     if (state === "game_over") {
       this.stopTimer();
+      gameMenuService.hideMenu();
     }
 
     this.currentState.value = state;
