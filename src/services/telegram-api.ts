@@ -8,8 +8,11 @@ export class Storage {
             return;
         }
 
+        debugger;
         return new Promise(resolve => {
+            debugger;
             window.Telegram.WebApp.CloudStorage.setItem(key, value, (x) => {
+                debugger;
                 resolve(x);
             });
         })
@@ -20,8 +23,14 @@ export class Storage {
             return localStorage.getItem(key);
         }
 
+
+        debugger;
         return new Promise(resolve => {
-            window.Telegram.WebApp.CloudStorage.getItem(key, (v) => resolve(v))
+            debugger;
+            window.Telegram.WebApp.CloudStorage.getItem(key, (v) => {
+                debugger;
+                resolve(v)
+            })
         });
     }
 }

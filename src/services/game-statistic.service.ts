@@ -65,16 +65,18 @@ export class GameStatisticService {
     this.lastGameStatistic.value = statistic;
     await this.loadGameStatistic();
     this.statistic.value[level] = [statistic, ...(this.statistic.value?.[level] || [])].slice(0, AMOUNT_OF_SAVED_RESULTS);
-    this.saveGameStatistic();
+    debugger;
+    await this.saveGameStatistic();
   };
 
   loadGameStatistic = async () => {
+    debugger;
     const gameStatsWithLevels = await getResultsStorage();
     this.statistic.value = gameStatsWithLevels;
   };
 
   private saveGameStatistic = async () => {
-    persistGameStatisticsByLevel(this.statistic.value);
+    await persistGameStatisticsByLevel(this.statistic.value);
   }
 
   private getTimeSpentMessage(
