@@ -4,9 +4,11 @@ import {
   GameInitParams,
   GameLevel,
   GameState,
+  Time,
 } from "@interfaces/index";
 import { computed, signal } from "@preact/signals";
 import { gameMenuService } from "./game-menu.service";
+import { gameStatisticService } from "./game-statistic.service";
 
 const animalCardTypes: CardAnimalType[] = [
   "bear",
@@ -44,7 +46,7 @@ export class GameStateService {
   readonly currentState = signal<GameState>("init");
   readonly openCardsIds = signal<GameCard["id"][]>([]);
   readonly gameLevel = signal<GameLevel>(1);
-  readonly totalOpenCardsCount = signal<number>(0);
+  readonly cardsFlipCount = signal<number>(0);
 
   readonly cardsMap = computed(() =>
     this.cards.value.reduce((acc, card) => {
@@ -54,17 +56,13 @@ export class GameStateService {
     }, new Map<GameCard["id"], GameCard>())
   );
 
-  readonly timeSpent = computed<number>(() => {
+  readonly timeSpentInSeconds = computed<number>(() => {
     const start = this.startTimestamp.value;
     const current = this.currentTimestamp.value;
     const diff = current - start;
 
-    return diff > 0 ? diff : 0;
+    return diff > 0 ? Math.floor(diff / 1000) : 0;
   });
-
-  readonly formattedTimeSpent = computed<string | null>(() =>
-    this.formatTime(this.timeSpent.value)
-  );
 
   private timer: number;
   private readonly startTimestamp = signal<number | null>(null);
@@ -89,7 +87,7 @@ export class GameStateService {
     }
 
     this.openCardsIds.value = [...this.openCardsIds.value, card.id];
-    this.totalOpenCardsCount.value += 1;
+    this.cardsFlipCount.value += 1;
 
     if (this.openCardsIds.value.length < 2) {
       return;
@@ -179,15 +177,16 @@ export class GameStateService {
   }
 
   private getShuffledArray<T>(array: T[]): T[] {
-    for (let i = array.length - 1; i > 0; i--) {
+    const arrayClone = [...array];
+    for (let i = arrayClone.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+      [arrayClone[i], arrayClone[j]] = [arrayClone[j], arrayClone[i]];
     }
-    return array;
+    return arrayClone;
   }
 
   private getRandomAnimalTypes(count: number): CardAnimalType[] {
-    return this.getShuffledArray([...animalCardTypes]).slice(0, count);
+    return this.getShuffledArray(animalCardTypes).slice(0, count);
   }
 
   private setState(state: GameState) {
@@ -197,7 +196,7 @@ export class GameStateService {
       gameMenuService.showMenu();
 
       this.openCardsIds.value = [];
-      this.totalOpenCardsCount.value = 0;
+      this.cardsFlipCount.value = 0;
       const { horizontalCardsCount, pairsCount } = gameDifficultyMap.get(
         this.gameLevel.value
       );
@@ -210,20 +209,13 @@ export class GameStateService {
     if (state === "game_over") {
       this.stopTimer();
       gameMenuService.hideMenu();
+      gameStatisticService.addGameStatistic({
+        timeSpentInSeconds: this.timeSpentInSeconds.value,
+        cardFlipsCount: this.cardsFlipCount.value,
+      });
     }
 
     this.currentState.value = state;
-  }
-
-  private formatTime(value: number): string {
-    const format = (value: number) => value.toString().padStart(2, "0");
-
-    const spentSeconds = Math.floor(value / 1000);
-    let minutesText = format(Math.floor(spentSeconds / 60));
-    minutesText = minutesText.length > 2 ? "99" : minutesText;
-    const secondsText = format(spentSeconds % 60);
-
-    return `${minutesText}:${secondsText}`;
   }
 }
 

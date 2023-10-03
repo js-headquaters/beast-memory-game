@@ -1,7 +1,7 @@
 .game-menu {
-  flex: 1 1 auto;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   gap: 0.5rem;
+  height: 100%;
 }
