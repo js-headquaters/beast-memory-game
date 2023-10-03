@@ -41,18 +41,18 @@ export class GameStateService {
   readonly cards = signal<GameCard[]>([]);
   readonly horizontalCardsCount = signal<number>(0);
   readonly verticalCardsCount = signal<number>(0);
-
   readonly currentState = signal<GameState>("init");
   readonly openCardsIds = signal<GameCard["id"][]>([]);
   readonly gameLevel = signal<GameLevel>(1);
+  readonly totalOpenCardsCount = signal<number>(0);
 
-  readonly cardsMap = computed(() => {
-    return this.cards.value.reduce((acc, card) => {
+  readonly cardsMap = computed(() =>
+    this.cards.value.reduce((acc, card) => {
       acc.set(card.id, card);
 
       return acc;
-    }, new Map<GameCard["id"], GameCard>());
-  });
+    }, new Map<GameCard["id"], GameCard>())
+  );
 
   readonly timeSpent = computed<number>(() => {
     const start = this.startTimestamp.value;
@@ -66,9 +66,9 @@ export class GameStateService {
     this.formatTime(this.timeSpent.value)
   );
 
+  private timer: number;
   private readonly startTimestamp = signal<number | null>(null);
   private readonly currentTimestamp = signal<number | null>(null);
-  private timer: number;
 
   constructor() {
     this.start();
@@ -89,6 +89,7 @@ export class GameStateService {
     }
 
     this.openCardsIds.value = [...this.openCardsIds.value, card.id];
+    this.totalOpenCardsCount.value += 1;
 
     if (this.openCardsIds.value.length < 2) {
       return;
@@ -191,8 +192,12 @@ export class GameStateService {
 
   private setState(state: GameState) {
     if (state === "run") {
-      this.openCardsIds.value = [];
+      this.resetTimer();
+      this.startTimer();
+      gameMenuService.showMenu();
 
+      this.openCardsIds.value = [];
+      this.totalOpenCardsCount.value = 0;
       const { horizontalCardsCount, pairsCount } = gameDifficultyMap.get(
         this.gameLevel.value
       );
@@ -200,9 +205,6 @@ export class GameStateService {
       this.horizontalCardsCount.value = horizontalCardsCount;
       this.verticalCardsCount.value =
         this.cards.value.length / horizontalCardsCount;
-      this.resetTimer();
-      this.startTimer();
-      gameMenuService.showMenu();
     }
 
     if (state === "game_over") {

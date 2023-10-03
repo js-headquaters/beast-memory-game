@@ -9,6 +9,7 @@ export function GameOverComponent() {
     degreesLevel,
     gameLevel,
     start,
+    totalOpenCardsCount,
   } = gameStateService;
 
   const username = getWebAppUser()?.first_name ?? "player";
@@ -17,6 +18,7 @@ export function GameOverComponent() {
     <div class="game-over">
       <div>Very Impressive {username}!</div>
       <div>Time spent: {timeSpent.value}</div>
+      <div>Total opened cards: {totalOpenCardsCount.value}</div>
       <div>Average time spent: TODO</div>
 
       <div>Set Difficulty</div>
