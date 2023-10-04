@@ -198,7 +198,6 @@ export class GameStateService {
 
   private setState(state: GameState) {
     if (state === "run") {
-      debugger;
       this.resetTimer();
       this.startTimer();
       gameMenuService.showMenu();
