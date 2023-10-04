@@ -20,9 +20,13 @@ export function GameMenuComponent() {
       <div class="game-menu__item">
         <div class="game-menu__item-name">Difficulty:</div>
         <div class="game-menu__item-value">
-          <button onClick={degreesLevel}>-</button>
+          <button class="game-menu__level-diff-button" onClick={degreesLevel}>
+            -
+          </button>
           <span>{gameLevel.value}</span>
-          <button onClick={increaseLevel}>+</button>
+          <button class="game-menu__level-diff-button" onClick={increaseLevel}>
+            +
+          </button>
         </div>
       </div>
 
@@ -42,6 +46,9 @@ export function GameMenuComponent() {
           {averageCardFlipsCount.value ? averageCardFlipsCount.value : EMPTY}
         </div>
       </div>
+
+      <div class="game-menu__header">Game history</div>
+      <div>TODO make some table</div>
 
       {isDebugActive.value && (
         <div class="game-menu__debug">{getTelegramData()}</div>

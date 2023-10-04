@@ -31,8 +31,18 @@ export function GameOverComponent() {
           Do you want to increase the game's difficulty?
         </div>
         <div class="game-over__level-settings-actions">
-          <button onClick={() => levelChooseHandler(false)}>Nope</button>
-          <button onClick={() => levelChooseHandler(true)}>I'm in</button>
+          <button
+            class="game-over__action-button"
+            onClick={() => levelChooseHandler(false)}
+          >
+            Nope
+          </button>
+          <button
+            class="game-over__action-button"
+            onClick={() => levelChooseHandler(true)}
+          >
+            I'm in
+          </button>
         </div>
       </div>
     </div>

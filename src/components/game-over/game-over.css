@@ -2,12 +2,17 @@
   display: flex;
   flex-flow: column nowrap;
   gap: 0.5rem;
-  height: 100%;
+  background-color: var(--theme-modal-background);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem var(--theme-shadow-color);
 }
 
 .game-over__header {
-  font-weight: bold;
   text-align: center;
+  color: var(--theme-text-highlight-color);
+  font-size: 1.5rem;
+  text-shadow: 0 0 0.5rem var(--theme-accent-color);
 }
 
 .game-over__statistic-message + .game-over__statistic-message {
@@ -18,4 +23,13 @@
   margin-top: 0.5rem;
   display: flex;
   gap: 1rem;
+}
+
+.game-over__action-button {
+  background-color: var(--theme-button-background);
+  color: var(--theme-text-highlight-color);
+  padding: 0.5rem 1rem;
+  border: 0.125rem solid var(--theme-accent-color);
+  border-radius: 0.5rem;
+  cursor: pointer;
 }

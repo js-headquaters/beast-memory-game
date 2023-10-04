@@ -1,14 +1,11 @@
-:root {
-  color: var(--theme-text-color);
-  background-color: var(--theme-background-color);
-}
-
 body {
   margin: 0;
-}
-
-/* TODO do we need buttons in final design? Maybe better to use icons? */
-button {
-  background: var(--theme-button-background-color);
-  color: var(--theme-button-text-color);
+  font-family: "Lucida Console", Monaco, monospace;
+  background-color: var(--theme-background);
+  background-image: radial-gradient(
+    circle,
+    var(--theme-primary-color),
+    var(--theme-background)
+  );
+  color: var(--theme-text-main-color);
 }

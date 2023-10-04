@@ -22,13 +22,14 @@ export class GameMenuService {
       this.mainButton.setText(this.menuButtonText.value);
     });
 
-    effect(() => {
-      if (this.isMenuButtonVisible.value) {
-        this.mainButton.show();
-      } else {
-        this.mainButton.hide();
-      }
-    });
+    // TODO do we need this?
+    // effect(() => {
+    //   if (this.isMenuButtonVisible.value) {
+    //     this.mainButton.show();
+    //   } else {
+    //     this.mainButton.hide();
+    //   }
+    // });
   }
 
   toggleMenu = () => {

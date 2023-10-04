@@ -1,29 +1,42 @@
 .game-menu {
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 0.5rem;
-  align-items: center;
   height: 100%;
+  background-color: var(--theme-modal-background);
+  padding: 0 1.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem var(--theme-shadow-color);
 }
 
 .game-menu__header {
   font-weight: bold;
   text-align: center;
+  color: var(--theme-text-highlight-color);
+  margin: 0.5rem 0;
 }
 
 .game-menu__item {
   display: flex;
   flex-flow: row nowrap;
   gap: 1rem;
+  align-items: center;
 }
 
 .game-menu__item-value {
   display: flex;
   flex-flow: row nowrap;
   gap: 0.5rem;
+  align-self: center;
 }
 
 .game-menu__debug {
   white-space: pre;
   overflow: auto;
+}
+
+.game-menu__level-diff-button {
+  background-color: var(--theme-button-background);
+  color: var(--theme-text-main-color);
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
 }

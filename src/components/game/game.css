@@ -33,6 +33,12 @@
 .game__fallback-menu {
   position: sticky;
   bottom: 0.5rem;
-  padding: 0.25rem;
   margin-top: 0.25rem;
+
+  padding: 0.5rem 1.5rem;
+  background-color: var(--theme-accent-color);
+  color: var(--theme-text-main-color);
+  border: none;
+  border-radius: 0.3125rem;
+  box-shadow: 0 0.25rem 0.5rem var(--theme-shadow-color);
 }

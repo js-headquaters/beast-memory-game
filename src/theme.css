@@ -1,31 +1,24 @@
 :root {
-  --default-background-color: #ffffff;
-  --default-text-color: #000000;
-  --default-hint-color: #888888;
-  --default-link-color: #0000ff;
-  --default-button-background-color: #dddddd;
-  --default-button-text-color: #000000;
-  --default-secondary-background-color: #f2f2f2;
+  --theme-background: #140c21ff;
+  --theme-modal-background: #1e003cff;
+  --theme-primary-color: #6e48aaff;
+  --theme-accent-color: #9400d3ff;
+  --theme-button-background: #4b0082ff;
+  --theme-text-main-color: #e0bffeff;
+  --theme-text-highlight-color: #ffccffff;
+  --theme-shadow-color: #ce02ffaa;
+  --theme-border-color: #ce02ffaa;
+  --theme-deep-shadow-color: #0000004c;
+}
 
-  /* Theme vars */
-  --theme-background-color: var(
-    --tg-theme-bg-color,
-    var(--default-background-color)
-  );
-  --theme-text-color: var(--tg-theme-text-color, var(--default-text-color));
-  --theme-hint-color: var(--tg-theme-hint-color, var(--default-hint-color));
-  --theme-link-color: var(--tg-theme-link-color, var(--default-link-color));
-  --theme-button-background-color: var(
-    --tg-theme-button-background-color,
-    var(--default-button-background-color)
-  );
-  --theme-button-text-color: var(
-    --tg-theme-button-text-color,
-    var(--default-button-text-color)
-  );
-  --theme-secondary-background-color: var(
-    --tg-theme-secondary-bg-color,
-    var(--default-secondary-background-color)
-  );
-  --theme-border-color: var(--tg-theme-text-color, var(--default-text-color));
+[data-theme="light"] {
+  --theme-background: #eae7f2ff;
+  --theme-modal-background: #ffffffcc;
+  --theme-primary-color: #6e48aaff;
+  --theme-accent-color: #9400d37a;
+  --theme-button-background: #b5a1d6ff;
+  --theme-text-main-color: #140c21ff;
+  --theme-text-highlight-color: #4b0082ff;
+  --theme-shadow-color: #9400d355;
+  --theme-border-color: #6e48aa88;
 }

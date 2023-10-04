@@ -1,9 +1,10 @@
 .game-card {
   opacity: 0;
   background-color: transparent;
-  perspective: 1000px;
+  perspective: 1500px;
   transition: opacity 0.5s;
 }
+
 .game-card_active {
   opacity: 1;
 }
@@ -37,8 +38,10 @@
 .game-card__animal-image {
   width: 100%;
   height: 100%;
-  /* TODO fix border radius artifacts or remove it completely */
-  /* border-radius: 0.5rem; */
+  background-color: var(--theme-button-background);
   box-sizing: border-box;
-  border: 2px solid var(--theme-border-color);
+  border-radius: 0.25rem;
+  box-shadow: 0 0.05rem 0.15rem var(--theme-shadow-color),
+    0 0.1rem 0.2rem var(--theme-border-color),
+    0 0.15rem 0.25rem var(--theme-deep-shadow-color);
 }
