@@ -8,6 +8,7 @@ import { isRunningInTelegram } from "@utils/telegram.utils";
 import "./game.css";
 import {useEffect, useState} from "preact/compat";
 import {Storage} from "@services/telegram-api";
+import {gameStatisticService} from "@services/game-statistic.service";
 
 type GameStateComponent = typeof GameFieldComponent | typeof GameOverComponent;
 
@@ -34,7 +35,9 @@ export function GameComponent() {
   useEffect(() => {
       // FIXME shitty shit
       Storage.getItem('level').then((level) => {
-          gameStateService.gameLevel.value = (Number(level) || 1) as GameLevel;
+          const levelAsNumber = (Number(level) || 1) as GameLevel
+          gameStateService.gameLevel.value = levelAsNumber;
+          gameStatisticService.gameLevel.value = levelAsNumber;
           setIsLoaded(true);
 
           // has to start here after fetching the level
