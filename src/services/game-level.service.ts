@@ -36,4 +36,8 @@ export class GameLevelService {
         }
         return false;
     };
+
+    isMaxLevel = () => {
+        return this.gameLevel.value === this.maxDifficulty;
+    }
 }

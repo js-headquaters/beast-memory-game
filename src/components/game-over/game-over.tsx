@@ -4,8 +4,9 @@ import "./game-over.css";
 import {gameLevelService, gameStateService, gameStatisticService} from "@services/index";
 
 export function GameOverComponent() {
-  const { increaseLevel } = gameLevelService;
+  const { increaseLevel, isMaxLevel } = gameLevelService;
   const { start } = gameStateService;
+  const isMaxLevelReached = isMaxLevel();
 
   const { timeSpentMessage, cardFlipsCountMessage } = gameStatisticService;
 
@@ -27,22 +28,22 @@ export function GameOverComponent() {
         </div>
       </div>
       <div class="game-over__level-settings">
-        <div class="game-over__level-settings-message">
+        {!isMaxLevelReached && <div class="game-over__level-settings-message">
           Do you want to increase the game's difficulty?
-        </div>
+        </div>}
         <div class="game-over__level-settings-actions">
           <button
             class="game-over__action-button"
             onClick={() => levelChooseHandler(false)}
           >
-            Nope
+            Play again
           </button>
-          <button
+          {!isMaxLevelReached && <button
             class="game-over__action-button"
             onClick={() => levelChooseHandler(true)}
           >
-            I'm in
-          </button>
+            Increase difficulty
+          </button>}
         </div>
       </div>
     </div>
