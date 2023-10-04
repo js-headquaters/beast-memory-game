@@ -124,7 +124,10 @@ export class GameStateService {
         firstCard.isActive = false;
         secondCard.isActive = false;
 
+        window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
+
         if (this.cards.value.every((card) => !card.isActive)) {
+          window.Telegram.WebApp.HapticFeedback.notificationOccurred("success");
           this.setState("game_over");
         } else {
           this.cards.value = [...this.cards.value];
