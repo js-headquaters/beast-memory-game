@@ -1,7 +1,7 @@
 import {GameStatistic, GameStatisticWithLevel} from "@interfaces/index";
 import {computed, effect, signal, untracked} from "@preact/signals";
-import {getResultsStorage, persistGameStatisticsByLevel} from './results-storage.service';
 import {GameLevelService} from "@services/game-level.service";
+import {Storage} from "@services/telegram-api";
 
 const AMOUNT_OF_SAVED_RESULTS = 5;
 
@@ -117,3 +117,13 @@ export class GameStatisticService {
   }
 }
 
+export async function persistGameStatisticsByLevel(gameStatisticWithLevel: GameStatisticWithLevel): Promise<void> {
+  await Storage.setItem('results', JSON.stringify(gameStatisticWithLevel))
+  console.log('>> persistGameStatisticsByLevel', JSON.stringify(gameStatisticWithLevel));
+}
+
+export async function getResultsStorage(): Promise<GameStatisticWithLevel> {
+  const resultsAsString = await Storage.getItem('results') || '{}';
+  console.log('>> getResultsStorage: resultsAsString', resultsAsString);
+  return JSON.parse(resultsAsString);
+}
