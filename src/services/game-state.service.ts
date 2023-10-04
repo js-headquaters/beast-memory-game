@@ -5,10 +5,10 @@ import {
   GameLevel,
   GameState,
 } from "@interfaces/index";
-import { computed, signal } from "@preact/signals";
-import { gameMenuService } from "./game-menu.service";
-import { gameStatisticService } from "./game-statistic.service";
-import {Storage} from "@services/telegram-api";
+import {computed, signal} from "@preact/signals";
+import {gameMenuService} from "./game-menu.service";
+import {GameStatisticService} from "@services/game-statistic.service";
+import {GameLevelService} from "@services/game-level.service";
 
 const animalCardTypes: CardAnimalType[] = [
   "bear",
@@ -38,14 +38,11 @@ const gameDifficultyMap = new Map<GameLevel, GameInitParams>([
 ]);
 
 export class GameStateService {
-  readonly maxDifficulty: GameLevel = 6;
-
   readonly cards = signal<GameCard[]>([]);
   readonly horizontalCardsCount = signal<number>(0);
   readonly verticalCardsCount = signal<number>(0);
   readonly currentState = signal<GameState>("init");
   readonly openCardsIds = signal<GameCard["id"][]>([]);
-  readonly gameLevel = signal<GameLevel>(1);
   readonly cardsFlipCount = signal<number>(0);
 
   readonly cardsMap = computed(() =>
@@ -68,10 +65,11 @@ export class GameStateService {
   private readonly startTimestamp = signal<number | null>(null);
   private readonly currentTimestamp = signal<number | null>(null);
 
-  constructor() {}
+  constructor(private gameStatisticService: GameStatisticService, private gameLevelService: GameLevelService) {
+    this.start();
+  }
 
   start = () => {
-    gameStatisticService.loadGameStatistic();
     this.setState("run");
   };
 
@@ -97,28 +95,6 @@ export class GameStateService {
 
   isCardOpen = (card: GameCard): boolean => {
     return this.openCardsIds.value.includes(card.id);
-  };
-
-  increaseLevel = () => {
-    const value = (this.gameLevel.value + 1) as GameLevel;
-    if (value <= this.maxDifficulty) {
-      this.gameLevel.value = value;
-      // FIXME: shitty sync, should be implemented other way??
-      gameStatisticService.gameLevel.value = value;
-    }
-    Storage.setItem('level', String(value))
-    this.start();
-  };
-
-  degreesLevel = () => {
-    const value = (this.gameLevel.value - 1) as GameLevel;
-    if (value > 0) {
-      this.gameLevel.value = value;
-      // FIXME: shitty sync, should be implemented other way??
-      gameStatisticService.gameLevel.value = value;
-      Storage.setItem('level', String(value))
-    }
-    this.start();
   };
 
   startTimer = () => {
@@ -205,7 +181,7 @@ export class GameStateService {
       this.openCardsIds.value = [];
       this.cardsFlipCount.value = 0;
       const { horizontalCardsCount, pairsCount } = gameDifficultyMap.get(
-        this.gameLevel.value
+        this.gameLevelService.gameLevel.value
       );
       this.cards.value = this.createGameCards(pairsCount);
       this.horizontalCardsCount.value = horizontalCardsCount;
@@ -216,9 +192,9 @@ export class GameStateService {
     if (state === "game_over") {
       this.stopTimer();
       gameMenuService.hideMenu();
-      gameStatisticService.addGameStatistic(this.gameLevel.value, {
-        timeSpentInSeconds: this.timeSpentInSeconds.value || getRandomIntInRange(8, 30),
-        cardFlipsCount: this.cardsFlipCount.value || getRandomIntInRange(6, 20),
+      this.gameStatisticService.addGameStatistic({
+        timeSpentInSeconds: this.timeSpentInSeconds.value,
+        cardFlipsCount: this.cardsFlipCount.value,
       });
     }
 
@@ -236,8 +212,6 @@ export class GameStateService {
     return `${minutesText}:${secondsText}`;
   }
 }
-
-export const gameStateService = new GameStateService();
 
 function getRandomIntInRange(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;

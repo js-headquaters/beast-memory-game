@@ -1,6 +1,6 @@
 import { GameCardComponent } from "@components/game-card/game-card";
-import { gameStateService } from "@services/game-state.service";
 import "./game-field.css";
+import {gameStateService} from "@services/index";
 
 export function GameFieldComponent() {
   const { cards } = gameStateService;

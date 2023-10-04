@@ -1,8 +1,8 @@
 import cardBackingImage from "@assets/backing.jpg";
 import { GameCard } from "@interfaces/index";
-import { gameStateService } from "@services/game-state.service";
 import { cardImageMap } from "@utils/card-image.utils";
 import "./game-card.css";
+import {gameStateService} from "@services/index";
 
 export function GameCardComponent(card: GameCard) {
   const { openCard, isCardOpen } = gameStateService;

@@ -1,16 +1,25 @@
-import { gameStateService } from "@services/game-state.service";
 import "./game-menu.css";
 import { gameMenuService } from "@services/game-menu.service";
 import { getTelegramData } from "@utils/telegram.utils";
-import { gameStatisticService } from "@services/game-statistic.service";
+import {gameLevelService, gameStateService, gameStatisticService} from "@services/index";
 
 const EMPTY = "N/A";
 
 export function GameMenuComponent() {
-  const { increaseLevel, degreesLevel, gameLevel } = gameStateService;
+  const { increaseLevel, degreesLevel, gameLevel } = gameLevelService;
   const { incrementDebugClickCount, isDebugActive } = gameMenuService;
   const { averageCardFlipsCount, averageTimeSpentInSeconds } =
     gameStatisticService;
+  const { start } = gameStateService;
+
+  const increaseLevelAndRestart = () => {
+      increaseLevel();
+      start();
+  }
+  const decreaseLevelAndRestart = () => {
+      degreesLevel();
+      start();
+  }
 
   return (
     <div class="game-menu">
@@ -20,13 +29,13 @@ export function GameMenuComponent() {
       <div class="game-menu__item">
         <div class="game-menu__item-name">Difficulty:</div>
         <div class="game-menu__item-value">
-          <button class="game-menu__level-diff-button" onClick={degreesLevel}>
-            -
-          </button>
-          <span>{gameLevel.value}</span>
-          <button class="game-menu__level-diff-button" onClick={increaseLevel}>
-            +
-          </button>
+            <button className="game-menu__level-diff-button" onClick={decreaseLevelAndRestart}>
+                -
+            </button>
+            <span>{gameLevel.value}</span>
+            <button className="game-menu__level-diff-button" onClick={increaseLevelAndRestart}>
+                +
+            </button>
         </div>
       </div>
 

@@ -1,11 +1,11 @@
 import { useSignal } from "@preact/signals";
-import { gameStateService } from "@services/game-state.service";
-import { gameStatisticService } from "@services/game-statistic.service";
 import { getRandomCongratulation } from "@utils/text.utils";
 import "./game-over.css";
+import {gameLevelService, gameStateService, gameStatisticService} from "@services/index";
 
 export function GameOverComponent() {
-  const { increaseLevel, start } = gameStateService;
+  const { increaseLevel } = gameLevelService;
+  const { start } = gameStateService;
 
   const { timeSpentMessage, cardFlipsCountMessage } = gameStatisticService;
 
