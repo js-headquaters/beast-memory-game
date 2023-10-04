@@ -78,10 +78,6 @@ export class GameStatisticService {
 
   loadGameStatistic = async () => {
     this.statistic.value = await getResultsStorage();
-    //
-    // effect(() => {
-    //   persistGameStatisticsByLevel(this.statistic.value);
-    // })
   };
 
   private getTimeSpentMessage(

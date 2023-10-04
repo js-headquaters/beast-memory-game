@@ -13,12 +13,16 @@ export function GameMenuComponent() {
   const { start } = gameStateService;
 
   const increaseLevelAndRestart = () => {
-      increaseLevel();
-      start();
+      const isIncreased = increaseLevel();
+      if (isIncreased) {
+          start();
+      }
   }
   const decreaseLevelAndRestart = () => {
-      degreesLevel();
-      start();
+      const isDecreased = degreesLevel();
+      if (isDecreased) {
+          start();
+      }
   }
 
   return (

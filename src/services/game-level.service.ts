@@ -23,14 +23,17 @@ export class GameLevelService {
         const value = (this.gameLevel.value + 1) as GameLevel;
         if (value <= this.maxDifficulty) {
             this.gameLevel.value = value;
+            return true;
         }
+        return false;
     };
 
     degreesLevel = () => {
         const value = (this.gameLevel.value - 1) as GameLevel;
         if (value > 0) {
             this.gameLevel.value = value;
-            Storage.setItem('level', String(value))
+            return true;
         }
+        return false;
     };
 }
