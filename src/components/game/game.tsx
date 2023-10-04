@@ -1,11 +1,13 @@
 import { GameFieldComponent } from "@components/game-field/game-field";
 import { GameMenuComponent } from "@components/game-menu/game-menu";
 import { GameOverComponent } from "@components/game-over/game-over";
-import { GameState } from "@interfaces/index";
+import {GameLevel, GameState} from "@interfaces/index";
 import { gameMenuService } from "@services/game-menu.service";
 import { gameStateService } from "@services/game-state.service";
 import { isRunningInTelegram } from "@utils/telegram.utils";
 import "./game.css";
+import {useEffect, useState} from "preact/compat";
+import {Storage} from "@services/telegram-api";
 
 type GameStateComponent = typeof GameFieldComponent | typeof GameOverComponent;
 
@@ -19,6 +21,7 @@ export function GameComponent() {
     gameStateService;
   const { isMenuOpen, toggleMenu, isMenuButtonVisible, menuButtonText } =
     gameMenuService;
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const StateComponent = statesComponents.get(currentState.value);
 
@@ -27,6 +30,22 @@ export function GameComponent() {
 
   const showFallbackMenuButton =
     !isRunningInTelegram() && isMenuButtonVisible.value;
+
+  useEffect(() => {
+      // FIXME shitty shit
+      Storage.getItem('level').then((level) => {
+          gameStateService.gameLevel.value = (Number(level) || 1) as GameLevel;
+          setIsLoaded(true);
+
+          // has to start here after fetching the level
+          // cannot start the game in gameStateService constructor
+          gameStateService.start();
+      });
+  });
+
+  if (!isLoaded) {
+      return <>Loading...</>
+  }
 
   return (
     <div style={style} class="game">

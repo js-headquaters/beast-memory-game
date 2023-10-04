@@ -8,6 +8,7 @@ import {
 import { computed, signal } from "@preact/signals";
 import { gameMenuService } from "./game-menu.service";
 import { gameStatisticService } from "./game-statistic.service";
+import {Storage} from "@services/telegram-api";
 
 const animalCardTypes: CardAnimalType[] = [
   "bear",
@@ -67,9 +68,7 @@ export class GameStateService {
   private readonly startTimestamp = signal<number | null>(null);
   private readonly currentTimestamp = signal<number | null>(null);
 
-  constructor() {
-    this.start();
-  }
+  constructor() {}
 
   start = () => {
     gameStatisticService.loadGameStatistic();
@@ -107,6 +106,7 @@ export class GameStateService {
       // FIXME: shitty sync, should be implemented other way??
       gameStatisticService.gameLevel.value = value;
     }
+    Storage.setItem('level', String(value))
     this.start();
   };
 
@@ -116,6 +116,7 @@ export class GameStateService {
       this.gameLevel.value = value;
       // FIXME: shitty sync, should be implemented other way??
       gameStatisticService.gameLevel.value = value;
+      Storage.setItem('level', String(value))
     }
     this.start();
   };
@@ -197,6 +198,7 @@ export class GameStateService {
 
   private setState(state: GameState) {
     if (state === "run") {
+      debugger;
       this.resetTimer();
       this.startTimer();
       gameMenuService.showMenu();
