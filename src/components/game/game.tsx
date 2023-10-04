@@ -41,7 +41,7 @@ export function GameComponent() {
           // cannot start the game in gameStateService constructor
           gameStateService.start();
       });
-  });
+  }, []);
 
   if (!isLoaded) {
       return <>Loading...</>
