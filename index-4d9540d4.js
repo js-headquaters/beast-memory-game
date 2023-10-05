@@ -740,13 +740,13 @@ class GameLevelService {
 }
 
 const statesComponents = /* @__PURE__ */ new Map([["run", GameFieldComponent], ["game_over", GameOverComponent]]);
+const gameThemeService = new GameThemeService();
+const gameLevelService = new GameLevelService();
+const gameMenuService = new GameMenuService();
 function GameComponent() {
   const [gameStateService, setGameStateService] = h(null);
   const [gameStatisticService, setGameStatisticService] = h(null);
   const [isLoading, setIsLoading] = h(true);
-  const gameThemeService = new GameThemeService();
-  const gameLevelService = new GameLevelService();
-  const gameMenuService = new GameMenuService();
   p$2(() => {
     const gameStatisticServiceInstance = new GameStatisticService(gameLevelService);
     setGameStatisticService(gameStatisticServiceInstance);
@@ -798,20 +798,20 @@ function CombinedProvider({
   children,
   gameStateService,
   gameStatisticService,
-  gameThemeService,
-  gameLevelService,
-  gameMenuService
+  gameThemeService: gameThemeService2,
+  gameLevelService: gameLevelService2,
+  gameMenuService: gameMenuService2
 }) {
   return o$1(GameStateContext.Provider, {
     value: gameStateService,
     children: o$1(GameStatisticContext.Provider, {
       value: gameStatisticService,
       children: o$1(GameThemeContext.Provider, {
-        value: gameThemeService,
+        value: gameThemeService2,
         children: o$1(GameLevelContext.Provider, {
-          value: gameLevelService,
+          value: gameLevelService2,
           children: o$1(GameMenuContext.Provider, {
-            value: gameMenuService,
+            value: gameMenuService2,
             children
           })
         })
