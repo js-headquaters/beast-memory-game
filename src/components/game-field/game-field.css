@@ -1,15 +1,16 @@
 .game-field {
-  flex: 1 1 auto;
   display: flex;
   flex-flow: column nowrap;
+  align-items: center;
+  height: 100%;
   min-height: 0;
 }
 
 .game-field__cards {
-  flex: 0 1 auto;
+  flex: 0 1 calc(var(--vertical-cards-count) * var(--game-card-total-height));
   display: grid;
   gap: 0.5rem;
   grid-template-columns: repeat(var(--horizontal-cards-count), 1fr);
-  min-height: 0;
-  height: var(--game-height);
+  width: 100%;
+  max-width: calc(var(--horizontal-cards-count) * var(--game-card-total-width));
 }

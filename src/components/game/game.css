@@ -2,6 +2,7 @@
   display: flex;
   flex-flow: row nowrap;
   height: 100vh;
+  width: 100vw;
 
   --game-card-width: 4rem;
   --game-card-height: 6rem;
@@ -10,12 +11,6 @@
   --game-card-total-height: calc(
     var(--game-card-height) + var(--game-card-gap)
   );
-  --game-width: calc(
-    var(--horizontal-cards-count) * var(--game-card-total-width)
-  );
-  --game-height: calc(
-    var(--vertical-cards-count) * var(--game-card-total-height)
-  );
 }
 
 .game__spacer {
@@ -23,11 +18,11 @@
 }
 
 .game__content {
-  flex: 0 1 var(--game-width);
+  flex: 0 1 calc(var(--game-card-total-width) * 5);
   display: flex;
   flex-flow: column nowrap;
   min-width: 0;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 .game__fallback-menu {

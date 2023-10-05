@@ -4,7 +4,11 @@ import { GameOverComponent } from "@components/game-over/game-over";
 import { GameState } from "@interfaces/index";
 import { gameMenuService } from "@services/game-menu.service";
 import "./game.css";
-import {gameStateService, gameLevelService, gameStatisticService} from "@services/index";
+import {
+  gameStateService,
+  gameLevelService,
+  gameStatisticService,
+} from "@services/index";
 
 type GameStateComponent = typeof GameFieldComponent | typeof GameOverComponent;
 
