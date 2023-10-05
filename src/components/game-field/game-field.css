@@ -11,6 +11,7 @@
   display: grid;
   gap: 0.5rem;
   grid-template-columns: repeat(var(--horizontal-cards-count), 1fr);
+  grid-template-rows: repeat(var(--vertical-cards-count), 1fr);
   width: 100%;
   max-width: calc(var(--horizontal-cards-count) * var(--game-card-total-width));
 }

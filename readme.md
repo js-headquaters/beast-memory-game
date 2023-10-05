@@ -128,3 +128,4 @@ By choosing these technologies and platforms, we ensure an efficient, enjoyable,
 
 - main button is always visible
 - main button color is not support hex8
+- telegram client on macos uses safari, so better to check layout in safari
