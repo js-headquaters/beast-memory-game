@@ -1,22 +1,22 @@
-import { gameMenuService } from "@services/game-menu.service";
-import {
-  gameLevelService,
-  gameStateService,
-  gameStatisticService,
-  gameThemeService,
-} from "@services/index";
 import { getWebAppData } from "@utils/telegram.utils";
 import "./game-menu.css";
+import {useContext} from "preact/compat";
+import {
+    GameLevelContext, GameMenuContext,
+    GameStateContext,
+    GameStatisticContext,
+    GameThemeContext
+} from "../../context/game-state.context";
 
 const EMPTY = "N/A";
 
 export function GameMenuComponent() {
-  const { increaseLevel, degreesLevel, gameLevel } = gameLevelService;
-  const { incrementDebugClickCount, isDebugActive } = gameMenuService;
+  const { increaseLevel, degreesLevel, gameLevel } = useContext(GameLevelContext)
+  const { incrementDebugClickCount, isDebugActive } = useContext(GameMenuContext);
   const { averageCardFlipsCount, averageTimeSpentInSeconds } =
-    gameStatisticService;
-  const { start } = gameStateService;
-  const { toggleTheme, theme } = gameThemeService;
+    useContext(GameStatisticContext);
+  const { start } = useContext(GameStateContext);
+  const { toggleTheme, theme } = useContext(GameThemeContext);
 
   const increaseLevelAndRestart = () => {
     const isIncreased = increaseLevel();

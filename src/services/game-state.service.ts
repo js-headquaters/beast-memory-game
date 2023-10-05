@@ -6,9 +6,9 @@ import {
   GameState,
 } from "@interfaces/index";
 import { computed, signal } from "@preact/signals";
-import { gameMenuService } from "./game-menu.service";
 import { GameStatisticService } from "@services/game-statistic.service";
 import { GameLevelService } from "@services/game-level.service";
+import {GameMenuService} from "@services/game-menu.service";
 
 const animalCardTypes: CardAnimalType[] = [
   "bear",
@@ -67,7 +67,8 @@ export class GameStateService {
 
   constructor(
     private gameStatisticService: GameStatisticService,
-    private gameLevelService: GameLevelService
+    private gameLevelService: GameLevelService,
+    private gameMenuService: GameMenuService,
   ) {
     this.start();
   }
@@ -182,7 +183,7 @@ export class GameStateService {
     if (state === "run") {
       this.resetTimer();
       this.startTimer();
-      gameMenuService.showMenu();
+      this.gameMenuService.showMenu();
 
       this.openCardsIds.value = [];
       this.cardsFlipCount.value = 0;
@@ -197,7 +198,7 @@ export class GameStateService {
 
     if (state === "game_over") {
       this.stopTimer();
-      gameMenuService.hideMenu();
+      this.gameMenuService.hideMenu();
       this.gameStatisticService.addGameStatistic({
         timeSpentInSeconds: this.timeSpentInSeconds.value,
         cardFlipsCount: this.cardsFlipCount.value,

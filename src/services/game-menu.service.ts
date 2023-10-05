@@ -47,5 +47,3 @@ export class GameMenuService {
     this.debugClickCount.value += 1;
   };
 }
-
-export const gameMenuService = new GameMenuService();

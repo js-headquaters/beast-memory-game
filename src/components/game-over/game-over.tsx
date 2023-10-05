@@ -1,19 +1,16 @@
 import { useSignal } from "@preact/signals";
 import { getRandomCongratulation } from "@utils/text.utils";
 import "./game-over.css";
-import {
-  gameLevelService,
-  gameStateService,
-  gameStatisticService,
-} from "@services/index";
+import {useContext} from "preact/compat";
+import {GameLevelContext, GameStateContext, GameStatisticContext} from "../../context/game-state.context";
 
 export function GameOverComponent() {
-  const { increaseLevel, isMaxLevel } = gameLevelService;
-  const { start, timeSpentInSeconds, cardsFlipCount } = gameStateService;
+  const { increaseLevel, isMaxLevel } = useContext(GameLevelContext);
+  const { start, timeSpentInSeconds, cardsFlipCount } = useContext(GameStateContext);
   const isMaxLevelReached = isMaxLevel();
 
   const { averageCardFlipsCount, averageTimeSpentInSeconds } =
-    gameStatisticService;
+      useContext(GameStatisticContext);
 
   const headerMessage = useSignal(getRandomCongratulation());
 
