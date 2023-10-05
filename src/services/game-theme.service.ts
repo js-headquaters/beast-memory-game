@@ -59,6 +59,10 @@ export class GameThemeService {
     this.theme.value = theme;
   };
 
+  toggleTheme = () => {
+    this.theme.value = this.theme.value === "light" ? "dark" : "light";
+  };
+
   private applyTheme(themeProperties: GameThemeProperties) {
     const root = document.documentElement;
     for (const [key, value] of Object.entries(themeProperties)) {

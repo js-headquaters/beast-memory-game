@@ -9,6 +9,7 @@ import {
   gameLevelService,
   gameStatisticService,
 } from "@services/index";
+import { isRunningInTelegram } from "@utils/telegram.utils";
 
 type GameStateComponent = typeof GameFieldComponent | typeof GameOverComponent;
 
@@ -28,7 +29,8 @@ export function GameComponent() {
   let style = `--horizontal-cards-count: ${horizontalCardsCount.value};`;
   style += `--vertical-cards-count: ${verticalCardsCount.value};`;
 
-  const showFallbackMenuButton = isMenuButtonVisible.value;
+  const showFallbackMenuButton =
+    !isRunningInTelegram() && isMenuButtonVisible.value;
 
   return (
     <div style={style} class="game">
