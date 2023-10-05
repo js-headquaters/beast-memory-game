@@ -96,6 +96,11 @@
   border-radius: 0.25rem;
   padding: 0.25rem 0.5rem;
 }
+.key {
+}
+
+.value {
+}
 .key-value-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -110,15 +115,11 @@
   white-space: pre;
   overflow: auto;
 }
-.key {
-}
-
-.value {
-}
 .game-over {
   display: flex;
   flex-flow: column nowrap;
   gap: 0.5rem;
+  height: 100%;
 }
 
 .game-over__actions {
@@ -126,15 +127,6 @@
   display: flex;
   gap: 1rem;
   justify-content: center;
-}
-
-.game-over__action-button {
-  background-color: var(--theme-button-background);
-  color: var(--theme-button-text-color);
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  border: none;
 }
 .game {
   display: flex;
