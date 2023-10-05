@@ -2,7 +2,6 @@
   display: flex;
   flex-flow: column nowrap;
   gap: 0.5rem;
-  height: 100%;
 }
 
 .game-over__header {

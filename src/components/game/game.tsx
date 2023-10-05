@@ -25,18 +25,18 @@ const statesComponents = new Map<GameState, GameStateComponent>([
   ["game_over", GameOverComponent],
 ]);
 
+const gameThemeService = new GameThemeService();
+const gameLevelService = new GameLevelService();
+const gameMenuService = new GameMenuService();
+
 export function GameComponent() {
   const [gameStateService, setGameStateService] = useState(null);
   const [gameStatisticService, setGameStatisticService] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const gameThemeService = new GameThemeService()
-  const gameLevelService = new GameLevelService();
-  const gameMenuService = new GameMenuService();
-
   useEffect(() => {
     const gameStatisticServiceInstance = new GameStatisticService(
-      gameLevelService,
+      gameLevelService
     );
 
     setGameStatisticService(gameStatisticServiceInstance);
@@ -49,13 +49,12 @@ export function GameComponent() {
         new GameStateService(
           gameStatisticServiceInstance,
           gameLevelService,
-          gameMenuService,
-        ),
+          gameMenuService
+        )
       );
 
       setIsLoading(false);
     });
-
   }, []);
 
   if (isLoading || !gameStateService || !gameMenuService) {
