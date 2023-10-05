@@ -41,7 +41,6 @@
   background-color: var(--theme-button-background);
   box-sizing: border-box;
   border-radius: 0.25rem;
-  box-shadow: 0 0.05rem 0.15rem var(--theme-shadow-color),
-    0 0.1rem 0.2rem var(--theme-border-color),
-    0 0.15rem 0.25rem var(--theme-deep-shadow-color);
+  box-shadow: 0 0.1rem 0.5rem var(--theme-shadow-color);
+  border: 2px solid var(--theme-border-color);
 }

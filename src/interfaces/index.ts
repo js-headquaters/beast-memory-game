@@ -55,4 +55,5 @@ export interface GameThemeProperties {
   themeTextHighlightColor: string;
   themeShadowColor: string;
   themeBorderColor: string;
+  themeBackgroundAccent: string;
 }

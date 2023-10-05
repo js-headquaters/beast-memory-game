@@ -7,29 +7,30 @@ import {
 } from "@utils/telegram.utils";
 
 const lightTheme: GameThemeProperties = {
-  themeBackground: "rgba(234, 231, 242, 1)",
+  themeBackground: "rgba(255, 255, 255, 1)",
   themeModalBackground: "rgba(255, 255, 255, 0.8)",
-  themePrimaryColor: "rgba(110, 72, 170, 1)",
-  themeAccentColor: "rgba(148, 0, 211, 0.48)",
-  themeButtonBackground: "rgba(181, 161, 214, 1)",
-  themeTextMainColor: "rgba(20, 12, 33, 1)",
-  themeTextHighlightColor: "rgba(75, 0, 130, 1)",
-  themeShadowColor: "rgba(148, 0, 211, 0.33)",
-  themeBorderColor: "rgba(110, 72, 170, 0.53)",
+  themePrimaryColor: "rgba(100, 65, 165, 1)",
+  themeAccentColor: "rgba(135, 0, 190, 0.5)",
+  themeButtonBackground: "rgba(175, 150, 210, 1)",
+  themeTextMainColor: "rgba(25, 17, 45, 1)",
+  themeTextHighlightColor: "rgba(60, 0, 120, 1)",
+  themeShadowColor: "rgba(100, 65, 165, 0.6)",
+  themeBorderColor: "rgba(100, 65, 165, 0.6)",
+  themeBackgroundAccent: "rgba(228, 223, 249, 1)",
 };
 
 const darkTheme: GameThemeProperties = {
-  themeBackground: "rgba(20, 12, 33, 1)",
-  themeModalBackground: "rgba(30, 0, 60, 1)",
-  themePrimaryColor: "rgba(110, 72, 170, 1)",
-  themeAccentColor: "rgba(148, 0, 211, 1)",
-  themeButtonBackground: "rgba(75, 0, 130, 1)",
-  themeTextMainColor: "rgba(224, 191, 254, 1)",
-  themeTextHighlightColor: "rgba(255, 204, 255, 1)",
-  themeShadowColor: "rgba(206, 2, 255, 0.67)",
-  themeBorderColor: "rgba(206, 2, 255, 0.67)",
+  themeBackground: "rgba(25, 15, 40, 1)",
+  themeModalBackground: "rgba(35, 25, 55, 1)",
+  themePrimaryColor: "rgba(130, 70, 190, 1)",
+  themeAccentColor: "rgba(190, 0, 255, 0.85)",
+  themeButtonBackground: "rgba(90, 30, 130, 1)",
+  themeTextMainColor: "rgba(245, 230, 255, 1)",
+  themeTextHighlightColor: "rgba(255, 205, 255, 1)",
+  themeShadowColor: "rgba(190, 150, 255, 0.6)",
+  themeBorderColor: "rgba(193, 113, 229, 0.5)",
+  themeBackgroundAccent: "rgba(45, 20, 70, 1)",
 };
-
 export class GameThemeService {
   readonly theme = signal<GameTheme>(getWebAppTheme());
   readonly themeProperties = computed(() => {
