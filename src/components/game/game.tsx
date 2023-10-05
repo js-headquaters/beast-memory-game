@@ -45,10 +45,12 @@ export function GameComponent() {
     setGameLevelService(gameLevelServiceInstance);
     setGameMenuService(gameMenuServiceInstance);
 
+    debugger
     Promise.all([
       gameStatisticServiceInstance.loadGameStatistic(),
       gameLevelServiceInstance.loadLevel(),
     ]).then(() => {
+      debugger;
       setGameStateService(
         new GameStateService(
           gameStatisticServiceInstance,
@@ -56,9 +58,10 @@ export function GameComponent() {
           gameMenuServiceInstance,
         ),
       );
+
+      setIsLoading(false);
     });
 
-    setIsLoading(false);
   }, []);
 
   if (isLoading || !gameStateService || !gameMenuService) {

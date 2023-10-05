@@ -13,6 +13,7 @@ export class GameLevelService {
         if (level) {
             this.gameLevel.value = level as GameLevel;
         }
+        console.log('>> loadLevel', this.gameLevel.value);
 
         effect(async () => {
             await Storage.setItem('level', String(this.gameLevel.value))

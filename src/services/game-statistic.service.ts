@@ -84,6 +84,7 @@ export class GameStatisticService {
 
   loadGameStatistic = async () => {
     this.statistic.value = await getResultsStorage();
+    console.log('>> this statistic value', this.statistic.value);
   };
 
   private getTimeSpentMessage(
