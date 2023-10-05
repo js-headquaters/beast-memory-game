@@ -645,6 +645,7 @@ class GameStatisticService {
     };
     this.loadGameStatistic = async () => {
       this.statistic.value = await getResultsStorage();
+      console.log(">> this statistic value", this.statistic.value);
     };
   }
   getTimeSpentMessage(timeSpentInSeconds, averageTimeSpentInSeconds) {
@@ -748,6 +749,7 @@ class GameLevelService {
       if (level) {
         this.gameLevel.value = level;
       }
+      console.log(">> loadLevel", this.gameLevel.value);
       O(async () => {
         await Storage.setItem("level", String(this.gameLevel.value));
       });
@@ -790,10 +792,12 @@ function GameComponent() {
     setGameThemeService(new GameThemeService());
     setGameLevelService(gameLevelServiceInstance);
     setGameMenuService(gameMenuServiceInstance);
+    debugger;
     Promise.all([gameStatisticServiceInstance.loadGameStatistic(), gameLevelServiceInstance.loadLevel()]).then(() => {
+      debugger;
       setGameStateService(new GameStateService(gameStatisticServiceInstance, gameLevelServiceInstance, gameMenuServiceInstance));
+      setIsLoading(false);
     });
-    setIsLoading(false);
   }, []);
   if (isLoading || !gameStateService || !gameMenuService) {
     return o$1(k$1, {
