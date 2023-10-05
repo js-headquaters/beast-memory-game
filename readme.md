@@ -123,3 +123,8 @@ By choosing these technologies and platforms, we ensure an efficient, enjoyable,
 - [ ] Add menu button that opens popup with statistic, setting and etc
 - [ ] Add game time and errors count (user already knows where pair card located but open other card)
 - [ ] Add game over screen with game time, error counts, and buttons: play again, raise difficulty
+
+## Useful
+
+- main button is always visible
+- main button color is not support hex8

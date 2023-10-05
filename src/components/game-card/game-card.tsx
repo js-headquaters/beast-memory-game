@@ -1,11 +1,13 @@
-import cardBackingImage from "@assets/backing.jpg";
+import darkBackImage from "@assets/back-dark.jpg";
+import lightBackImage from "@assets/back-light.jpg";
 import { GameCard } from "@interfaces/index";
+import { gameStateService, gameThemeService } from "@services/index";
 import { cardImageMap } from "@utils/card-image.utils";
 import "./game-card.css";
-import {gameStateService} from "@services/index";
 
 export function GameCardComponent(card: GameCard) {
   const { openCard, isCardOpen } = gameStateService;
+  const { theme } = gameThemeService;
 
   const handleClick = () => {
     openCard(card);
@@ -23,7 +25,7 @@ export function GameCardComponent(card: GameCard) {
         <div class="game-card__backing">
           <img
             class="game-card__backing-image"
-            src={cardBackingImage}
+            src={theme.value === "dark" ? darkBackImage : lightBackImage}
             alt="card backing"
             loading="eager"
           />

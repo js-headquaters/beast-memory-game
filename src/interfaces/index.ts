@@ -43,3 +43,16 @@ export interface GameStatistic {
 
 export type GameStatisticWithLevel = Record<GameLevel, GameStatistic[]>;
 
+export type GameTheme = "light" | "dark";
+
+export interface GameThemeProperties {
+  themeBackground: string;
+  themeModalBackground: string;
+  themePrimaryColor: string;
+  themeAccentColor: string;
+  themeButtonBackground: string;
+  themeTextMainColor: string;
+  themeTextHighlightColor: string;
+  themeShadowColor: string;
+  themeBorderColor: string;
+}

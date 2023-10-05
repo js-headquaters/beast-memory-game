@@ -1,4 +1,4 @@
-import { BackButton, MainButton, WebAppUser } from "@twa-dev/types";
+import { BackButton, MainButton, WebApp, WebAppUser } from "@twa-dev/types";
 
 export function getWebAppUser(): WebAppUser | undefined {
   return window.Telegram.WebApp.initDataUnsafe?.user;
@@ -18,4 +18,12 @@ export function getTelegramData(): string {
 
 export function isRunningInTelegram(): boolean {
   return window.Telegram.WebApp.platform !== "unknown";
+}
+
+export function getWebApp(): WebApp {
+  return window.Telegram.WebApp;
+}
+
+export function getWebAppTheme(): WebApp["colorScheme"] {
+  return window.Telegram.WebApp.colorScheme;
 }
