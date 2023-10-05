@@ -1,12 +1,12 @@
-import "./game-menu.css";
 import { gameMenuService } from "@services/game-menu.service";
-import { getTelegramData } from "@utils/telegram.utils";
 import {
   gameLevelService,
   gameStateService,
   gameStatisticService,
   gameThemeService,
 } from "@services/index";
+import { getWebAppData } from "@utils/telegram.utils";
+import "./game-menu.css";
 
 const EMPTY = "N/A";
 
@@ -32,7 +32,7 @@ export function GameMenuComponent() {
   };
 
   return (
-    <div class="game-menu">
+    <div class="game-menu menu">
       <div onClick={incrementDebugClickCount} class="game-menu__header">
         Settings
       </div>
@@ -85,7 +85,7 @@ export function GameMenuComponent() {
       <div>TODO make some table</div>
 
       {isDebugActive.value && (
-        <div class="game-menu__debug">{getTelegramData()}</div>
+        <div class="game-menu__debug">{getWebAppData()}</div>
       )}
     </div>
   );

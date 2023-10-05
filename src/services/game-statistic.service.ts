@@ -1,16 +1,16 @@
-import {GameStatistic, GameStatisticWithLevel} from "@interfaces/index";
-import {computed, effect, signal, untracked} from "@preact/signals";
-import {GameLevelService} from "@services/game-level.service";
-import {Storage} from "@services/telegram-api";
+import { GameStatistic, GameStatisticWithLevel } from "@interfaces/index";
+import { computed, effect, signal, untracked } from "@preact/signals";
+import { GameLevelService } from "@services/game-level.service";
+import { Storage } from "@services/telegram-api";
 
 const AMOUNT_OF_SAVED_RESULTS = 5;
 
 export class GameStatisticService {
+  constructor(private gameLevelService: GameLevelService) {}
 
-  constructor(private gameLevelService: GameLevelService) {
-  }
-
-  readonly statistic = signal<GameStatisticWithLevel>({} as GameStatisticWithLevel);
+  readonly statistic = signal<GameStatisticWithLevel>(
+    {} as GameStatisticWithLevel
+  );
 
   readonly lastGameStatistic = signal<GameStatistic | null>(null);
 
@@ -18,7 +18,8 @@ export class GameStatisticService {
     if (!this.gameLevelService.gameLevel.value) {
       return null;
     }
-    const statsByLevel = this.statistic.value[this.gameLevelService.gameLevel.value] || [];
+    const statsByLevel =
+      this.statistic.value[this.gameLevelService.gameLevel.value] || [];
 
     if (statsByLevel.length === 0) {
       return null;
@@ -36,7 +37,8 @@ export class GameStatisticService {
     if (!this.gameLevelService.gameLevel.value) {
       return null;
     }
-    const statsByLevel = this.statistic.value[this.gameLevelService.gameLevel.value] || [];
+    const statsByLevel =
+      this.statistic.value[this.gameLevelService.gameLevel.value] || [];
 
     if (statsByLevel.length === 0) {
       return null;
@@ -71,7 +73,10 @@ export class GameStatisticService {
     this.lastGameStatistic.value = statistic;
     this.statistic.value = {
       ...this.statistic.value,
-      [level]: [statistic, ...(this.statistic.value?.[level] || [])].slice(0, AMOUNT_OF_SAVED_RESULTS)
+      [level]: [statistic, ...(this.statistic.value?.[level] || [])].slice(
+        0,
+        AMOUNT_OF_SAVED_RESULTS
+      ),
     };
     await persistGameStatisticsByLevel(this.statistic.value);
   };
@@ -113,13 +118,18 @@ export class GameStatisticService {
   }
 }
 
-export async function persistGameStatisticsByLevel(gameStatisticWithLevel: GameStatisticWithLevel): Promise<void> {
-  await Storage.setItem('results', JSON.stringify(gameStatisticWithLevel))
-  console.log('>> persistGameStatisticsByLevel', JSON.stringify(gameStatisticWithLevel));
+export async function persistGameStatisticsByLevel(
+  gameStatisticWithLevel: GameStatisticWithLevel
+): Promise<void> {
+  await Storage.setItem("results", JSON.stringify(gameStatisticWithLevel));
+  console.log(
+    ">> persistGameStatisticsByLevel",
+    JSON.stringify(gameStatisticWithLevel)
+  );
 }
 
 export async function getResultsStorage(): Promise<GameStatisticWithLevel> {
-  const resultsAsString = await Storage.getItem('results') || '{}';
-  console.log('>> getResultsStorage: resultsAsString', resultsAsString);
+  const resultsAsString = (await Storage.getItem("results")) || "{}";
+  console.log(">> getResultsStorage: resultsAsString", resultsAsString);
   return JSON.parse(resultsAsString);
 }

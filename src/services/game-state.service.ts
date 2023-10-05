@@ -5,10 +5,10 @@ import {
   GameLevel,
   GameState,
 } from "@interfaces/index";
-import {computed, signal} from "@preact/signals";
-import {gameMenuService} from "./game-menu.service";
-import {GameStatisticService} from "@services/game-statistic.service";
-import {GameLevelService} from "@services/game-level.service";
+import { computed, signal } from "@preact/signals";
+import { gameMenuService } from "./game-menu.service";
+import { GameStatisticService } from "@services/game-statistic.service";
+import { GameLevelService } from "@services/game-level.service";
 
 const animalCardTypes: CardAnimalType[] = [
   "bear",
@@ -65,7 +65,10 @@ export class GameStateService {
   private readonly startTimestamp = signal<number | null>(null);
   private readonly currentTimestamp = signal<number | null>(null);
 
-  constructor(private gameStatisticService: GameStatisticService, private gameLevelService: GameLevelService) {
+  constructor(
+    private gameStatisticService: GameStatisticService,
+    private gameLevelService: GameLevelService
+  ) {
     this.start();
   }
 
@@ -203,19 +206,4 @@ export class GameStateService {
 
     this.currentState.value = state;
   }
-
-  private formatTime(value: number): string {
-    const format = (value: number) => value.toString().padStart(2, "0");
-
-    const spentSeconds = Math.floor(value / 1000);
-    let minutesText = format(Math.floor(spentSeconds / 60));
-    minutesText = minutesText.length > 2 ? "99" : minutesText;
-    const secondsText = format(spentSeconds % 60);
-
-    return `${minutesText}:${secondsText}`;
-  }
-}
-
-function getRandomIntInRange(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 }

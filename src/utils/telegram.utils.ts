@@ -12,8 +12,8 @@ export function getBackButton(): BackButton {
   return window.Telegram.WebApp.BackButton;
 }
 
-export function getTelegramData(): string {
-  return JSON.stringify(window.Telegram, null, 2);
+export function getWebAppData(): string {
+  return JSON.stringify(window.Telegram.WebApp, null, 2);
 }
 
 export function isRunningInTelegram(): boolean {

@@ -9,50 +9,59 @@ import {
 
 export function GameOverComponent() {
   const { increaseLevel, isMaxLevel } = gameLevelService;
-  const { start } = gameStateService;
+  const { start, timeSpentInSeconds, cardsFlipCount } = gameStateService;
   const isMaxLevelReached = isMaxLevel();
 
-  const { timeSpentMessage, cardFlipsCountMessage } = gameStatisticService;
+  const { averageCardFlipsCount, averageTimeSpentInSeconds } =
+    gameStatisticService;
 
   const headerMessage = useSignal(getRandomCongratulation());
-  const levelChooseHandler = (shouldIncreaseLevel) => {
-    if (shouldIncreaseLevel) {
-      increaseLevel();
-    }
+
+  const increaseLevelAndStart = () => {
+    increaseLevel();
     start();
   };
 
   return (
-    <div class="game-over">
+    <div class="game-over menu">
       <div class="game-over__header">{headerMessage.value}</div>
       <div class="game-over__statistic">
-        <div class="game-over__statistic-message">{timeSpentMessage.value}</div>
-        <div class="game-over__statistic-message">
-          {cardFlipsCountMessage.value}
+        <div class="game-over__statistic-title">Time spent in second</div>
+        <div class="game-over__statistic-data">
+          <div class="game-over__statistic-key">This Game:</div>
+          <div class="game-over__statistic-value">
+            {timeSpentInSeconds.value}
+          </div>
+          <div class="game-over__statistic-key">You Average:</div>
+          <div class="game-over__statistic-value">
+            {averageTimeSpentInSeconds.value}
+          </div>
         </div>
       </div>
-      <div class="game-over__level-settings">
-        {!isMaxLevelReached && (
-          <div class="game-over__level-settings-message">
-            Do you want to increase the game's difficulty?
+      <div class="game-over__statistic">
+        <div class="game-over__statistic-title">Card Flips Count</div>
+        <div class="game-over__statistic-data">
+          <div class="game-over__statistic-key">This Game:</div>
+          <div class="game-over__statistic-value">{cardsFlipCount.value}</div>
+          <div class="game-over__statistic-key">You Average:</div>
+          <div class="game-over__statistic-value">
+            {averageCardFlipsCount.value}
           </div>
-        )}
-        <div class="game-over__level-settings-actions">
+        </div>
+      </div>
+
+      <div class="game-over__actions">
+        <button class="game-over__action-button" onClick={start}>
+          Play again
+        </button>
+        {!isMaxLevelReached && (
           <button
             class="game-over__action-button"
-            onClick={() => levelChooseHandler(false)}
+            onClick={increaseLevelAndStart}
           >
-            Play again
+            Go next level
           </button>
-          {!isMaxLevelReached && (
-            <button
-              class="game-over__action-button"
-              onClick={() => levelChooseHandler(true)}
-            >
-              Increase difficulty
-            </button>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );
