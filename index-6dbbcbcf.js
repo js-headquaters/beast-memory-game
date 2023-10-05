@@ -173,17 +173,18 @@ function getWebAppTheme() {
   return window.Telegram.WebApp.colorScheme;
 }
 class Storage {
-  static hasTelegramAPI() {
+  static hasStorageApi() {
     return !!window.Telegram?.WebApp?.CloudStorage && window.Telegram.WebApp.isVersionAtLeast("6.9");
   }
   static async setItem(key, value) {
-    if (!Storage.hasTelegramAPI()) {
+    if (!Storage.hasStorageApi()) {
       localStorage.setItem(key, value);
       return;
     }
     return new Promise((resolve, reject) => {
       window.Telegram.WebApp.CloudStorage.setItem(key, value, (err, isStored) => {
         if (err) {
+          console.error(">> omg error happened during SET", err);
           reject(err);
           return;
         }
@@ -192,12 +193,13 @@ class Storage {
     });
   }
   static async getItem(key) {
-    if (!Storage.hasTelegramAPI()) {
+    if (!Storage.hasStorageApi()) {
       return localStorage.getItem(key);
     }
     return new Promise((resolve, reject) => {
       window.Telegram.WebApp.CloudStorage.getItem(key, (err, value) => {
         if (err) {
+          console.error(">> omg error happened during CloudStorage GET", err);
           reject(err);
           return;
         }
@@ -622,18 +624,6 @@ class GameStatisticService {
       const total = statsByLevel.reduce((acc, value) => acc += value.cardFlipsCount, 0);
       return Math.floor(total / statsByLevel.length);
     });
-    this.timeSpentMessage = p$1(() => {
-      const {
-        timeSpentInSeconds
-      } = this.lastGameStatistic.value;
-      return this.getTimeSpentMessage(timeSpentInSeconds, this.averageTimeSpentInSeconds.value);
-    });
-    this.cardFlipsCountMessage = p$1(() => {
-      const {
-        cardFlipsCount
-      } = this.lastGameStatistic.value;
-      return this.getCardFlipsCountMessage(cardFlipsCount, this.averageCardFlipsCount.value);
-    });
     this.addGameStatistic = async (statistic) => {
       const level = this.gameLevelService.gameLevel.value;
       this.lastGameStatistic.value = statistic;
@@ -641,42 +631,15 @@ class GameStatisticService {
         ...this.statistic.value,
         [level]: [statistic, ...this.statistic.value?.[level] || []].slice(0, AMOUNT_OF_SAVED_RESULTS)
       };
-      await persistGameStatisticsByLevel(this.statistic.value);
+      await Storage.setItem("results", JSON.stringify(this.statistic.value));
+      console.log(">> addGameStatistic", JSON.stringify(this.statistic.value));
     };
     this.loadGameStatistic = async () => {
-      this.statistic.value = await getResultsStorage();
-      console.log(">> this statistic value", this.statistic.value);
+      const results = JSON.parse(await Storage.getItem("results") || "{}");
+      this.statistic.value = results;
+      console.log(">> loadGameStatistic", results);
     };
   }
-  getTimeSpentMessage(timeSpentInSeconds, averageTimeSpentInSeconds) {
-    let message = `You completed this round in ${timeSpentInSeconds} seconds.`;
-    const diff = averageTimeSpentInSeconds - timeSpentInSeconds;
-    if (diff > 0) {
-      message += ` That's ${diff} seconds faster than your average time.`;
-    } else if (diff < 0) {
-      message += ` You're just a bit off from your average of ${averageTimeSpentInSeconds} seconds. Keep practicing and you'll surely beat it next time!`;
-    }
-    return message;
-  }
-  getCardFlipsCountMessage(cardFlipsCount, averageCardFlipsCount) {
-    let message = `You finished the level with ${cardFlipsCount} card flips`;
-    const diff = averageCardFlipsCount - cardFlipsCount;
-    if (diff > 0) {
-      message += ` which is ${diff} less than your average`;
-    } else if (diff < 0) {
-      message += ` You're just a few flips away from your average of ${averageCardFlipsCount}. Keep going, and you'll hit it or even do better next time!`;
-    }
-    return message;
-  }
-}
-async function persistGameStatisticsByLevel(gameStatisticWithLevel) {
-  await Storage.setItem("results", JSON.stringify(gameStatisticWithLevel));
-  console.log(">> persistGameStatisticsByLevel", JSON.stringify(gameStatisticWithLevel));
-}
-async function getResultsStorage() {
-  const resultsAsString = await Storage.getItem("results") || "{}";
-  console.log(">> getResultsStorage: resultsAsString", resultsAsString);
-  return JSON.parse(resultsAsString);
 }
 
 const lightTheme = {
@@ -780,22 +743,15 @@ const statesComponents = /* @__PURE__ */ new Map([["run", GameFieldComponent], [
 function GameComponent() {
   const [gameStateService, setGameStateService] = h(null);
   const [gameStatisticService, setGameStatisticService] = h(null);
-  const [gameThemeService, setGameThemeService] = h(null);
-  const [gameLevelService, setGameLevelService] = h(null);
-  const [gameMenuService, setGameMenuService] = h(null);
   const [isLoading, setIsLoading] = h(true);
+  const gameThemeService = new GameThemeService();
+  const gameLevelService = new GameLevelService();
+  const gameMenuService = new GameMenuService();
   p$2(() => {
-    const gameLevelServiceInstance = new GameLevelService();
-    const gameStatisticServiceInstance = new GameStatisticService(gameLevelServiceInstance);
-    const gameMenuServiceInstance = new GameMenuService();
+    const gameStatisticServiceInstance = new GameStatisticService(gameLevelService);
     setGameStatisticService(gameStatisticServiceInstance);
-    setGameThemeService(new GameThemeService());
-    setGameLevelService(gameLevelServiceInstance);
-    setGameMenuService(gameMenuServiceInstance);
-    debugger;
-    Promise.all([gameStatisticServiceInstance.loadGameStatistic(), gameLevelServiceInstance.loadLevel()]).then(() => {
-      debugger;
-      setGameStateService(new GameStateService(gameStatisticServiceInstance, gameLevelServiceInstance, gameMenuServiceInstance));
+    Promise.all([gameStatisticServiceInstance.loadGameStatistic(), gameLevelService.loadLevel()]).then(() => {
+      setGameStateService(new GameStateService(gameStatisticServiceInstance, gameLevelService, gameMenuService));
       setIsLoading(false);
     });
   }, []);
