@@ -8,5 +8,6 @@ export default defineConfig({
   build: {
     assetsDir: ".",
     cssCodeSplit: false,
+    target: "esnext",
   },
 });
