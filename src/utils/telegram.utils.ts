@@ -29,12 +29,12 @@ export function getWebAppTheme(): WebApp["colorScheme"] {
 }
 
 export class Storage {
-  static hasTelegramAPI() {
+  static hasStorageApi() {
     return !!window.Telegram?.WebApp?.CloudStorage && window.Telegram.WebApp.isVersionAtLeast('6.9');
   }
 
   static async setItem(key, value): Promise<boolean> {
-    if (!Storage.hasTelegramAPI()) {
+    if (!Storage.hasStorageApi()) {
       localStorage.setItem(key, value)
       return;
     }
@@ -52,7 +52,7 @@ export class Storage {
   }
 
   static async getItem(key): Promise<string | undefined> {
-    if (!Storage.hasTelegramAPI()) {
+    if (!Storage.hasStorageApi()) {
       return localStorage.getItem(key);
     }
 
