@@ -7,30 +7,27 @@ import {
 } from "@utils/telegram.utils";
 
 const lightTheme: GameThemeProperties = {
-  themeBackground: "rgba(255, 255, 255, 1)",
+  themeBackground: "rgba(228, 223, 249, 1)",
   themeModalBackground: "rgba(255, 255, 255, 0.8)",
-  themePrimaryColor: "rgba(100, 65, 165, 1)",
-  themeAccentColor: "rgba(135, 0, 190, 0.5)",
-  themeButtonBackground: "rgba(175, 150, 210, 1)",
+  themeButtonTextColor: "rgba(255, 255, 255, 1)",
+  themeButtonBackground: "rgba(135, 0, 190, 0.5)",
   themeTextMainColor: "rgba(25, 17, 45, 1)",
   themeTextHighlightColor: "rgba(60, 0, 120, 1)",
   themeShadowColor: "rgba(100, 65, 165, 0.6)",
   themeBorderColor: "rgba(100, 65, 165, 0.6)",
-  themeBackgroundAccent: "rgba(228, 223, 249, 1)",
 };
 
 const darkTheme: GameThemeProperties = {
-  themeBackground: "rgba(25, 15, 40, 1)",
+  themeBackground: "rgba(45, 20, 70, 1)",
   themeModalBackground: "rgba(35, 25, 55, 1)",
-  themePrimaryColor: "rgba(130, 70, 190, 1)",
-  themeAccentColor: "rgba(190, 0, 255, 0.85)",
-  themeButtonBackground: "rgba(90, 30, 130, 1)",
+  themeButtonTextColor: "rgba(245, 230, 255, 1)",
+  themeButtonBackground: "rgba(190, 0, 255, 0.85)",
   themeTextMainColor: "rgba(245, 230, 255, 1)",
   themeTextHighlightColor: "rgba(255, 205, 255, 1)",
   themeShadowColor: "rgba(190, 150, 255, 0.6)",
   themeBorderColor: "rgba(193, 113, 229, 0.5)",
-  themeBackgroundAccent: "rgba(45, 20, 70, 1)",
 };
+
 export class GameThemeService {
   readonly theme = signal<GameTheme>(getWebAppTheme());
   readonly themeProperties = computed(() => {
@@ -41,12 +38,12 @@ export class GameThemeService {
 
   constructor() {
     effect(() => {
-      const { themeAccentColor, themeTextMainColor } =
+      const { themeButtonTextColor, themeButtonBackground } =
         this.themeProperties.value;
 
       this.mainButton.setParams({
-        text_color: themeTextMainColor,
-        color: themeAccentColor,
+        text_color: themeButtonTextColor,
+        color: themeButtonBackground,
       });
       this.applyTheme(this.themeProperties.value);
     });

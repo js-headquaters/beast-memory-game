@@ -40,14 +40,14 @@ export function GameMenuComponent() {
         <div class="game-menu__item-name">Difficulty:</div>
         <div class="game-menu__item-value">
           <button
-            className="game-menu__level-diff-button"
+            className="game-menu__action-button"
             onClick={decreaseLevelAndRestart}
           >
             -
           </button>
           <span>{gameLevel.value}</span>
           <button
-            className="game-menu__level-diff-button"
+            className="game-menu__action-button"
             onClick={increaseLevelAndRestart}
           >
             +
@@ -58,10 +58,7 @@ export function GameMenuComponent() {
       <div class="game-menu__item">
         <div class="game-menu__item-name">Theme:</div>
         <div class="game-menu__item-value">
-          <button
-            className="game-menu__level-diff-button"
-            onClick={toggleTheme}
-          >
+          <button className="game-menu__action-button" onClick={toggleTheme}>
             {theme.value}
           </button>
         </div>

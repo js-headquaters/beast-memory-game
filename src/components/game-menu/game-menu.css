@@ -5,6 +5,7 @@
   margin-bottom: 0.5rem;
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1rem var(--theme-shadow-color);
+  overflow: auto;
 }
 
 .game-menu__header {
@@ -33,9 +34,9 @@
   overflow: auto;
 }
 
-.game-menu__level-diff-button {
+.game-menu__action-button {
   background-color: var(--theme-button-background);
-  color: var(--theme-text-main-color);
+  color: var(--theme-button-text-color);
   border: none;
   border-radius: 0.25rem;
   padding: 0.25rem 0.5rem;

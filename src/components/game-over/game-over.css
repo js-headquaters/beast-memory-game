@@ -13,7 +13,7 @@
   text-align: center;
   color: var(--theme-text-highlight-color);
   font-size: 1.5rem;
-  text-shadow: 0 0 0.5rem var(--theme-accent-color);
+  text-shadow: 0 0 0.5rem var(--theme-text-main-color);
 }
 
 .game-over__statistic-message + .game-over__statistic-message {
@@ -28,9 +28,9 @@
 
 .game-over__action-button {
   background-color: var(--theme-button-background);
-  color: var(--theme-text-highlight-color);
+  color: var(--theme-button-text-color);
   padding: 0.5rem 1rem;
-  border: 0.125rem solid var(--theme-accent-color);
+  border: 0.125rem solid var(--theme-border-color);
   border-radius: 0.5rem;
   cursor: pointer;
 }
