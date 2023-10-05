@@ -1,13 +1,16 @@
-import { GameStatistic, GameStatisticWithLevel } from "@interfaces/index";
-import { computed, effect, signal, untracked } from "@preact/signals";
-import { GameLevelService } from "@services/game-level.service";
-
-import {Storage} from "@utils/telegram.utils";
+import { MAX_GAME_LEVEL } from "@constants";
+import {
+  GameLevel,
+  GameStatistic,
+  GameStatisticWithLevel,
+} from "@interfaces/index";
+import { computed, signal } from "@preact/signals";
+import { Storage } from "@utils/telegram.utils";
 
 const AMOUNT_OF_SAVED_RESULTS = 5;
 
 export class GameStatisticService {
-  constructor(private gameLevelService: GameLevelService) {}
+  readonly gameLevel = signal<GameLevel>(1);
 
   readonly statistic = signal<GameStatisticWithLevel>(
     {} as GameStatisticWithLevel
@@ -15,12 +18,15 @@ export class GameStatisticService {
 
   readonly lastGameStatistic = signal<GameStatistic | null>(null);
 
+  readonly currentLevelStatistic = computed(() => {
+    return this.statistic.value[this.gameLevel.value] ?? [];
+  });
+
   readonly averageTimeSpentInSeconds = computed(() => {
-    if (!this.gameLevelService.gameLevel.value) {
+    if (!this.gameLevel.value) {
       return null;
     }
-    const statsByLevel =
-      this.statistic.value[this.gameLevelService.gameLevel.value] || [];
+    const statsByLevel = this.statistic.value[this.gameLevel.value] || [];
 
     if (statsByLevel.length === 0) {
       return null;
@@ -35,11 +41,10 @@ export class GameStatisticService {
   });
 
   readonly averageCardFlipsCount = computed(() => {
-    if (!this.gameLevelService.gameLevel.value) {
+    if (!this.gameLevel.value) {
       return null;
     }
-    const statsByLevel =
-      this.statistic.value[this.gameLevelService.gameLevel.value] || [];
+    const statsByLevel = this.statistic.value[this.gameLevel.value] || [];
 
     if (statsByLevel.length === 0) {
       return null;
@@ -52,9 +57,21 @@ export class GameStatisticService {
     return Math.floor(total / statsByLevel.length);
   });
 
-  addGameStatistic = async (statistic: GameStatistic) => {
-    const level = this.gameLevelService.gameLevel.value;
+  increaseLevel = () => {
+    const value = (this.gameLevel.value + 1) as GameLevel;
+    if (value <= MAX_GAME_LEVEL) {
+      this.gameLevel.value = value;
+    }
+  };
 
+  degreesLevel = () => {
+    const value = (this.gameLevel.value - 1) as GameLevel;
+    if (value > 0) {
+      this.gameLevel.value = value;
+    }
+  };
+
+  addGameStatistic = async (level: GameLevel, statistic: GameStatistic) => {
     this.lastGameStatistic.value = statistic;
     this.statistic.value = {
       ...this.statistic.value,
@@ -64,10 +81,7 @@ export class GameStatisticService {
       ),
     };
     await Storage.setItem("results", JSON.stringify(this.statistic.value));
-    console.log(
-        ">> addGameStatistic",
-        JSON.stringify(this.statistic.value)
-    );
+    console.log(">> addGameStatistic", JSON.stringify(this.statistic.value));
   };
 
   loadGameStatistic = async () => {

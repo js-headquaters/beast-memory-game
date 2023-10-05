@@ -3,8 +3,8 @@ import lightBackImage from "@assets/back-light.jpg";
 import { GameCard } from "@interfaces/index";
 import { cardImageMap } from "@utils/card-image.utils";
 import "./game-card.css";
-import {GameStateContext, GameThemeContext} from "../../context/game-state.context";
-import {useContext} from "preact/compat";
+import { GameStateContext, GameThemeContext } from "../../interfaces/context";
+import { useContext } from "preact/compat";
 
 export function GameCardComponent(card: GameCard) {
   const { openCard, isCardOpen } = useContext(GameStateContext);

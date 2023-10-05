@@ -2,6 +2,7 @@
   display: flex;
   flex-flow: column nowrap;
   gap: 0.5rem;
+  height: 100%;
 }
 
 .game-over__actions {
@@ -9,13 +10,4 @@
   display: flex;
   gap: 1rem;
   justify-content: center;
-}
-
-.game-over__action-button {
-  background-color: var(--theme-button-background);
-  color: var(--theme-button-text-color);
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  border: none;
 }

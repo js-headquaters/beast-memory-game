@@ -5,10 +5,9 @@ import {
   GameLevel,
   GameState,
 } from "@interfaces/index";
-import { computed, signal } from "@preact/signals";
-import { GameStatisticService } from "@services/game-statistic.service";
-import { GameLevelService } from "@services/game-level.service";
-import {GameMenuService} from "@services/game-menu.service";
+import { computed, effect, signal } from "@preact/signals";
+import { getMainButton } from "@utils/telegram.utils";
+import { MAX_GAME_LEVEL } from "@constants";
 
 const animalCardTypes: CardAnimalType[] = [
   "bear",
@@ -38,6 +37,8 @@ const gameDifficultyMap = new Map<GameLevel, GameInitParams>([
 ]);
 
 export class GameStateService {
+  readonly gameLevel = signal<GameLevel>(1);
+
   readonly cards = signal<GameCard[]>([]);
   readonly horizontalCardsCount = signal<number>(0);
   readonly verticalCardsCount = signal<number>(0);
@@ -61,19 +62,41 @@ export class GameStateService {
     return diff > 0 ? Math.floor(diff / 1000) : 0;
   });
 
+  readonly canIncreaseLevel = computed(() => {
+    return this.gameLevel.value < MAX_GAME_LEVEL;
+  });
+
+  readonly canDegreesLevel = computed(() => {
+    return this.gameLevel.value > 1;
+  });
+
+  readonly isMenuOpen = computed(() => {
+    return this.currentState.value === "menu";
+  });
+
+  readonly menuButtonText = computed(() => {
+    if (this.currentState.value === "game_over") {
+      return this.canIncreaseLevel.value ? "Next level" : "Play again";
+    }
+    return this.currentState.value === "menu" ? "Close" : "Statistic";
+  });
+
   private timer: number;
   private readonly startTimestamp = signal<number | null>(null);
   private readonly currentTimestamp = signal<number | null>(null);
 
-  constructor(
-    private gameStatisticService: GameStatisticService,
-    private gameLevelService: GameLevelService,
-    private gameMenuService: GameMenuService,
-  ) {
-    this.start();
+  private readonly mainButton = getMainButton();
+
+  constructor() {
+    this.mainButton.show();
+    this.mainButton.onClick(this.mainButtonClickHandler);
+    effect(() => {
+      this.mainButton.setText(this.menuButtonText.value);
+    });
   }
 
   start = () => {
+    this.setState("init");
     this.setState("run");
   };
 
@@ -113,6 +136,34 @@ export class GameStateService {
 
   resetTimer = () => {
     this.startTimestamp.value = Date.now();
+  };
+
+  increaseLevel = () => {
+    const value = (this.gameLevel.value + 1) as GameLevel;
+    if (value <= MAX_GAME_LEVEL) {
+      this.gameLevel.value = value;
+    }
+  };
+
+  degreesLevel = () => {
+    const value = (this.gameLevel.value - 1) as GameLevel;
+    if (value > 0) {
+      this.gameLevel.value = value;
+    }
+  };
+
+  mainButtonClickHandler = () => {
+    if (this.currentState.value === "game_over") {
+      this.increaseLevel();
+      this.start();
+      return;
+    }
+
+    if (this.currentState.value !== "menu") {
+      this.setState("menu");
+    } else {
+      this.setState("run");
+    }
   };
 
   private closeCards() {
@@ -180,15 +231,13 @@ export class GameStateService {
   }
 
   private setState(state: GameState) {
-    if (state === "run") {
+    if (state === "init") {
       this.resetTimer();
-      this.startTimer();
-      this.gameMenuService.showMenu();
 
       this.openCardsIds.value = [];
       this.cardsFlipCount.value = 0;
       const { horizontalCardsCount, pairsCount } = gameDifficultyMap.get(
-        this.gameLevelService.gameLevel.value
+        this.gameLevel.value
       );
       this.cards.value = this.createGameCards(pairsCount);
       this.horizontalCardsCount.value = horizontalCardsCount;
@@ -196,13 +245,16 @@ export class GameStateService {
         this.cards.value.length / horizontalCardsCount;
     }
 
+    if (state === "run") {
+      this.startTimer();
+    }
+
+    if (state === "menu") {
+      this.stopTimer();
+    }
+
     if (state === "game_over") {
       this.stopTimer();
-      this.gameMenuService.hideMenu();
-      this.gameStatisticService.addGameStatistic({
-        timeSpentInSeconds: this.timeSpentInSeconds.value,
-        cardFlipsCount: this.cardsFlipCount.value,
-      });
     }
 
     this.currentState.value = state;
