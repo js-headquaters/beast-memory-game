@@ -1,0 +1,17 @@
+.setting__name {
+}
+
+.setting__value {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.setting__button {
+  background-color: var(--theme-button-background);
+  color: var(--theme-button-text-color);
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+}

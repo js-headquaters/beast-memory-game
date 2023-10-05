@@ -4,35 +4,6 @@
   gap: 0.5rem;
 }
 
-.game-over__header {
-  text-align: center;
-  color: var(--theme-text-highlight-color);
-  font-size: 1.25rem;
-  text-shadow: 0 0 0.5rem var(--theme-text-highlight-color);
-  margin-bottom: 1rem;
-}
-
-.game-over__statistic {
-  border: 1px solid var(--theme-border-color);
-  border-radius: 0.5rem;
-}
-.game-over__statistic-title {
-  text-align: center;
-  color: var(--theme-text-highlight-color);
-  border-bottom: 1px solid var(--theme-border-color);
-  padding: 0.5rem;
-}
-
-.game-over__statistic-data {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  padding: 0.5rem;
-}
-
-.game-over__statistic-message + .game-over__statistic-message {
-  margin-top: 0.5rem;
-}
-
 .game-over__actions {
   margin-top: 0.5rem;
   display: flex;

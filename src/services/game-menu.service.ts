@@ -8,7 +8,7 @@ export class GameMenuService {
   private readonly mainButton = getMainButton();
 
   readonly isDebugActive = computed(() => {
-    return this.debugClickCount.value > 10;
+    return this.debugClickCount.value > 3;
   });
 
   readonly menuButtonText = computed(() => {

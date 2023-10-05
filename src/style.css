@@ -5,9 +5,17 @@ body {
   color: var(--theme-text-main-color);
 }
 
-.menu {
+.modal {
   background-color: var(--theme-modal-background);
   padding: 1rem;
   border-radius: 0.5rem;
   box-shadow: 0 0.25rem 0.5rem var(--theme-shadow-color);
+}
+
+.modal__header {
+  text-align: center;
+  color: var(--theme-text-highlight-color);
+  font-size: 1.25rem;
+  text-shadow: 0 0 0.5rem var(--theme-text-highlight-color);
+  margin-bottom: 1rem;
 }
