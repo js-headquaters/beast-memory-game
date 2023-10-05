@@ -45,12 +45,10 @@ export function GameComponent() {
     setGameLevelService(gameLevelServiceInstance);
     setGameMenuService(gameMenuServiceInstance);
 
-    debugger
     Promise.all([
       gameStatisticServiceInstance.loadGameStatistic(),
       gameLevelServiceInstance.loadLevel(),
     ]).then(() => {
-      debugger;
       setGameStateService(
         new GameStateService(
           gameStatisticServiceInstance,

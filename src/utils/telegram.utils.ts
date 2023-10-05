@@ -42,6 +42,7 @@ export class Storage {
     return new Promise((resolve, reject) => {
       window.Telegram.WebApp.CloudStorage.setItem(key, value, (err, isStored) => {
         if (err) {
+          console.error('>> omg error happened during SET', err);
           reject(err);
           return;
         }
@@ -58,6 +59,7 @@ export class Storage {
     return new Promise((resolve, reject) => {
       window.Telegram.WebApp.CloudStorage.getItem(key, (err, value) => {
         if (err) {
+          console.error('>> omg error happened during CloudStorage GET', err);
           reject(err);
           return;
         }
