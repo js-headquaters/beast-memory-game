@@ -157,6 +157,53 @@ function GameFieldComponent() {
   });
 }
 
+const block = '';
+
+function BlockComponent({
+  title,
+  children
+}) {
+  return o$1("div", {
+    class: "block",
+    children: [o$1("div", {
+      class: "block__title",
+      children: title
+    }), o$1("div", {
+      class: "block__content",
+      children
+    })]
+  });
+}
+
+const setting = '';
+
+function SettingComponent({
+  name,
+  value,
+  increase,
+  degrees
+}) {
+  return o$1(k$1, {
+    children: [o$1("div", {
+      class: "setting__name",
+      children: name
+    }), o$1("div", {
+      class: "setting__value",
+      children: [o$1("button", {
+        className: "setting__button",
+        onClick: degrees,
+        children: "-"
+      }), o$1("span", {
+        children: value
+      }), o$1("button", {
+        className: "setting__button",
+        onClick: increase,
+        children: "+"
+      })]
+    })]
+  });
+}
+
 function getMainButton() {
   return window.Telegram.WebApp.MainButton;
 }
@@ -209,9 +256,36 @@ class Storage {
   }
 }
 
+const keyValueList = '';
+
+function KeyValueListComponent({
+  children
+}) {
+  return o$1("div", {
+    class: "key-value-list",
+    children
+  });
+}
+
 const gameMenu = '';
 
-const EMPTY = "N/A";
+const keyValue = '';
+
+function KeyValueComponent({
+  name,
+  value
+}) {
+  return o$1(k$1, {
+    children: [o$1("div", {
+      class: "name",
+      children: name
+    }), o$1("div", {
+      class: "value",
+      children: value ? value : "N/A"
+    })]
+  });
+}
+
 function GameMenuComponent() {
   const {
     increaseLevel,
@@ -233,85 +307,57 @@ function GameMenuComponent() {
     toggleTheme,
     theme
   } = q$1(GameThemeContext);
-  const increaseLevelAndRestart = () => {
-    const isIncreased = increaseLevel();
-    if (isIncreased) {
-      start();
-    }
+  const increaseLevelAndStart = () => {
+    increaseLevel();
+    start();
   };
-  const decreaseLevelAndRestart = () => {
-    const isDecreased = degreesLevel();
-    if (isDecreased) {
-      start();
-    }
+  const decreaseLevelAndStart = () => {
+    degreesLevel();
+    start();
   };
   return o$1("div", {
-    class: "game-menu menu",
+    class: "game-menu modal",
     children: [o$1("div", {
       onClick: incrementDebugClickCount,
-      class: "game-menu__header",
-      children: "Settings"
-    }), o$1("div", {
-      class: "game-menu__item",
-      children: [o$1("div", {
-        class: "game-menu__item-name",
-        children: "Difficulty:"
-      }), o$1("div", {
-        class: "game-menu__item-value",
-        children: [o$1("button", {
-          className: "game-menu__action-button",
-          onClick: decreaseLevelAndRestart,
-          children: "-"
-        }), o$1("span", {
-          children: gameLevel.value
-        }), o$1("button", {
-          className: "game-menu__action-button",
-          onClick: increaseLevelAndRestart,
-          children: "+"
+      class: "modal__header",
+      children: "Menu"
+    }), o$1(BlockComponent, {
+      title: "Settings",
+      children: o$1(KeyValueListComponent, {
+        children: [o$1(SettingComponent, {
+          name: "Difficulty:",
+          value: `level ${gameLevel.value}`,
+          increase: increaseLevelAndStart,
+          degrees: decreaseLevelAndStart
+        }), isDebugActive.value && o$1(SettingComponent, {
+          name: "Theme:",
+          value: theme.value,
+          increase: toggleTheme,
+          degrees: toggleTheme
         })]
-      })]
-    }), o$1("div", {
-      class: "game-menu__item",
-      children: [o$1("div", {
-        class: "game-menu__item-name",
-        children: "Theme:"
-      }), o$1("div", {
-        class: "game-menu__item-value",
-        children: o$1("button", {
-          className: "game-menu__action-button",
-          onClick: toggleTheme,
-          children: theme.value
-        })
-      })]
-    }), o$1("div", {
-      class: "game-menu__header",
-      children: "Statistic"
-    }), o$1("div", {
-      class: "game-menu__item",
-      children: [o$1("div", {
-        class: "game-menu__item-name",
-        children: "Average time:"
-      }), o$1("div", {
-        class: "game-menu__item-value",
-        children: averageTimeSpentInSeconds.value ? `${averageTimeSpentInSeconds.value}s` : EMPTY
-      })]
-    }), o$1("div", {
-      class: "game-menu__item",
-      children: [o$1("div", {
-        class: "game-menu__item-name",
-        children: "Average flips:"
-      }), o$1("div", {
-        class: "game-menu__item-value",
-        children: averageCardFlipsCount.value ? averageCardFlipsCount.value : EMPTY
-      })]
-    }), o$1("div", {
-      class: "game-menu__header",
-      children: "Game history"
-    }), o$1("div", {
-      children: "TODO make some table"
-    }), isDebugActive.value && o$1("div", {
-      class: "game-menu__debug",
-      children: getWebAppData()
+      })
+    }), o$1(BlockComponent, {
+      title: "Game Statistic",
+      children: o$1(KeyValueListComponent, {
+        children: [o$1(KeyValueComponent, {
+          name: "Average Time:",
+          value: averageTimeSpentInSeconds.value
+        }), o$1(KeyValueComponent, {
+          name: "Average Flips:",
+          value: averageCardFlipsCount.value
+        })]
+      })
+    }), o$1(BlockComponent, {
+      title: "Game history",
+      children: o$1("div", {
+        children: "TODO make some table"
+      })
+    }), isDebugActive.value && o$1(BlockComponent, {
+      title: "Debug Info",
+      children: o$1("div", {
+        class: "game-menu__debug",
+        children: getWebAppData()
+      })
     })]
   });
 }
@@ -331,14 +377,13 @@ const gameOver = '';
 function GameOverComponent() {
   const {
     increaseLevel,
-    isMaxLevel
+    canIncreaseLevel
   } = q$1(GameLevelContext);
   const {
     start,
     timeSpentInSeconds,
     cardsFlipCount
   } = q$1(GameStateContext);
-  const isMaxLevelReached = isMaxLevel();
   const {
     averageCardFlipsCount,
     averageTimeSpentInSeconds
@@ -349,51 +394,35 @@ function GameOverComponent() {
     start();
   };
   return o$1("div", {
-    class: "game-over menu",
+    class: "game-over modal",
     children: [o$1("div", {
-      class: "game-over__header",
+      class: "modal__header",
       children: headerMessage.value
-    }), o$1("div", {
-      class: "game-over__statistic",
-      children: [o$1("div", {
-        class: "game-over__statistic-title",
-        children: "Time spent in second"
-      }), o$1("div", {
-        class: "game-over__statistic-data",
-        children: [o$1("div", {
-          class: "game-over__statistic-key",
-          children: "This Game:"
-        }), o$1("div", {
-          class: "game-over__statistic-value",
-          children: timeSpentInSeconds.value
-        }), o$1("div", {
-          class: "game-over__statistic-key",
-          children: "You Average:"
-        }), o$1("div", {
-          class: "game-over__statistic-value",
-          children: averageTimeSpentInSeconds.value
-        })]
+    }), o$1(BlockComponent, {
+      title: "Time spent in second",
+      children: [o$1(KeyValueListComponent, {
+        children: o$1(KeyValueComponent, {
+          name: "This Game:",
+          value: timeSpentInSeconds.value
+        })
+      }), o$1(KeyValueListComponent, {
+        children: o$1(KeyValueComponent, {
+          name: "You Average:",
+          value: averageTimeSpentInSeconds.value
+        })
       })]
-    }), o$1("div", {
-      class: "game-over__statistic",
-      children: [o$1("div", {
-        class: "game-over__statistic-title",
-        children: "Card Flips Count"
-      }), o$1("div", {
-        class: "game-over__statistic-data",
-        children: [o$1("div", {
-          class: "game-over__statistic-key",
-          children: "This Game:"
-        }), o$1("div", {
-          class: "game-over__statistic-value",
-          children: cardsFlipCount.value
-        }), o$1("div", {
-          class: "game-over__statistic-key",
-          children: "You Average:"
-        }), o$1("div", {
-          class: "game-over__statistic-value",
-          children: averageCardFlipsCount.value
-        })]
+    }), o$1(BlockComponent, {
+      title: "Card Flips Count",
+      children: [o$1(KeyValueListComponent, {
+        children: o$1(KeyValueComponent, {
+          name: "This Game:",
+          value: cardsFlipCount.value
+        })
+      }), o$1(KeyValueListComponent, {
+        children: o$1(KeyValueComponent, {
+          name: "You Average:",
+          value: averageCardFlipsCount.value
+        })
       })]
     }), o$1("div", {
       class: "game-over__actions",
@@ -401,7 +430,7 @@ function GameOverComponent() {
         class: "game-over__action-button",
         onClick: start,
         children: "Play again"
-      }), !isMaxLevelReached && o$1("button", {
+      }), canIncreaseLevel.value && o$1("button", {
         class: "game-over__action-button",
         onClick: increaseLevelAndStart,
         children: "Go next level"
@@ -417,7 +446,7 @@ class GameMenuService {
     this.debugClickCount = a(0);
     this.mainButton = getMainButton();
     this.isDebugActive = p$1(() => {
-      return this.debugClickCount.value > 10;
+      return this.debugClickCount.value > 3;
     });
     this.menuButtonText = p$1(() => {
       return this.isMenuOpen.value ? "Close" : "Menu";
@@ -707,6 +736,12 @@ class GameLevelService {
   constructor() {
     this.maxDifficulty = 6;
     this.gameLevel = a(1);
+    this.canIncreaseLevel = p$1(() => {
+      return this.gameLevel.value < this.maxDifficulty;
+    });
+    this.canDegreesLevel = p$1(() => {
+      return this.gameLevel.value > 1;
+    });
     this.loadLevel = async () => {
       const level = Number(await Storage.getItem("level"));
       if (level) {
@@ -721,20 +756,13 @@ class GameLevelService {
       const value = this.gameLevel.value + 1;
       if (value <= this.maxDifficulty) {
         this.gameLevel.value = value;
-        return true;
       }
-      return false;
     };
     this.degreesLevel = () => {
       const value = this.gameLevel.value - 1;
       if (value > 0) {
         this.gameLevel.value = value;
-        return true;
       }
-      return false;
-    };
-    this.isMaxLevel = () => {
-      return this.gameLevel.value === this.maxDifficulty;
     };
   }
 }
