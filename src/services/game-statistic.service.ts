@@ -1,7 +1,8 @@
 import { GameStatistic, GameStatisticWithLevel } from "@interfaces/index";
 import { computed, effect, signal, untracked } from "@preact/signals";
 import { GameLevelService } from "@services/game-level.service";
-import { Storage } from "@services/telegram-api";
+
+import {Storage} from "@utils/telegram.utils";
 
 const AMOUNT_OF_SAVED_RESULTS = 5;
 

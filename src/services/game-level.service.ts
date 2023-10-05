@@ -1,6 +1,6 @@
 import {GameLevel} from "@interfaces/index";
-import {Storage} from "@services/telegram-api";
 import {effect, signal} from "@preact/signals";
+import {Storage} from "@utils/telegram.utils";
 
 
 export class GameLevelService {
