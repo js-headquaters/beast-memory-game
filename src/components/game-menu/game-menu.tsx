@@ -2,7 +2,8 @@ import { getWebAppData } from "@utils/telegram.utils";
 import "./game-menu.css";
 import {useContext} from "preact/compat";
 import {
-    GameLevelContext, GameMenuContext,
+    GameLevelContext,
+    GameMenuContext,
     GameStateContext,
     GameStatisticContext,
     GameThemeContext
@@ -11,7 +12,7 @@ import {
 const EMPTY = "N/A";
 
 export function GameMenuComponent() {
-  const { increaseLevel, degreesLevel, gameLevel } = useContext(GameLevelContext)
+  const { increaseLevel, degreesLevel, gameLevel } = useContext(GameLevelContext);
   const { incrementDebugClickCount, isDebugActive } = useContext(GameMenuContext);
   const { averageCardFlipsCount, averageTimeSpentInSeconds } =
     useContext(GameStatisticContext);

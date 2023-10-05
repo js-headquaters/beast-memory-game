@@ -28,32 +28,28 @@ const statesComponents = new Map<GameState, GameStateComponent>([
 export function GameComponent() {
   const [gameStateService, setGameStateService] = useState(null);
   const [gameStatisticService, setGameStatisticService] = useState(null);
-  const [gameThemeService, setGameThemeService] = useState(null);
-  const [gameLevelService, setGameLevelService] = useState(null);
-  const [gameMenuService, setGameMenuService] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const gameThemeService = new GameThemeService()
+  const gameLevelService = new GameLevelService();
+  const gameMenuService = new GameMenuService();
+
   useEffect(() => {
-    const gameLevelServiceInstance = new GameLevelService();
     const gameStatisticServiceInstance = new GameStatisticService(
-      gameLevelServiceInstance,
+      gameLevelService,
     );
-    const gameMenuServiceInstance = new GameMenuService();
 
     setGameStatisticService(gameStatisticServiceInstance);
-    setGameThemeService(new GameThemeService());
-    setGameLevelService(gameLevelServiceInstance);
-    setGameMenuService(gameMenuServiceInstance);
 
     Promise.all([
       gameStatisticServiceInstance.loadGameStatistic(),
-      gameLevelServiceInstance.loadLevel(),
+      gameLevelService.loadLevel(),
     ]).then(() => {
       setGameStateService(
         new GameStateService(
           gameStatisticServiceInstance,
-          gameLevelServiceInstance,
-          gameMenuServiceInstance,
+          gameLevelService,
+          gameMenuService,
         ),
       );
 

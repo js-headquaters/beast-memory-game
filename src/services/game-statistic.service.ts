@@ -63,61 +63,16 @@ export class GameStatisticService {
         AMOUNT_OF_SAVED_RESULTS
       ),
     };
-    await this.persistGameStatisticsByLevel(this.statistic.value);
+    await Storage.setItem("results", JSON.stringify(this.statistic.value));
+    console.log(
+        ">> addGameStatistic",
+        JSON.stringify(this.statistic.value)
+    );
   };
 
   loadGameStatistic = async () => {
-    this.statistic.value = await this.getResultsStorage();
-    console.log('>> this statistic value', this.statistic.value);
+    const results = JSON.parse((await Storage.getItem("results")) || "{}");
+    this.statistic.value = results;
+    console.log(">> loadGameStatistic", results);
   };
-
-  private getTimeSpentMessage(
-    timeSpentInSeconds: number,
-    averageTimeSpentInSeconds: number
-  ): string {
-    let message = `You completed this round in ${timeSpentInSeconds} seconds.`;
-    const diff = averageTimeSpentInSeconds - timeSpentInSeconds;
-
-    if (diff > 0) {
-      message += ` That's ${diff} seconds faster than your average time.`;
-    } else if (diff < 0) {
-      message += ` You're just a bit off from your average of ${averageTimeSpentInSeconds} seconds. Keep practicing and you'll surely beat it next time!`;
-    }
-
-    return message;
-  }
-
-  private getCardFlipsCountMessage(
-    cardFlipsCount: number,
-    averageCardFlipsCount: number
-  ): string {
-    let message = `You finished the level with ${cardFlipsCount} card flips`;
-    const diff = averageCardFlipsCount - cardFlipsCount;
-
-    if (diff > 0) {
-      message += ` which is ${diff} less than your average`;
-    } else if (diff < 0) {
-      message += ` You're just a few flips away from your average of ${averageCardFlipsCount}. Keep going, and you'll hit it or even do better next time!`;
-    }
-
-    return message;
-  }
-
-
-  private async persistGameStatisticsByLevel(
-      gameStatisticWithLevel: GameStatisticWithLevel
-  ): Promise<void> {
-    await Storage.setItem("results", JSON.stringify(gameStatisticWithLevel));
-    console.log(
-        ">> persistGameStatisticsByLevel",
-        JSON.stringify(gameStatisticWithLevel)
-    );
-  }
-
-  private async getResultsStorage(): Promise<GameStatisticWithLevel> {
-    const resultsAsString = (await Storage.getItem("results")) || "{}";
-    console.log(">> getResultsStorage: resultsAsString", resultsAsString);
-    return JSON.parse(resultsAsString);
-  }
-
 }

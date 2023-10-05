@@ -5,7 +5,6 @@ import {Storage} from "@utils/telegram.utils";
 
 export class GameLevelService {
     readonly maxDifficulty: GameLevel = 6;
-
     readonly gameLevel = signal<GameLevel>(1);
 
     loadLevel = async () => {
