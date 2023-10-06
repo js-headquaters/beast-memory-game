@@ -12,7 +12,7 @@ import {
 } from "@interfaces/index";
 import { computed, effect, signal, untracked } from "@preact/signals";
 import { Logger } from "@utils/logger.utils";
-import { getMainButton } from "@utils/telegram.utils";
+import { getHapticFeedback, getMainButton } from "@utils/telegram.utils";
 
 const animalCardTypes: CardAnimalType[] = [
   "bear",
@@ -88,6 +88,7 @@ export class GameStateService {
 
   private readonly mainButton = getMainButton();
   private readonly logger = new Logger("GameStateService");
+  private readonly feedback = getHapticFeedback();
 
   constructor() {
     this.mainButton.show();
@@ -135,6 +136,8 @@ export class GameStateService {
 
     this.openCardsIds.value = [...this.openCardsIds.value, card.id];
     this.cardsFlipCount.value += 1;
+    this.feedback.impactOccurred("light");
+
     this.logger.log(`opened "${card.animalType}" card`);
 
     if (this.openCardsIds.value.length < 2) {
@@ -220,8 +223,7 @@ export class GameStateService {
         `card "${firstCard.animalType}" match card "${secondCard.animalType}"`
       );
 
-      // TODO do we need this?
-      window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
+      this.feedback.impactOccurred("heavy");
 
       firstCard.isActive = false;
       secondCard.isActive = false;
@@ -235,8 +237,7 @@ export class GameStateService {
 
       // Wait till card flip animation ends
       setTimeout(() => {
-        // TODO do we need this?
-        window.Telegram.WebApp.HapticFeedback.notificationOccurred("success");
+        this.feedback.notificationOccurred("success");
         this.currentState.value = "game_over";
       }, CARD_FLIP_ANIMATION_TIME);
     }, CARD_FLIP_ANIMATION_TIME);

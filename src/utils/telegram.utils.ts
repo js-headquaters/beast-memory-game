@@ -1,4 +1,10 @@
-import { BackButton, MainButton, WebApp, WebAppUser } from "@twa-dev/types";
+import {
+  BackButton,
+  HapticFeedback,
+  MainButton,
+  WebApp,
+  WebAppUser,
+} from "@twa-dev/types";
 
 export function getWebAppUser(): WebAppUser | undefined {
   return window.Telegram.WebApp.initDataUnsafe?.user;
@@ -33,6 +39,10 @@ export function hasStorageApi(): boolean {
     !!window.Telegram?.WebApp?.CloudStorage &&
     window.Telegram.WebApp.isVersionAtLeast("6.9")
   );
+}
+
+export function getHapticFeedback(): HapticFeedback {
+  return window.Telegram.WebApp.HapticFeedback;
 }
 
 // TODO move to statistic service
