@@ -7,11 +7,23 @@
 }
 
 .game-field__cards {
-  flex: 0 1 calc(var(--vertical-cards-count) * var(--game-card-total-height));
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: calc(var(--vertical-cards-count) * var(--game-card-total-height));
   display: grid;
   gap: 0.5rem;
   grid-template-columns: repeat(var(--horizontal-cards-count), 1fr);
   grid-template-rows: repeat(var(--vertical-cards-count), 1fr);
   width: 100%;
   max-width: calc(var(--horizontal-cards-count) * var(--game-card-total-width));
+}
+
+@media (orientation: landscape) {
+  .game-field {
+    overflow: auto;
+  }
+
+  .game-field__cards {
+    flex-shrink: 0;
+  }
 }
