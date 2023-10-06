@@ -1,13 +1,13 @@
 import bearImage from "@assets/bear.jpg";
-import beeImage from "@assets/bee.jpg";
+import duckImage from "@assets/duck.jpg";
 import catImage from "@assets/cat.jpg";
 import chickenImage from "@assets/chicken.jpg";
 import dogImage from "@assets/dog.jpg";
-import frogImage from "@assets/frog.jpg";
+import foxImage from "@assets/fox.jpg";
 import hedgehogImage from "@assets/hedgehog.jpg";
 import lionImage from "@assets/lion.jpg";
 import monkeyImage from "@assets/monkey.jpg";
-import mouseImage from "@assets/mouse.jpg";
+import owlImage from "@assets/owl.jpg";
 import pandaImage from "@assets/panda.jpg";
 import pigImage from "@assets/pig.jpg";
 import rabbitImage from "@assets/rabbit.jpg";
@@ -17,18 +17,18 @@ import { CardAnimalType } from "@interfaces/index";
 
 export const cardImageMap = new Map<CardAnimalType, string>([
   ["bear", bearImage],
-  ["bee", beeImage],
+  ["duck", duckImage],
   ["cat", catImage],
   ["chicken", chickenImage],
   ["dog", dogImage],
-  ["frog", frogImage],
+  ["fox", foxImage],
   ["hedgehog", hedgehogImage],
   ["lion", lionImage],
   ["monkey", monkeyImage],
-  ["mouse", mouseImage],
+  ["owl", owlImage],
   ["panda", pandaImage],
   ["pig", pigImage],
-  ["rabbit", sheepImage],
-  ["sheep", rabbitImage],
+  ["rabbit", rabbitImage],
+  ["sheep", sheepImage],
   ["turtle", turtleImage],
 ]);

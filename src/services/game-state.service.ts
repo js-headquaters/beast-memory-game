@@ -16,15 +16,15 @@ import { getMainButton } from "@utils/telegram.utils";
 
 const animalCardTypes: CardAnimalType[] = [
   "bear",
-  "bee",
+  "owl",
   "cat",
   "chicken",
   "dog",
-  "frog",
+  "fox",
   "hedgehog",
   "lion",
   "monkey",
-  "mouse",
+  "duck",
   "panda",
   "pig",
   "rabbit",
