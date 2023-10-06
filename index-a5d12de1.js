@@ -554,6 +554,7 @@ class GameStateService {
       }
       this.openCardsIds.value = [...this.openCardsIds.value, card.id];
       this.cardsFlipCount.value += 1;
+      this.logger.log(`opened "${card.animalType}" card`);
       if (this.openCardsIds.value.length < 2) {
         return;
       }
@@ -632,18 +633,24 @@ class GameStateService {
     const secondCard = cardsMap.get(openCardsIds[1]);
     const isCardMatched = firstCard.animalType === secondCard.animalType;
     setTimeout(() => {
-      if (isCardMatched) {
-        firstCard.isActive = false;
-        secondCard.isActive = false;
-        window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
-        if (this.cards.value.every((card) => !card.isActive)) {
-          window.Telegram.WebApp.HapticFeedback.notificationOccurred("success");
-          this.currentState.value = "game_over";
-        } else {
-          this.cards.value = [...this.cards.value];
-        }
-      }
       this.openCardsIds.value = [];
+      if (!isCardMatched) {
+        this.logger.log(`card "${firstCard.animalType}" do not match card "${secondCard.animalType}"`);
+        return;
+      }
+      this.logger.log(`card "${firstCard.animalType}" match card "${secondCard.animalType}"`);
+      window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
+      firstCard.isActive = false;
+      secondCard.isActive = false;
+      this.cards.value = [...this.cards.value];
+      const hasActiveCards = this.cards.value.some((card) => card.isActive);
+      if (hasActiveCards) {
+        return;
+      }
+      setTimeout(() => {
+        window.Telegram.WebApp.HapticFeedback.notificationOccurred("success");
+        this.currentState.value = "game_over";
+      }, CARD_FLIP_ANIMATION_TIME);
     }, CARD_FLIP_ANIMATION_TIME);
   }
   createGameCards(pairsCount) {
