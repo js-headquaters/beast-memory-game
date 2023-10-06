@@ -222,7 +222,7 @@ export class GameStateService {
         `card "${firstCard.animalType}" match card "${secondCard.animalType}"`
       );
 
-      this.feedback.impactOccurred("light");
+      this.feedback.impactOccurred("heavy");
 
       firstCard.isActive = false;
       secondCard.isActive = false;
@@ -236,7 +236,7 @@ export class GameStateService {
 
       // Wait till card flip animation ends
       setTimeout(() => {
-        this.feedback.impactOccurred("heavy");
+        this.feedback.notificationOccurred("success");
         this.currentState.value = "game_over";
       }, CARD_FLIP_ANIMATION_TIME);
     }, CARD_FLIP_ANIMATION_TIME);
