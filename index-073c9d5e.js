@@ -349,6 +349,31 @@ function getHapticFeedback() {
 
 const statistic = '';
 
+function HistoryComponent({
+  gameStatistic
+}) {
+  return o$1(k$1, {
+    children: gameStatistic.length > 0 ? o$1(KeyValueListComponent, {
+      children: [o$1("div", {
+        children: "Time"
+      }), o$1("div", {
+        children: "Flips"
+      }), gameStatistic?.map(({
+        timeSpentInSeconds,
+        cardFlipsCount
+      }) => o$1(k$1, {
+        children: [o$1("div", {
+          children: timeSpentInSeconds
+        }), o$1("div", {
+          children: cardFlipsCount
+        })]
+      }))]
+    }) : o$1("div", {
+      children: "No data for this level"
+    })
+  });
+}
+
 const debugClickCount = a(0);
 const isDebugActive = p$1(() => {
   return debugClickCount.value > 3;
@@ -429,23 +454,8 @@ function StatisticComponent() {
       })
     }), o$1(CardComponent, {
       title: "Game history",
-      children: currentLevelStatistic.value.length > 0 ? o$1(KeyValueListComponent, {
-        children: [o$1("div", {
-          children: "Time"
-        }), o$1("div", {
-          children: "Flips"
-        }), currentLevelStatistic.value?.map(({
-          timeSpentInSeconds,
-          cardFlipsCount
-        }) => o$1(k$1, {
-          children: [o$1("div", {
-            children: timeSpentInSeconds
-          }), o$1("div", {
-            children: cardFlipsCount
-          })]
-        }))]
-      }) : o$1("div", {
-        children: "No data for this level"
+      children: o$1(HistoryComponent, {
+        gameStatistic: currentLevelStatistic.value
       })
     }), isDebugActive.value && showDebugInfo.value && o$1(CardComponent, {
       title: "Debug Info",
