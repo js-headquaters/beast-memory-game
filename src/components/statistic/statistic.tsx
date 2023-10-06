@@ -18,43 +18,66 @@ const isDebugActive = computed(() => {
   return debugClickCount.value > 3;
 });
 
-const incrementDebugClickCount = () => {
-  debugClickCount.value += 1;
-};
-
 export function StatisticComponent() {
   const {
     averageCardFlipsCount,
     averageTimeSpentInSeconds,
-    gameLevel,
+    gameLevelForStatistic,
     increaseStatisticLevel,
     degreesStatisticLevel,
     currentLevelStatistic,
   } = useContext(StatisticContext);
   const { toggleTheme, theme } = useContext(ThemeContext);
+  const {
+    increaseLevel,
+    degreesLevel,
+    gameLevel,
+    showDebugInfo,
+    toggleShowDebugInfo,
+  } = useContext(GameStateContext);
 
   return (
-    <ModalComponent title="Statistic" className="statistic">
+    <ModalComponent
+      title="Statistic"
+      className="statistic"
+      onTitleClick={() => {
+        debugClickCount.value += 1;
+      }}
+    >
       {isDebugActive.value && (
         <CardComponent title="Settings">
           <KeyValueListComponent>
+            <div>Current Level:</div>
+            <ValueSelectorComponent
+              value={gameLevel.value}
+              increase={increaseLevel}
+              degrees={degreesLevel}
+            />
             <div>Theme:</div>
             <ValueSelectorComponent
               value={theme.value}
               increase={toggleTheme}
               degrees={toggleTheme}
             />
+            <div>Show debug info:</div>
+            <ValueSelectorComponent
+              value={showDebugInfo.value ? "Yes" : "No"}
+              increase={toggleShowDebugInfo}
+              degrees={toggleShowDebugInfo}
+            />
           </KeyValueListComponent>
         </CardComponent>
       )}
 
-      <div onClick={incrementDebugClickCount}>Choose level for statistic</div>
-      <ValueSelectorComponent
-        className="statistic__level-selector"
-        value={gameLevel.value}
-        increase={increaseStatisticLevel}
-        degrees={degreesStatisticLevel}
-      />
+      {/* TODO make it better */}
+      <CardComponent title="Choose level for statistic">
+        <ValueSelectorComponent
+          className="statistic__level-selector"
+          value={gameLevelForStatistic.value}
+          increase={increaseStatisticLevel}
+          degrees={degreesStatisticLevel}
+        />
+      </CardComponent>
 
       <CardComponent title="Game Statistic">
         <KeyValueListComponent>
@@ -70,6 +93,7 @@ export function StatisticComponent() {
       </CardComponent>
 
       <CardComponent title="Game history">
+        {/* TODO make history component */}
         {currentLevelStatistic.value.length > 0 ? (
           <KeyValueListComponent>
             <div>Time</div>

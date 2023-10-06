@@ -6,8 +6,16 @@ import { useContext } from "preact/compat";
 import { GameStateContext, ThemeContext } from "../../../interfaces/context";
 import "./game-card.css";
 
-export function GameCardComponent(card: GameCard) {
-  const { openCard, isCardOpen } = useContext(GameStateContext);
+type Props = {
+  card: GameCard;
+};
+
+export function GameCardComponent({ card }: Props) {
+  const {
+    openCard,
+    isCardOpen,
+    showDebugInfo: isAnimalTypeVisible,
+  } = useContext(GameStateContext);
   const { theme } = useContext(ThemeContext);
 
   const handleClick = () => {
@@ -22,6 +30,9 @@ export function GameCardComponent(card: GameCard) {
 
   return (
     <div class={getCardClasses(card)} onClick={handleClick}>
+      {isAnimalTypeVisible.value && (
+        <div class="game-card__animal-type">{card.animalType}</div>
+      )}
       <div class="game-card__inner">
         <div class="game-card__backing">
           <img

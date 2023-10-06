@@ -45,6 +45,7 @@ export class GameStateService {
   readonly currentState = signal<GameState>("init");
   readonly openCardsIds = signal<GameCard["id"][]>([]);
   readonly cardsFlipCount = signal<number>(0);
+  readonly showDebugInfo = signal<boolean>(false);
 
   readonly cardsMap = computed(() =>
     this.cards.value.reduce((acc, card) => {
@@ -118,7 +119,7 @@ export class GameStateService {
     });
   }
 
-  start = () => {
+  restart = () => {
     this.currentState.value = "init";
   };
 
@@ -164,6 +165,7 @@ export class GameStateService {
     const value = (this.gameLevel.value + 1) as GameLevel;
     if (value <= MAX_GAME_LEVEL) {
       this.gameLevel.value = value;
+      this.initGame();
     }
   };
 
@@ -171,13 +173,14 @@ export class GameStateService {
     const value = (this.gameLevel.value - 1) as GameLevel;
     if (value > 0) {
       this.gameLevel.value = value;
+      this.initGame();
     }
   };
 
   mainButtonClickHandler = () => {
     if (this.currentState.value === "game_over") {
       this.increaseLevel();
-      this.start();
+      this.restart();
       return;
     }
 
@@ -186,6 +189,10 @@ export class GameStateService {
     } else {
       this.currentState.value = "run";
     }
+  };
+
+  toggleShowDebugInfo = () => {
+    this.showDebugInfo.value = !this.showDebugInfo.value;
   };
 
   private closeCards() {

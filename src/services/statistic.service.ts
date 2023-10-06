@@ -7,20 +7,21 @@ import { Storage } from "@utils/telegram.utils";
 const AMOUNT_OF_SAVED_RESULTS = 5;
 
 export class StatisticService {
-  readonly gameLevel = signal<GameLevel>(1);
+  readonly gameLevelForStatistic = signal<GameLevel>(1);
   readonly statistic = signal<GameStatisticMap>({} as GameStatisticMap);
   readonly lastGameStatistic = signal<GameStatistic | null>(null);
 
   readonly currentLevelStatistic = computed(() => {
-    return this.statistic.value[this.gameLevel.value] ?? [];
+    return this.statistic.value[this.gameLevelForStatistic.value] ?? [];
   });
 
   // TODO too big, move to function
   readonly averageTimeSpentInSeconds = computed(() => {
-    if (!this.gameLevel.value) {
+    if (!this.gameLevelForStatistic.value) {
       return null;
     }
-    const statsByLevel = this.statistic.value[this.gameLevel.value] || [];
+    const statsByLevel =
+      this.statistic.value[this.gameLevelForStatistic.value] || [];
 
     if (statsByLevel.length === 0) {
       return null;
@@ -36,10 +37,11 @@ export class StatisticService {
 
   // TODO too big, move to function
   readonly averageCardFlipsCount = computed(() => {
-    if (!this.gameLevel.value) {
+    if (!this.gameLevelForStatistic.value) {
       return null;
     }
-    const statsByLevel = this.statistic.value[this.gameLevel.value] || [];
+    const statsByLevel =
+      this.statistic.value[this.gameLevelForStatistic.value] || [];
 
     if (statsByLevel.length === 0) {
       return null;
@@ -55,16 +57,16 @@ export class StatisticService {
   private readonly logger = new Logger("StatisticService");
 
   increaseStatisticLevel = () => {
-    const value = (this.gameLevel.value + 1) as GameLevel;
+    const value = (this.gameLevelForStatistic.value + 1) as GameLevel;
     if (value <= MAX_GAME_LEVEL) {
-      this.gameLevel.value = value;
+      this.gameLevelForStatistic.value = value;
     }
   };
 
   degreesStatisticLevel = () => {
-    const value = (this.gameLevel.value - 1) as GameLevel;
+    const value = (this.gameLevelForStatistic.value - 1) as GameLevel;
     if (value > 0) {
-      this.gameLevel.value = value;
+      this.gameLevelForStatistic.value = value;
     }
   };
 
