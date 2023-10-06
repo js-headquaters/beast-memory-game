@@ -118,9 +118,6 @@ By choosing these technologies and platforms, we ensure an efficient, enjoyable,
 - clean styles
 - clean readme
 - add more data to readme
-- new design for game over screen
-- new design for game statistic screen
-- game history table for statistic screen
 
 ## Useful
 
