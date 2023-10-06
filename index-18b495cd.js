@@ -360,6 +360,7 @@ function StatisticComponent() {
     gameLevelForStatistic,
     increaseStatisticLevel,
     degreesStatisticLevel,
+    resetStatistics,
     currentLevelStatistic
   } = q$1(StatisticContext);
   const {
@@ -400,6 +401,11 @@ function StatisticComponent() {
           value: showDebugInfo.value ? "Yes" : "No",
           increase: toggleShowDebugInfo,
           degrees: toggleShowDebugInfo
+        }), o$1("a", {
+          className: "statistic__reset-link",
+          href: "#",
+          onClick: () => resetStatistics(),
+          children: "Reset statistics"
         })]
       })
     }), o$1(CardComponent, {
@@ -444,7 +450,7 @@ function StatisticComponent() {
     }), isDebugActive.value && showDebugInfo.value && o$1(CardComponent, {
       title: "Debug Info",
       children: o$1("div", {
-        class: "statistic__debug",
+        className: "statistic__debug",
         children: getWebAppData()
       })
     })]
@@ -698,6 +704,15 @@ class StatisticService {
       const value = this.gameLevelForStatistic.value - 1;
       if (value > 0) {
         this.gameLevelForStatistic.value = value;
+      }
+    };
+    this.resetStatistics = async () => {
+      this.statistic.value = {};
+      try {
+        await this.setItemToCloudStorage("results", JSON.stringify(this.statistic.value));
+        this.logger.log("statistics was reset");
+      } catch {
+        this.logger.error("error during statistics reset");
       }
     };
     this.addGameStatistic = async (level, statistic) => {
