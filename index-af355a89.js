@@ -610,21 +610,19 @@ class GameStateService {
     O(() => {
       const state = this.currentState.value;
       this.logger.log(`game state changed to "${state}"`);
-      s$1(() => {
-        if (state === "init") {
-          this.initGame();
-          this.currentState.value = "run";
-          return;
-        }
-        if (state === "run") {
-          this.startTimer();
-          return;
-        }
-        if (state === "menu" || state === "game_over") {
-          this.stopTimer();
-          return;
-        }
-      });
+      if (state === "init") {
+        this.initGame();
+        this.currentState.value = "run";
+        return;
+      }
+      if (state === "run") {
+        this.startTimer();
+        return;
+      }
+      if (state === "menu" || state === "game_over") {
+        this.stopTimer();
+        return;
+      }
     });
   }
   closeCards() {
@@ -674,7 +672,7 @@ class GameStateService {
     return this.getShuffledArray(animalCardTypes).slice(0, count);
   }
   initGame() {
-    this.currentTimestamp.value = Date.now();
+    this.resetTimer();
     this.openCardsIds.value = [];
     this.cardsFlipCount.value = 0;
     const {
