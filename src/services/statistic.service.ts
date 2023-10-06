@@ -37,7 +37,7 @@ export class StatisticService {
     }
   };
 
-  degreesStatisticLevel = () => {
+  decreaseStatisticLevel = () => {
     const value = (this.gameLevelForStatistic.value - 1) as GameLevel;
     if (value > 0) {
       this.gameLevelForStatistic.value = value;
@@ -48,27 +48,27 @@ export class StatisticService {
     this.statistic.value = {} as GameStatisticMap;
     try {
       await this.setItemToCloudStorage(
-          "results",
-          JSON.stringify(this.statistic.value),
+        "results",
+        JSON.stringify(this.statistic.value)
       );
-      this.logger.log("statistics was reset")
+      this.logger.log("statistics was reset");
     } catch {
-      this.logger.error("error during statistics reset")
+      this.logger.error("error during statistics reset");
     }
-  }
+  };
 
   addGameStatistic = async (level: GameLevel, statistic: GameStatistic) => {
     this.statistic.value = {
       ...this.statistic.value,
       [level]: [statistic, ...(this.statistic.value?.[level] || [])].slice(
         0,
-        AMOUNT_OF_SAVED_RESULTS,
+        AMOUNT_OF_SAVED_RESULTS
       ),
     };
     try {
       await this.setItemToCloudStorage(
         "results",
-        JSON.stringify(this.statistic.value),
+        JSON.stringify(this.statistic.value)
       );
       this.logger.log("added new game statistic", this.statistic.value);
     } catch {
@@ -79,16 +79,16 @@ export class StatisticService {
   loadGameStatistic = async () => {
     try {
       const localStorageResults = JSON.parse(
-        (await this.getItemFromCloudStorage("results")) || "{}",
+        (await this.getItemFromCloudStorage("results")) || "{}"
       );
       this.statistic.value = localStorageResults;
       this.logger.log(
         "loaded game statistic from cloud storage",
-        localStorageResults,
+        localStorageResults
       );
     } catch {
       this.logger.error(
-        "error happened during loading game statistic from cloud storage",
+        "error happened during loading game statistic from cloud storage"
       );
     }
   };

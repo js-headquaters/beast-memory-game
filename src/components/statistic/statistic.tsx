@@ -12,7 +12,7 @@ import {
   ThemeContext,
 } from "../../interfaces/context";
 import "./statistic.css";
-import {HistoryComponent} from "@components/history/history";
+import { HistoryComponent } from "@components/history/history";
 
 const debugClickCount = signal(0);
 const isDebugActive = computed(() => {
@@ -25,14 +25,14 @@ export function StatisticComponent() {
     averageTimeSpentInSeconds,
     gameLevelForStatistic,
     increaseStatisticLevel,
-    degreesStatisticLevel,
+    decreaseStatisticLevel,
     resetStatistics,
     currentLevelStatistic,
   } = useContext(StatisticContext);
   const { toggleTheme, theme } = useContext(ThemeContext);
   const {
     increaseLevel,
-    degreesLevel,
+    decreaseLevel,
     gameLevel,
     showDebugInfo,
     toggleShowDebugInfo,
@@ -53,21 +53,27 @@ export function StatisticComponent() {
             <ValueSelectorComponent
               value={gameLevel.value}
               increase={increaseLevel}
-              degrees={degreesLevel}
+              decrease={decreaseLevel}
             />
             <div>Theme:</div>
             <ValueSelectorComponent
               value={theme.value}
               increase={toggleTheme}
-              degrees={toggleTheme}
+              decrease={toggleTheme}
             />
             <div>Show debug info:</div>
             <ValueSelectorComponent
               value={showDebugInfo.value ? "Yes" : "No"}
               increase={toggleShowDebugInfo}
-              degrees={toggleShowDebugInfo}
+              decrease={toggleShowDebugInfo}
             />
-            <a className={'statistic__reset-link'} href="#" onClick={() => resetStatistics()}>Reset statistics</a>
+            <a
+              className={"statistic__reset-link"}
+              href="#"
+              onClick={() => resetStatistics()}
+            >
+              Reset statistics
+            </a>
           </KeyValueListComponent>
         </CardComponent>
       )}
@@ -78,7 +84,7 @@ export function StatisticComponent() {
           className="statistic__level-selector"
           value={gameLevelForStatistic.value}
           increase={increaseStatisticLevel}
-          degrees={degreesStatisticLevel}
+          decrease={decreaseStatisticLevel}
         />
       </CardComponent>
 

@@ -71,7 +71,7 @@ export class GameStateService {
     return this.gameLevel.value < MAX_GAME_LEVEL;
   });
 
-  readonly canDegreesLevel = computed(() => {
+  readonly canDecreaseLevel = computed(() => {
     return this.gameLevel.value > 1;
   });
 
@@ -172,7 +172,7 @@ export class GameStateService {
     }
   };
 
-  degreesLevel = () => {
+  decreaseLevel = () => {
     const value = (this.gameLevel.value - 1) as GameLevel;
     if (value > 0) {
       this.gameLevel.value = value;
