@@ -337,6 +337,9 @@ function getWebAppTheme() {
 function hasStorageApi() {
   return !!window.Telegram?.WebApp?.CloudStorage && window.Telegram.WebApp.isVersionAtLeast("6.9");
 }
+function getHapticFeedback() {
+  return window.Telegram.WebApp.HapticFeedback;
+}
 class Storage {
   static async setItem(key, value) {
     if (!hasStorageApi()) {
@@ -545,6 +548,7 @@ class GameStateService {
     this.currentTimestamp = a(null);
     this.mainButton = getMainButton();
     this.logger = new Logger("GameStateService");
+    this.feedback = getHapticFeedback();
     this.restart = () => {
       this.currentState.value = "init";
     };
@@ -554,6 +558,7 @@ class GameStateService {
       }
       this.openCardsIds.value = [...this.openCardsIds.value, card.id];
       this.cardsFlipCount.value += 1;
+      this.feedback.impactOccurred("light");
       this.logger.log(`opened "${card.animalType}" card`);
       if (this.openCardsIds.value.length < 2) {
         return;
@@ -639,7 +644,7 @@ class GameStateService {
         return;
       }
       this.logger.log(`card "${firstCard.animalType}" match card "${secondCard.animalType}"`);
-      window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
+      this.feedback.impactOccurred("heavy");
       firstCard.isActive = false;
       secondCard.isActive = false;
       this.cards.value = [...this.cards.value];
@@ -648,7 +653,7 @@ class GameStateService {
         return;
       }
       setTimeout(() => {
-        window.Telegram.WebApp.HapticFeedback.notificationOccurred("success");
+        this.feedback.notificationOccurred("success");
         this.currentState.value = "game_over";
       }, CARD_FLIP_ANIMATION_TIME);
     }, CARD_FLIP_ANIMATION_TIME);
