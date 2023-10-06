@@ -1,5 +1,6 @@
 import {
   BackButton,
+  CloudStorage,
   HapticFeedback,
   MainButton,
   WebApp,
@@ -41,48 +42,18 @@ export function hasStorageApi(): boolean {
   );
 }
 
-export function getHapticFeedback(): HapticFeedback {
-  return window.Telegram.WebApp.HapticFeedback;
+export function setItemToCloudStorage(
+  ...args: Parameters<CloudStorage["setItem"]>
+) {
+  return window.Telegram.WebApp.CloudStorage.setItem(...args);
 }
 
-// TODO move to statistic service
-export class Storage {
-  static async setItem(key, value): Promise<boolean> {
-    if (!hasStorageApi()) {
-      localStorage.setItem(key, value);
-      return;
-    }
+export function getItemFromCloudStorage(
+  ...args: Parameters<CloudStorage["getItem"]>
+) {
+  return window.Telegram.WebApp.CloudStorage.getItem(...args);
+}
 
-    return new Promise((resolve, reject) => {
-      window.Telegram.WebApp.CloudStorage.setItem(
-        key,
-        value,
-        (err, isStored) => {
-          if (err) {
-            console.error(">> omg error happened during SET", err);
-            reject(err);
-            return;
-          }
-          resolve(isStored);
-        }
-      );
-    });
-  }
-
-  static async getItem(key): Promise<string | undefined> {
-    if (!hasStorageApi()) {
-      return localStorage.getItem(key);
-    }
-
-    return new Promise((resolve, reject) => {
-      window.Telegram.WebApp.CloudStorage.getItem(key, (err, value) => {
-        if (err) {
-          console.error(">> omg error happened during CloudStorage GET", err);
-          reject(err);
-          return;
-        }
-        resolve(value);
-      });
-    });
-  }
+export function getHapticFeedback(): HapticFeedback {
+  return window.Telegram.WebApp.HapticFeedback;
 }

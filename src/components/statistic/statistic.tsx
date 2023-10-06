@@ -104,7 +104,7 @@ export function StatisticComponent() {
                   <div>{timeSpentInSeconds}</div>
                   <div>{cardFlipsCount}</div>
                 </Fragment>
-              )
+              ),
             )}
           </KeyValueListComponent>
         ) : (
@@ -112,7 +112,7 @@ export function StatisticComponent() {
         )}
       </CardComponent>
 
-      {isDebugActive.value && (
+      {isDebugActive.value && showDebugInfo.value && (
         <CardComponent title="Debug Info">
           <div class="statistic__debug">{getWebAppData()}</div>
         </CardComponent>

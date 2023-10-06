@@ -9,4 +9,11 @@ export class Logger {
       console.log(text);
     }
   }
+
+  error(message: string, data?: unknown) {
+    console.error(
+      `[${this.name}] > ${message}`,
+      ...[data ? data : null].filter((v) => v),
+    );
+  }
 }
