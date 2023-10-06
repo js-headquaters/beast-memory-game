@@ -2,23 +2,20 @@
 
 **Welcome to BeastMemory!** 🧠🐾
 
-**BeastMemory** is a delightful memory card game with colorful and adorable animal characters, perfect for all ages and an excellent tool for enhancing memory skills.
+**BeastMemory** is a mysterious memory card game adorned with enigmatic and otherworldly animal spirits, perfect for all ages and an excellent tool for enhancing memory skills.
 
 **Key Features:**
 
-- **Colorful and Adorable Animals 🐾**
-  Immerse in the vibrant world of cute and diverse creatures.
-
-- **Suitable for All Ages 🌟**
-  Universal fun for everyone, perfect for family game time.
-
+- **Enchanting and Otherworldly Beasts 🐾**
+  Delve into a realm filled with mystical and captivating creatures that are shrouded in an aura of magic.
+- **Bewitching Experience for All Ages 🌟**
+  An ethereal adventure that binds both young and old, making it the perfect activity for gatherings under the moonlit night.
 - **Enhances Memory 🧠**
-  A joyful journey that improves concentration, focus, and cognitive function.
+  Traverse this spectral journey, refining concentration, focus, and the ability to recollect ancient incantations and spells.
 
 🎮 **Play Now**:
 
 - [Telegram WebApp](https://t.me/BeastMemoryBot/game)
-- [Website](https://js-headquaters.github.io/beast-memory-game/)
 
 Embark on your journey of fun and cognitive enhancement with BeastMemory today!
 
