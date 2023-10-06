@@ -643,7 +643,7 @@ class GameStateService {
         return;
       }
       this.logger.log(`card "${firstCard.animalType}" match card "${secondCard.animalType}"`);
-      this.feedback.impactOccurred("light");
+      this.feedback.impactOccurred("heavy");
       firstCard.isActive = false;
       secondCard.isActive = false;
       this.cards.value = [...this.cards.value];
@@ -652,7 +652,7 @@ class GameStateService {
         return;
       }
       setTimeout(() => {
-        this.feedback.impactOccurred("heavy");
+        this.feedback.notificationOccurred("success");
         this.currentState.value = "game_over";
       }, CARD_FLIP_ANIMATION_TIME);
     }, CARD_FLIP_ANIMATION_TIME);
