@@ -337,41 +337,14 @@ function getWebAppTheme() {
 function hasStorageApi() {
   return !!window.Telegram?.WebApp?.CloudStorage && window.Telegram.WebApp.isVersionAtLeast("6.9");
 }
+function setItemToCloudStorage(...args) {
+  return window.Telegram.WebApp.CloudStorage.setItem(...args);
+}
+function getItemFromCloudStorage(...args) {
+  return window.Telegram.WebApp.CloudStorage.getItem(...args);
+}
 function getHapticFeedback() {
   return window.Telegram.WebApp.HapticFeedback;
-}
-class Storage {
-  static async setItem(key, value) {
-    if (!hasStorageApi()) {
-      localStorage.setItem(key, value);
-      return;
-    }
-    return new Promise((resolve, reject) => {
-      window.Telegram.WebApp.CloudStorage.setItem(key, value, (err, isStored) => {
-        if (err) {
-          console.error(">> omg error happened during SET", err);
-          reject(err);
-          return;
-        }
-        resolve(isStored);
-      });
-    });
-  }
-  static async getItem(key) {
-    if (!hasStorageApi()) {
-      return localStorage.getItem(key);
-    }
-    return new Promise((resolve, reject) => {
-      window.Telegram.WebApp.CloudStorage.getItem(key, (err, value) => {
-        if (err) {
-          console.error(">> omg error happened during CloudStorage GET", err);
-          reject(err);
-          return;
-        }
-        resolve(value);
-      });
-    });
-  }
 }
 
 const statistic = '';
@@ -468,7 +441,7 @@ function StatisticComponent() {
       }) : o$1("div", {
         children: "No data for this level"
       })
-    }), isDebugActive.value && o$1(CardComponent, {
+    }), isDebugActive.value && showDebugInfo.value && o$1(CardComponent, {
       title: "Debug Info",
       children: o$1("div", {
         class: "statistic__debug",
@@ -489,6 +462,9 @@ class Logger {
     } else {
       console.log(text);
     }
+  }
+  error(message, data) {
+    console.error(`[${this.name}] > ${message}`, ...[data ? data : null].filter((v) => v));
   }
 }
 
@@ -696,38 +672,20 @@ class GameStateService {
   }
 }
 
-const AMOUNT_OF_SAVED_RESULTS = 5;
+const AMOUNT_OF_SAVED_RESULTS = 100;
+const AMOUNT_OF_RESULTS_FOR_STATS = 5;
 class StatisticService {
   constructor() {
     this.gameLevelForStatistic = a(1);
     this.statistic = a({});
-    this.lastGameStatistic = a(null);
     this.currentLevelStatistic = p$1(() => {
       return this.statistic.value[this.gameLevelForStatistic.value] ?? [];
     });
-    // TODO too big, move to function
     this.averageTimeSpentInSeconds = p$1(() => {
-      if (!this.gameLevelForStatistic.value) {
-        return null;
-      }
-      const statsByLevel = this.statistic.value[this.gameLevelForStatistic.value] || [];
-      if (statsByLevel.length === 0) {
-        return null;
-      }
-      const total = statsByLevel.reduce((acc, value) => acc += value.timeSpentInSeconds, 0);
-      return Math.floor(total / statsByLevel.length);
+      return this.getAverageTimeSpentInSeconds();
     });
-    // TODO too big, move to function
     this.averageCardFlipsCount = p$1(() => {
-      if (!this.gameLevelForStatistic.value) {
-        return null;
-      }
-      const statsByLevel = this.statistic.value[this.gameLevelForStatistic.value] || [];
-      if (statsByLevel.length === 0) {
-        return null;
-      }
-      const total = statsByLevel.reduce((acc, value) => acc += value.cardFlipsCount, 0);
-      return Math.floor(total / statsByLevel.length);
+      return this.getAverageCardFlipsCount();
     });
     this.logger = new Logger("StatisticService");
     this.increaseStatisticLevel = () => {
@@ -743,19 +701,84 @@ class StatisticService {
       }
     };
     this.addGameStatistic = async (level, statistic) => {
-      this.lastGameStatistic.value = statistic;
       this.statistic.value = {
         ...this.statistic.value,
         [level]: [statistic, ...this.statistic.value?.[level] || []].slice(0, AMOUNT_OF_SAVED_RESULTS)
       };
-      await Storage.setItem("results", JSON.stringify(this.statistic.value));
-      this.logger.log("added new game statistic", this.statistic.value);
+      try {
+        await this.setItemToCloudStorage("results", JSON.stringify(this.statistic.value));
+        this.logger.log("added new game statistic", this.statistic.value);
+      } catch {
+        this.logger.error("error happened during adding new game statistic");
+      }
     };
     this.loadGameStatistic = async () => {
-      const results = JSON.parse(await Storage.getItem("results") || "{}");
-      this.statistic.value = results;
-      this.logger.log("loaded game statistic", results);
+      try {
+        const localStorageResults = JSON.parse(await this.getItemFromCloudStorage("results") || "{}");
+        this.statistic.value = localStorageResults;
+        this.logger.log("loaded game statistic from cloud storage", localStorageResults);
+      } catch {
+        this.logger.error("error happened during loading game statistic from cloud storage");
+      }
     };
+    this.loadGameStatistic();
+  }
+  getAverageTimeSpentInSeconds() {
+    if (!this.gameLevelForStatistic.value) {
+      return null;
+    }
+    const statsByLevel = this.statistic.value[this.gameLevelForStatistic.value] || [];
+    if (statsByLevel.length === 0) {
+      return null;
+    }
+    const total = statsByLevel.slice(0, AMOUNT_OF_RESULTS_FOR_STATS).reduce((acc, value) => acc += value.timeSpentInSeconds, 0);
+    return Math.floor(total / statsByLevel.length);
+  }
+  getAverageCardFlipsCount() {
+    if (!this.gameLevelForStatistic.value) {
+      return null;
+    }
+    const statsByLevel = this.statistic.value[this.gameLevelForStatistic.value] || [];
+    if (statsByLevel.length === 0) {
+      return null;
+    }
+    const total = statsByLevel.slice(0, AMOUNT_OF_RESULTS_FOR_STATS).reduce((acc, value) => acc += value.cardFlipsCount, 0);
+    return Math.floor(total / statsByLevel.length);
+  }
+  async setItemToCloudStorage(key, value) {
+    if (!hasStorageApi()) {
+      localStorage.setItem(key, value);
+      return;
+    }
+    return new Promise((resolve, reject) => {
+      setItemToCloudStorage(key, value, (err, isStored) => {
+        if (err) {
+          this.logger.error(">> error happened during SET", err);
+          reject(err);
+          return;
+        }
+        resolve(isStored);
+      });
+    });
+  }
+  async getItemFromCloudStorage(key) {
+    if (!hasStorageApi()) {
+      return localStorage.getItem(key);
+    }
+    return new Promise((resolve, reject) => {
+      const timerId = setTimeout(() => {
+        resolve(localStorage.getItem(key));
+      }, 3e3);
+      getItemFromCloudStorage(key, (err, value) => {
+        clearTimeout(timerId);
+        if (err) {
+          console.error(">> omg error happened during CloudStorage GET", err);
+          reject(err);
+          return;
+        }
+        resolve(value);
+      });
+    });
   }
 }
 
