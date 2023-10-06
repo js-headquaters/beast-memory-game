@@ -541,6 +541,7 @@ class GameStateService {
       }
     };
     this.mainButton.show();
+    this.mainButton.onClick(this.mainButtonClickHandler);
     O(() => {
       this.mainButton.setText(this.menuButtonText.value);
     });
