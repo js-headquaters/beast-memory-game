@@ -1,7 +1,7 @@
-import { GameCardComponent } from "@components/game-card/game-card";
-import "./game-field.css";
+import { GameCardComponent } from "./game-card/game-card";
 import { useContext } from "preact/compat";
 import { GameStateContext } from "../../interfaces/context";
+import "./game-field.css";
 
 export function GameFieldComponent() {
   const { cards, horizontalCardsCount, verticalCardsCount } =

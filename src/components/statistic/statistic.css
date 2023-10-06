@@ -1,0 +1,12 @@
+.statistic {
+  height: 100%;
+}
+
+.statistic__debug {
+  white-space: pre;
+  overflow: auto;
+}
+
+.statistic__level-selector {
+  max-width: 10rem;
+}

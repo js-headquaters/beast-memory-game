@@ -1,4 +1,4 @@
-import {BackButton, MainButton, WebApp, WebAppUser} from "@twa-dev/types";
+import { BackButton, MainButton, WebApp, WebAppUser } from "@twa-dev/types";
 
 export function getWebAppUser(): WebAppUser | undefined {
   return window.Telegram.WebApp.initDataUnsafe?.user;
@@ -28,43 +28,51 @@ export function getWebAppTheme(): WebApp["colorScheme"] {
   return window.Telegram.WebApp.colorScheme;
 }
 
-export class Storage {
-  static hasStorageApi() {
-    return !!window.Telegram?.WebApp?.CloudStorage && window.Telegram.WebApp.isVersionAtLeast('6.9');
-  }
+export function hasStorageApi(): boolean {
+  return (
+    !!window.Telegram?.WebApp?.CloudStorage &&
+    window.Telegram.WebApp.isVersionAtLeast("6.9")
+  );
+}
 
+// TODO move to statistic service
+export class Storage {
   static async setItem(key, value): Promise<boolean> {
-    if (!Storage.hasStorageApi()) {
-      localStorage.setItem(key, value)
+    if (!hasStorageApi()) {
+      localStorage.setItem(key, value);
       return;
     }
 
     return new Promise((resolve, reject) => {
-      window.Telegram.WebApp.CloudStorage.setItem(key, value, (err, isStored) => {
-        if (err) {
-          console.error('>> omg error happened during SET', err);
-          reject(err);
-          return;
+      window.Telegram.WebApp.CloudStorage.setItem(
+        key,
+        value,
+        (err, isStored) => {
+          if (err) {
+            console.error(">> omg error happened during SET", err);
+            reject(err);
+            return;
+          }
+          resolve(isStored);
         }
-        resolve(isStored);
-      });
-    })
+      );
+    });
   }
 
   static async getItem(key): Promise<string | undefined> {
-    if (!Storage.hasStorageApi()) {
+    if (!hasStorageApi()) {
       return localStorage.getItem(key);
     }
 
     return new Promise((resolve, reject) => {
       window.Telegram.WebApp.CloudStorage.getItem(key, (err, value) => {
         if (err) {
-          console.error('>> omg error happened during CloudStorage GET', err);
+          console.error(">> omg error happened during CloudStorage GET", err);
           reject(err);
           return;
         }
-        resolve(value)
-      })
+        resolve(value);
+      });
     });
   }
 }

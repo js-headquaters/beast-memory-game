@@ -1,14 +1,11 @@
-.setting__name {
-}
-
-.setting__value {
+.value-selector {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
 }
 
-.setting__button {
+.value-selector__button {
   background-color: var(--theme-button-background);
   color: var(--theme-button-text-color);
   border: none;

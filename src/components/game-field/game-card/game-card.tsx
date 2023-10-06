@@ -2,13 +2,13 @@ import darkBackImage from "@assets/back-dark.jpg";
 import lightBackImage from "@assets/back-light.jpg";
 import { GameCard } from "@interfaces/index";
 import { cardImageMap } from "@utils/card-image.utils";
-import "./game-card.css";
-import { GameStateContext, GameThemeContext } from "../../interfaces/context";
 import { useContext } from "preact/compat";
+import { GameStateContext, ThemeContext } from "../../../interfaces/context";
+import "./game-card.css";
 
 export function GameCardComponent(card: GameCard) {
   const { openCard, isCardOpen } = useContext(GameStateContext);
-  const { theme } = useContext(GameThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   const handleClick = () => {
     openCard(card);

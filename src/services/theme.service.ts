@@ -1,12 +1,13 @@
-import { GameTheme, GameThemeProperties } from "@interfaces/index";
+import { Theme, ThemeProperties } from "@interfaces/index";
 import { computed, effect, signal } from "@preact/signals";
+import { Logger } from "@utils/logger.utils";
 import {
   getMainButton,
   getWebApp,
   getWebAppTheme,
 } from "@utils/telegram.utils";
 
-const lightTheme: GameThemeProperties = {
+const lightTheme: ThemeProperties = {
   themeBackground: "rgba(228, 223, 249, 1)",
   themeModalBackground: "rgba(255, 255, 255, 0.8)",
   themeButtonTextColor: "rgba(255, 255, 255, 1)",
@@ -17,7 +18,7 @@ const lightTheme: GameThemeProperties = {
   themeBorderColor: "rgba(100, 65, 165, 0.6)",
 };
 
-const darkTheme: GameThemeProperties = {
+const darkTheme: ThemeProperties = {
   themeBackground: "rgba(45, 20, 70, 1)",
   themeModalBackground: "rgba(35, 25, 55, 1)",
   themeButtonTextColor: "rgba(245, 230, 255, 1)",
@@ -28,13 +29,14 @@ const darkTheme: GameThemeProperties = {
   themeBorderColor: "rgba(193, 113, 229, 0.5)",
 };
 
-export class GameThemeService {
-  readonly theme = signal<GameTheme>(getWebAppTheme());
+export class ThemeService {
+  readonly theme = signal<Theme>(getWebAppTheme());
   readonly themeProperties = computed(() => {
     return this.theme.value === "light" ? lightTheme : darkTheme;
   });
   private readonly mainButton = getMainButton();
   private readonly webApp = getWebApp();
+  private readonly logger = new Logger("ThemeService");
 
   constructor() {
     effect(() => {
@@ -48,12 +50,17 @@ export class GameThemeService {
       this.applyTheme(this.themeProperties.value);
     });
 
+    effect(() => {
+      this.logger.log(`theme changed to "${this.theme.value}"`);
+    });
+
     this.webApp.onEvent("themeChanged", () => {
+      this.logger.log(`received "themeChanged" event from Telegram`);
       this.setTheme(getWebAppTheme());
     });
   }
 
-  setTheme = (theme: GameTheme) => {
+  setTheme = (theme: Theme) => {
     this.theme.value = theme;
   };
 
@@ -61,7 +68,7 @@ export class GameThemeService {
     this.theme.value = this.theme.value === "light" ? "dark" : "light";
   };
 
-  private applyTheme(themeProperties: GameThemeProperties) {
+  private applyTheme(themeProperties: ThemeProperties) {
     const root = document.documentElement;
     for (const [key, value] of Object.entries(themeProperties)) {
       const cssVarName = `--${this.camelToKebab(key)}`;

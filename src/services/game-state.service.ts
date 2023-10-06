@@ -1,3 +1,4 @@
+import { MAX_GAME_LEVEL, MILLISECONDS_IN_SECOND } from "@constants";
 import {
   CardAnimalType,
   GameCard,
@@ -6,8 +7,8 @@ import {
   GameState,
 } from "@interfaces/index";
 import { computed, effect, signal } from "@preact/signals";
+import { Logger } from "@utils/logger.utils";
 import { getMainButton } from "@utils/telegram.utils";
-import { MAX_GAME_LEVEL } from "@constants";
 
 const animalCardTypes: CardAnimalType[] = [
   "bear",
@@ -38,7 +39,6 @@ const gameDifficultyMap = new Map<GameLevel, GameInitParams>([
 
 export class GameStateService {
   readonly gameLevel = signal<GameLevel>(1);
-
   readonly cards = signal<GameCard[]>([]);
   readonly horizontalCardsCount = signal<number>(0);
   readonly verticalCardsCount = signal<number>(0);
@@ -59,7 +59,7 @@ export class GameStateService {
     const current = this.currentTimestamp.value;
     const diff = current - start;
 
-    return diff > 0 ? Math.floor(diff / 1000) : 0;
+    return diff > 0 ? Math.floor(diff / MILLISECONDS_IN_SECOND) : 0;
   });
 
   readonly canIncreaseLevel = computed(() => {
@@ -86,18 +86,40 @@ export class GameStateService {
   private readonly currentTimestamp = signal<number | null>(null);
 
   private readonly mainButton = getMainButton();
+  private readonly logger = new Logger("GameStateService");
 
   constructor() {
     this.mainButton.show();
     this.mainButton.onClick(this.mainButtonClickHandler);
+
     effect(() => {
       this.mainButton.setText(this.menuButtonText.value);
+    });
+
+    effect(() => {
+      const state = this.currentState.value;
+      this.logger.log(`game state changed to "${state}"`);
+
+      if (state === "init") {
+        this.initGame();
+        this.currentState.value = "run";
+        return;
+      }
+
+      if (state === "run") {
+        this.startTimer();
+        return;
+      }
+
+      if (state === "menu" || state === "game_over") {
+        this.stopTimer();
+        return;
+      }
     });
   }
 
   start = () => {
-    this.setState("init");
-    this.setState("run");
+    this.currentState.value = "init";
   };
 
   openCard = (card: GameCard) => {
@@ -160,9 +182,9 @@ export class GameStateService {
     }
 
     if (this.currentState.value !== "menu") {
-      this.setState("menu");
+      this.currentState.value = "menu";
     } else {
-      this.setState("run");
+      this.currentState.value = "run";
     }
   };
 
@@ -183,7 +205,7 @@ export class GameStateService {
 
         if (this.cards.value.every((card) => !card.isActive)) {
           window.Telegram.WebApp.HapticFeedback.notificationOccurred("success");
-          this.setState("game_over");
+          this.currentState.value = "game_over";
         } else {
           this.cards.value = [...this.cards.value];
         }
@@ -230,33 +252,15 @@ export class GameStateService {
     return this.getShuffledArray(animalCardTypes).slice(0, count);
   }
 
-  private setState(state: GameState) {
-    if (state === "init") {
-      this.resetTimer();
-
-      this.openCardsIds.value = [];
-      this.cardsFlipCount.value = 0;
-      const { horizontalCardsCount, pairsCount } = gameDifficultyMap.get(
-        this.gameLevel.value
-      );
-      this.cards.value = this.createGameCards(pairsCount);
-      this.horizontalCardsCount.value = horizontalCardsCount;
-      this.verticalCardsCount.value =
-        this.cards.value.length / horizontalCardsCount;
-    }
-
-    if (state === "run") {
-      this.startTimer();
-    }
-
-    if (state === "menu") {
-      this.stopTimer();
-    }
-
-    if (state === "game_over") {
-      this.stopTimer();
-    }
-
-    this.currentState.value = state;
+  private initGame() {
+    this.openCardsIds.value = [];
+    this.cardsFlipCount.value = 0;
+    const { horizontalCardsCount, pairsCount } = gameDifficultyMap.get(
+      this.gameLevel.value
+    );
+    this.cards.value = this.createGameCards(pairsCount);
+    this.horizontalCardsCount.value = horizontalCardsCount;
+    this.verticalCardsCount.value =
+      this.cards.value.length / horizontalCardsCount;
   }
 }

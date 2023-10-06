@@ -1,9 +1,0 @@
-.game-menu {
-  height: 100%;
-  overflow: auto;
-}
-
-.game-menu__debug {
-  white-space: pre;
-  overflow: auto;
-}

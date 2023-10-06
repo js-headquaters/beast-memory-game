@@ -1,27 +1,23 @@
-import { BlockComponent } from "@components/block/block";
-import { KeyValueComponent } from "@components/key-value-list/key-value";
-import { KeyValueListComponent } from "@components/key-value-list/key-value-list";
 import { useSignal } from "@preact/signals";
+import { CardComponent } from "@components/shared/card/card";
+import { KeyValueComponent } from "@components/shared/key-value-list/key-value";
+import { KeyValueListComponent } from "@components/shared/key-value-list/key-value-list";
 import { getRandomCongratulation } from "@utils/text.utils";
-import { useContext } from "preact/compat";
-import {
-  GameStateContext,
-  GameStatisticContext,
-} from "../../interfaces/context";
+import { useContext, useState } from "preact/compat";
+import { GameStateContext, StatisticContext } from "../../interfaces/context";
 import "./game-over.css";
+import { ModalComponent } from "@components/shared/modal/modal";
 
 export function GameOverComponent() {
   const { timeSpentInSeconds, cardsFlipCount } = useContext(GameStateContext);
   const { averageCardFlipsCount, averageTimeSpentInSeconds } =
-    useContext(GameStatisticContext);
+    useContext(StatisticContext);
 
-  const headerMessage = useSignal(getRandomCongratulation());
+  const [headerMessage] = useState(getRandomCongratulation());
 
   return (
-    <div class="game-over modal">
-      <div class="modal__header">{headerMessage.value}</div>
-
-      <BlockComponent title="Time spent in second">
+    <ModalComponent title={headerMessage} className="game-over">
+      <CardComponent title="Time spent in second">
         <KeyValueListComponent>
           <KeyValueComponent
             name="This Game:"
@@ -34,9 +30,9 @@ export function GameOverComponent() {
             value={averageTimeSpentInSeconds.value}
           />
         </KeyValueListComponent>
-      </BlockComponent>
+      </CardComponent>
 
-      <BlockComponent title="Card Flips Count">
+      <CardComponent title="Card Flips Count">
         <KeyValueListComponent>
           <KeyValueComponent name="This Game:" value={cardsFlipCount.value} />
         </KeyValueListComponent>
@@ -46,7 +42,7 @@ export function GameOverComponent() {
             value={averageCardFlipsCount.value}
           />
         </KeyValueListComponent>
-      </BlockComponent>
-    </div>
+      </CardComponent>
+    </ModalComponent>
   );
 }

@@ -1,0 +1,21 @@
+.modal {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.5rem;
+  overflow: auto;
+  background-color: var(--theme-modal-background);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem var(--theme-shadow-color);
+}
+
+.modal__title {
+  text-align: center;
+  color: var(--theme-text-highlight-color);
+  font-size: 1.25rem;
+  text-shadow: 0 0 0.5rem var(--theme-text-highlight-color);
+  margin-bottom: 1rem;
+}
+
+.modal__content {
+}

@@ -30,22 +30,16 @@ export type CardAnimalType =
 
 export type GameLevel = 1 | 2 | 3 | 4 | 5 | 6;
 
-export interface Time {
-  seconds: number;
-  minutes: number;
-  hours: number;
-}
-
 export interface GameStatistic {
   timeSpentInSeconds: number;
   cardFlipsCount: number;
 }
 
-export type GameStatisticWithLevel = Record<GameLevel, GameStatistic[]>;
+export type GameStatisticMap = Record<GameLevel, GameStatistic[]>;
 
-export type GameTheme = "light" | "dark";
+export type Theme = "light" | "dark";
 
-export interface GameThemeProperties {
+export interface ThemeProperties {
   themeBackground: string;
   themeModalBackground: string;
   themeButtonBackground: string;

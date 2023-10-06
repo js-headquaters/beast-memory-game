@@ -1,19 +1,19 @@
-.block {
+.card {
   border: 1px solid var(--theme-border-color);
   border-radius: 0.5rem;
 }
 
-.block + .block {
+.card + .card {
   margin-top: 0.5rem;
 }
 
-.block__title {
+.card__title {
   text-align: center;
   color: var(--theme-text-highlight-color);
   border-bottom: 1px solid var(--theme-border-color);
   padding: 0.5rem;
 }
 
-.block__content {
+.card__content {
   padding: 0.5rem;
 }

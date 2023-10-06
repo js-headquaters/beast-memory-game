@@ -1,16 +1,16 @@
 import { GameFieldComponent } from "@components/game-field/game-field";
-import { GameMenuComponent } from "@components/game-menu/game-menu";
 import { GameOverComponent } from "@components/game-over/game-over";
+import { StatisticComponent } from "@components/statistic/statistic";
 import { GameState } from "@interfaces/index";
 import { effect, untracked } from "@preact/signals";
 import { GameStateService } from "@services/game-state.service";
-import { GameStatisticService } from "@services/game-statistic.service";
-import { GameThemeService } from "@services/game-theme.service";
+import { StatisticService } from "@services/statistic.service";
+import { ThemeService } from "@services/theme.service";
 import { isRunningInTelegram } from "@utils/telegram.utils";
 import {
   GameStateContext,
-  GameStatisticContext,
-  GameThemeContext,
+  StatisticContext,
+  ThemeContext,
 } from "../../interfaces/context";
 import "./game.css";
 
@@ -22,8 +22,8 @@ const statesComponents = new Map<GameState, GameStateComponent>([
   ["game_over", GameOverComponent],
 ]);
 
-const gameThemeService = new GameThemeService();
-const gameStatisticService = new GameStatisticService();
+const gameThemeService = new ThemeService();
+const gameStatisticService = new StatisticService();
 const gameStateService = new GameStateService();
 
 effect(() => {
@@ -38,7 +38,6 @@ effect(() => {
     });
   }
 });
-gameStateService.start();
 
 export function GameComponent() {
   const { isMenuOpen, currentState, menuButtonText, mainButtonClickHandler } =
@@ -48,12 +47,12 @@ export function GameComponent() {
 
   return (
     <GameStateContext.Provider value={gameStateService}>
-      <GameStatisticContext.Provider value={gameStatisticService}>
-        <GameThemeContext.Provider value={gameThemeService}>
+      <StatisticContext.Provider value={gameStatisticService}>
+        <ThemeContext.Provider value={gameThemeService}>
           <div class="game">
             <div class="game__spacer"></div>
             <div class="game__content">
-              {isMenuOpen.value ? <GameMenuComponent /> : <StateComponent />}
+              {isMenuOpen.value ? <StatisticComponent /> : <StateComponent />}
 
               {!isRunningInTelegram() && (
                 <button
@@ -66,8 +65,8 @@ export function GameComponent() {
             </div>
             <div class="game__spacer"></div>
           </div>
-        </GameThemeContext.Provider>
-      </GameStatisticContext.Provider>
+        </ThemeContext.Provider>
+      </StatisticContext.Provider>
     </GameStateContext.Provider>
   );
 }

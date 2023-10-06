@@ -1,16 +1,17 @@
-import { BlockComponent } from "@components/block/block";
-import { SettingComponent } from "@components/game-menu/setting/setting";
-import { KeyValueComponent } from "@components/key-value-list/key-value";
-import { GameLevel } from "@interfaces/index";
-import { computed, signal, useSignal, useSignalEffect } from "@preact/signals";
+import { CardComponent } from "@components/shared/card/card";
+import { KeyValueComponent } from "@components/shared/key-value-list/key-value";
+import { KeyValueListComponent } from "@components/shared/key-value-list/key-value-list";
+import { ModalComponent } from "@components/shared/modal/modal";
+import { ValueSelectorComponent } from "@components/shared/value-selector/value-selector";
+import { computed, signal } from "@preact/signals";
 import { getWebAppData } from "@utils/telegram.utils";
 import { Fragment, useContext } from "preact/compat";
 import {
-  GameStatisticContext,
-  GameThemeContext,
+  GameStateContext,
+  StatisticContext,
+  ThemeContext,
 } from "../../interfaces/context";
-import { KeyValueListComponent } from "../key-value-list/key-value-list";
-import "./game-menu.css";
+import "./statistic.css";
 
 const debugClickCount = signal(0);
 const isDebugActive = computed(() => {
@@ -21,48 +22,41 @@ const incrementDebugClickCount = () => {
   debugClickCount.value += 1;
 };
 
-export function GameMenuComponent() {
+export function StatisticComponent() {
   const {
     averageCardFlipsCount,
     averageTimeSpentInSeconds,
     gameLevel,
-    increaseLevel,
-    degreesLevel,
+    increaseStatisticLevel,
+    degreesStatisticLevel,
     currentLevelStatistic,
-  } = useContext(GameStatisticContext);
-  const { toggleTheme, theme } = useContext(GameThemeContext);
+  } = useContext(StatisticContext);
+  const { toggleTheme, theme } = useContext(ThemeContext);
 
   return (
-    <div class="game-menu modal">
-      <div onClick={incrementDebugClickCount} class="modal__header">
-        Menu
-      </div>
-
+    <ModalComponent title="Statistic" className="statistic">
       {isDebugActive.value && (
-        <BlockComponent title="Settings">
+        <CardComponent title="Settings">
           <KeyValueListComponent>
-            <SettingComponent
-              name="Theme:"
+            <div>Theme:</div>
+            <ValueSelectorComponent
               value={theme.value}
               increase={toggleTheme}
               degrees={toggleTheme}
             />
           </KeyValueListComponent>
-        </BlockComponent>
+        </CardComponent>
       )}
 
-      <BlockComponent title="Choose level">
-        <KeyValueListComponent>
-          <SettingComponent
-            name="Level:"
-            value={gameLevel.value}
-            increase={increaseLevel}
-            degrees={degreesLevel}
-          />
-        </KeyValueListComponent>
-      </BlockComponent>
+      <div onClick={incrementDebugClickCount}>Choose level for statistic</div>
+      <ValueSelectorComponent
+        className="statistic__level-selector"
+        value={gameLevel.value}
+        increase={increaseStatisticLevel}
+        degrees={degreesStatisticLevel}
+      />
 
-      <BlockComponent title="Game Statistic">
+      <CardComponent title="Game Statistic">
         <KeyValueListComponent>
           <KeyValueComponent
             name="Average Time:"
@@ -73,9 +67,9 @@ export function GameMenuComponent() {
             value={averageCardFlipsCount.value}
           />
         </KeyValueListComponent>
-      </BlockComponent>
+      </CardComponent>
 
-      <BlockComponent title="Game history">
+      <CardComponent title="Game history">
         {currentLevelStatistic.value.length > 0 ? (
           <KeyValueListComponent>
             <div>Time</div>
@@ -92,13 +86,13 @@ export function GameMenuComponent() {
         ) : (
           <div>No data for this level</div>
         )}
-      </BlockComponent>
+      </CardComponent>
 
       {isDebugActive.value && (
-        <BlockComponent title="Debug Info">
-          <div class="game-menu__debug">{getWebAppData()}</div>
-        </BlockComponent>
+        <CardComponent title="Debug Info">
+          <div class="statistic__debug">{getWebAppData()}</div>
+        </CardComponent>
       )}
-    </div>
+    </ModalComponent>
   );
 }
