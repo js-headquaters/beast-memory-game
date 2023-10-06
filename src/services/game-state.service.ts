@@ -10,7 +10,7 @@ import {
   GameLevel,
   GameState,
 } from "@interfaces/index";
-import { computed, effect, signal, untracked } from "@preact/signals";
+import { computed, effect, signal } from "@preact/signals";
 import { Logger } from "@utils/logger.utils";
 import { getHapticFeedback, getMainButton } from "@utils/telegram.utils";
 
