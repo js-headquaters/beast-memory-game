@@ -60,41 +60,24 @@
   width: 100%;
   max-width: calc(var(--horizontal-cards-count) * var(--game-card-total-width));
 }
-.block {
+.card {
   border: 1px solid var(--theme-border-color);
   border-radius: 0.5rem;
 }
 
-.block + .block {
+.card + .card {
   margin-top: 0.5rem;
 }
 
-.block__title {
+.card__title {
   text-align: center;
   color: var(--theme-text-highlight-color);
   border-bottom: 1px solid var(--theme-border-color);
   padding: 0.5rem;
 }
 
-.block__content {
+.card__content {
   padding: 0.5rem;
-}
-.setting__name {
-}
-
-.setting__value {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.setting__button {
-  background-color: var(--theme-button-background);
-  color: var(--theme-button-text-color);
-  border: none;
-  border-radius: 0.25rem;
-  padding: 0.25rem 0.5rem;
 }
 .key {
 }
@@ -106,19 +89,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
 }
-.game-menu {
-  height: 100%;
-  overflow: auto;
-}
-
-.game-menu__debug {
-  white-space: pre;
-  overflow: auto;
-}
 .game-over {
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 0.5rem;
   height: 100%;
 }
 
@@ -127,6 +98,53 @@
   display: flex;
   gap: 1rem;
   justify-content: center;
+}
+.modal {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.5rem;
+  overflow: auto;
+  background-color: var(--theme-modal-background);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem var(--theme-shadow-color);
+}
+
+.modal__title {
+  text-align: center;
+  color: var(--theme-text-highlight-color);
+  font-size: 1.25rem;
+  text-shadow: 0 0 0.5rem var(--theme-text-highlight-color);
+  margin-bottom: 1rem;
+}
+
+.modal__content {
+}
+.value-selector {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.value-selector__button {
+  background-color: var(--theme-button-background);
+  color: var(--theme-button-text-color);
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+}
+.statistic {
+  height: 100%;
+}
+
+.statistic__debug {
+  white-space: pre;
+  overflow: auto;
+}
+
+.statistic__level-selector {
+  max-width: 10rem;
 }
 .game {
   display: flex;
@@ -168,19 +186,4 @@ body {
   font-family: "Lucida Console", Monaco, monospace;
   background: var(--theme-background);
   color: var(--theme-text-main-color);
-}
-
-.modal {
-  background-color: var(--theme-modal-background);
-  padding: 1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.25rem 0.5rem var(--theme-shadow-color);
-}
-
-.modal__header {
-  text-align: center;
-  color: var(--theme-text-highlight-color);
-  font-size: 1.25rem;
-  text-shadow: 0 0 0.5rem var(--theme-text-highlight-color);
-  margin-bottom: 1rem;
 }
