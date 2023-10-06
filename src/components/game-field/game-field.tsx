@@ -1,10 +1,11 @@
 import { GameCardComponent } from "@components/game-card/game-card";
 import "./game-field.css";
-import {useContext} from "preact/compat";
-import {GameStateContext} from "../../context/game-state.context";
+import { useContext } from "preact/compat";
+import { GameStateContext } from "../../interfaces/context";
 
 export function GameFieldComponent() {
-  const { cards, horizontalCardsCount, verticalCardsCount } = useContext(GameStateContext);
+  const { cards, horizontalCardsCount, verticalCardsCount } =
+    useContext(GameStateContext);
 
   let style = `--horizontal-cards-count: ${horizontalCardsCount.value};`;
   style += `--vertical-cards-count: ${verticalCardsCount.value};`;

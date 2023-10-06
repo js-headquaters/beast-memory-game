@@ -14,7 +14,8 @@
       "@components/*": ["src/components/*"],
       "@interfaces/*": ["src/interfaces/*"],
       "@utils/*": ["src/utils/*"],
-      "@services/*": ["src/services/*"]
+      "@services/*": ["src/services/*"],
+      "@constants": ["src/constants"]
     }
   },
   "include": ["node_modules/vite/client.d.ts", "**/*"]

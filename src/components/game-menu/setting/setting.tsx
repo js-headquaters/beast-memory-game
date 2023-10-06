@@ -3,7 +3,7 @@ import "./setting.css";
 
 type Props = {
   name: string;
-  value: string;
+  value: string | number;
   degrees: () => void;
   increase: () => void;
 };

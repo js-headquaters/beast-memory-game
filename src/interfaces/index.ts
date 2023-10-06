@@ -9,7 +9,7 @@ export interface GameInitParams {
   horizontalCardsCount: number;
 }
 
-export type GameState = "init" | "run" | "game_over";
+export type GameState = "init" | "run" | "game_over" | "menu";
 
 export type CardAnimalType =
   | "dog"
