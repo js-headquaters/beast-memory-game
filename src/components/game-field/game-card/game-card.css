@@ -2,7 +2,7 @@
   opacity: 0;
   background-color: transparent;
   perspective: 1500px;
-  transition: opacity 0.5s;
+  transition: opacity var(--card-flip-animation-time);
   position: relative;
 }
 
@@ -24,7 +24,7 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 0.8s;
+  transition: transform var(--card-flip-animation-time);
   transform-style: preserve-3d;
 }
 

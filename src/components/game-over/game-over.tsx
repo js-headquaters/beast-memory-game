@@ -3,7 +3,7 @@ import { CardComponent } from "@components/shared/card/card";
 import { KeyValueComponent } from "@components/shared/key-value-list/key-value";
 import { KeyValueListComponent } from "@components/shared/key-value-list/key-value-list";
 import { getRandomCongratulation } from "@utils/text.utils";
-import { useContext, useState } from "preact/compat";
+import { useContext, useRef, useState } from "preact/compat";
 import { GameStateContext, StatisticContext } from "../../interfaces/context";
 import "./game-over.css";
 import { ModalComponent } from "@components/shared/modal/modal";
@@ -13,10 +13,10 @@ export function GameOverComponent() {
   const { averageCardFlipsCount, averageTimeSpentInSeconds } =
     useContext(StatisticContext);
 
-  const [headerMessage] = useState(getRandomCongratulation());
+  const headerMessage = useRef(getRandomCongratulation());
 
   return (
-    <ModalComponent title={headerMessage} className="game-over">
+    <ModalComponent title={headerMessage.current} className="game-over">
       <CardComponent title="Time spent in second">
         <KeyValueListComponent>
           <KeyValueComponent

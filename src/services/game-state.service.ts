@@ -1,4 +1,8 @@
-import { MAX_GAME_LEVEL, MILLISECONDS_IN_SECOND } from "@constants";
+import {
+  CARD_FLIP_ANIMATION_TIME,
+  MAX_GAME_LEVEL,
+  MILLISECONDS_IN_SECOND,
+} from "@constants";
 import {
   CardAnimalType,
   GameCard,
@@ -69,10 +73,6 @@ export class GameStateService {
 
   readonly canDegreesLevel = computed(() => {
     return this.gameLevel.value > 1;
-  });
-
-  readonly isMenuOpen = computed(() => {
-    return this.currentState.value === "menu";
   });
 
   readonly menuButtonText = computed(() => {
@@ -150,7 +150,7 @@ export class GameStateService {
   startTimer = () => {
     this.timer = setInterval(() => {
       this.currentTimestamp.value = Date.now();
-    }, 1000);
+    }, MILLISECONDS_IN_SECOND);
   };
 
   stopTimer = () => {
@@ -208,6 +208,7 @@ export class GameStateService {
         firstCard.isActive = false;
         secondCard.isActive = false;
 
+        // TODO do we need this?
         window.Telegram.WebApp.HapticFeedback.impactOccurred("heavy");
 
         if (this.cards.value.every((card) => !card.isActive)) {
@@ -218,7 +219,7 @@ export class GameStateService {
         }
       }
       this.openCardsIds.value = [];
-    }, 1000);
+    }, CARD_FLIP_ANIMATION_TIME);
   }
 
   private createGameCards(pairsCount: number): GameCard[] {

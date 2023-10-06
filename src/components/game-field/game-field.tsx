@@ -14,7 +14,7 @@ export function GameFieldComponent() {
     <div style={style} class="game-field">
       <div class="game-field__cards">
         {cards.value.map((card) => {
-          return <GameCardComponent card={card} />;
+          return <GameCardComponent key={card.id} card={card} />;
         })}
       </div>
     </div>

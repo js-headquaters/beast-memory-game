@@ -1,7 +1,6 @@
 import { GameFieldComponent } from "@components/game-field/game-field";
 import { GameOverComponent } from "@components/game-over/game-over";
 import { StatisticComponent } from "@components/statistic/statistic";
-import { GameState } from "@interfaces/index";
 import { effect, untracked } from "@preact/signals";
 import { GameStateService } from "@services/game-state.service";
 import { StatisticService } from "@services/statistic.service";
@@ -13,14 +12,6 @@ import {
   ThemeContext,
 } from "../../interfaces/context";
 import "./game.css";
-
-type GameStateComponent = typeof GameFieldComponent | typeof GameOverComponent;
-
-const statesComponents = new Map<GameState, GameStateComponent>([
-  ["init", GameFieldComponent],
-  ["run", GameFieldComponent],
-  ["game_over", GameOverComponent],
-]);
 
 const gameThemeService = new ThemeService();
 const gameStatisticService = new StatisticService();
@@ -40,10 +31,10 @@ effect(() => {
 });
 
 export function GameComponent() {
-  const { isMenuOpen, currentState, menuButtonText, mainButtonClickHandler } =
+  const { currentState, menuButtonText, mainButtonClickHandler } =
     gameStateService;
 
-  const StateComponent = statesComponents.get(currentState.value);
+  const state = currentState.value;
 
   return (
     <GameStateContext.Provider value={gameStateService}>
@@ -52,7 +43,9 @@ export function GameComponent() {
           <div class="game">
             <div class="game__spacer"></div>
             <div class="game__content">
-              {isMenuOpen.value ? <StatisticComponent /> : <StateComponent />}
+              {state === "menu" && <StatisticComponent />}
+              {state === "game_over" && <GameOverComponent />}
+              {(state === "init" || state === "run") && <GameFieldComponent />}
 
               {!isRunningInTelegram() && (
                 <button

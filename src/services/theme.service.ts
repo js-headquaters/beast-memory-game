@@ -6,6 +6,7 @@ import {
   getWebApp,
   getWebAppTheme,
 } from "@utils/telegram.utils";
+import { camelToKebab } from "@utils/text.utils";
 
 const lightTheme: ThemeProperties = {
   themeBackground: "rgba(228, 223, 249, 1)",
@@ -71,12 +72,8 @@ export class ThemeService {
   private applyTheme(themeProperties: ThemeProperties) {
     const root = document.documentElement;
     for (const [key, value] of Object.entries(themeProperties)) {
-      const cssVarName = `--${this.camelToKebab(key)}`;
+      const cssVarName = `--${camelToKebab(key)}`;
       root.style.setProperty(cssVarName, value);
     }
-  }
-
-  private camelToKebab(str: string): string {
-    return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();
   }
 }

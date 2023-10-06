@@ -1,6 +1,6 @@
 {
 	"name": "beast-memory",
-	"description": "Unleash the power of your memory with BeastMemory, a fun and engaging card matching game featuring a world of wonderful creatures",
+	"description": "BeastMemory is a mysterious memory card game adorned with enigmatic and otherworldly animal spirits, perfect for all ages and an excellent tool for enhancing memory skills",
 	"private": true,
 	"type": "module",
 	"scripts": {

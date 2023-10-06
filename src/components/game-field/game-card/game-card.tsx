@@ -5,10 +5,15 @@ import { cardImageMap } from "@utils/card-image.utils";
 import { useContext } from "preact/compat";
 import { GameStateContext, ThemeContext } from "../../../interfaces/context";
 import "./game-card.css";
+import { CARD_FLIP_ANIMATION_TIME, MILLISECONDS_IN_SECOND } from "@constants";
 
 type Props = {
   card: GameCard;
 };
+
+const cardFlipAnimationTime = `${
+  CARD_FLIP_ANIMATION_TIME / MILLISECONDS_IN_SECOND
+}s`;
 
 export function GameCardComponent({ card }: Props) {
   const {
@@ -28,8 +33,10 @@ export function GameCardComponent({ card }: Props) {
     }`;
   };
 
+  const style = `--card-flip-animation-time: ${cardFlipAnimationTime}`;
+
   return (
-    <div class={getCardClasses(card)} onClick={handleClick}>
+    <div style={style} class={getCardClasses(card)} onClick={handleClick}>
       {isAnimalTypeVisible.value && (
         <div class="game-card__animal-type">{card.animalType}</div>
       )}
