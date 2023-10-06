@@ -92,10 +92,13 @@ const gameCard = '';
 
 var _$2=0;function o$1(o,e,n,t,f,l){var s,u,a={};for(u in e)"ref"==u?s=e[u]:a[u]=e[u];var i={type:o,props:a,key:n,ref:s,__k:null,__:null,__b:0,__e:null,__d:void 0,__c:null,__h:null,constructor:void 0,__v:--_$2,__source:f,__self:l};if("function"==typeof o&&(s=o.defaultProps))for(u in s)void 0===a[u]&&(a[u]=s[u]);return l$3.vnode&&l$3.vnode(i),i}
 
-function GameCardComponent(card) {
+function GameCardComponent({
+  card
+}) {
   const {
     openCard,
-    isCardOpen
+    isCardOpen,
+    showDebugInfo: isAnimalTypeVisible
   } = q$1(GameStateContext);
   const {
     theme
@@ -109,7 +112,10 @@ function GameCardComponent(card) {
   return o$1("div", {
     class: getCardClasses(card),
     onClick: handleClick,
-    children: o$1("div", {
+    children: [isAnimalTypeVisible.value && o$1("div", {
+      class: "game-card__animal-type",
+      children: card.animalType
+    }), o$1("div", {
       class: "game-card__inner",
       children: [o$1("div", {
         class: "game-card__backing",
@@ -127,7 +133,7 @@ function GameCardComponent(card) {
           alt: card.animalType
         })
       })]
-    })
+    })]
   });
 }
 
@@ -148,7 +154,7 @@ function GameFieldComponent() {
       class: "game-field__cards",
       children: cards.value.map((card) => {
         return o$1(GameCardComponent, {
-          ...card
+          card
         });
       })
     })
@@ -214,13 +220,15 @@ const modal = '';
 function ModalComponent({
   title,
   children,
-  className
+  className,
+  onTitleClick
 }) {
   const classString = className ? `modal ${className}` : "modal";
   return o$1("div", {
     class: classString,
     children: [o$1("div", {
       class: "modal__title",
+      onClick: onTitleClick,
       children: title
     }), o$1("div", {
       class: "modal__content",
@@ -359,14 +367,11 @@ const debugClickCount = a(0);
 const isDebugActive = p$1(() => {
   return debugClickCount.value > 3;
 });
-const incrementDebugClickCount = () => {
-  debugClickCount.value += 1;
-};
 function StatisticComponent() {
   const {
     averageCardFlipsCount,
     averageTimeSpentInSeconds,
-    gameLevel,
+    gameLevelForStatistic,
     increaseStatisticLevel,
     degreesStatisticLevel,
     currentLevelStatistic
@@ -375,28 +380,50 @@ function StatisticComponent() {
     toggleTheme,
     theme
   } = q$1(ThemeContext);
+  const {
+    increaseLevel,
+    degreesLevel,
+    gameLevel,
+    showDebugInfo,
+    toggleShowDebugInfo
+  } = q$1(GameStateContext);
   return o$1(ModalComponent, {
     title: "Statistic",
     className: "statistic",
+    onTitleClick: () => {
+      debugClickCount.value += 1;
+    },
     children: [isDebugActive.value && o$1(CardComponent, {
       title: "Settings",
       children: o$1(KeyValueListComponent, {
         children: [o$1("div", {
+          children: "Current Level:"
+        }), o$1(ValueSelectorComponent, {
+          value: gameLevel.value,
+          increase: increaseLevel,
+          degrees: degreesLevel
+        }), o$1("div", {
           children: "Theme:"
         }), o$1(ValueSelectorComponent, {
           value: theme.value,
           increase: toggleTheme,
           degrees: toggleTheme
+        }), o$1("div", {
+          children: "Show debug info:"
+        }), o$1(ValueSelectorComponent, {
+          value: showDebugInfo.value ? "Yes" : "No",
+          increase: toggleShowDebugInfo,
+          degrees: toggleShowDebugInfo
         })]
       })
-    }), o$1("div", {
-      onClick: incrementDebugClickCount,
-      children: "Choose level for statistic"
-    }), o$1(ValueSelectorComponent, {
-      className: "statistic__level-selector",
-      value: gameLevel.value,
-      increase: increaseStatisticLevel,
-      degrees: degreesStatisticLevel
+    }), o$1(CardComponent, {
+      title: "Choose level for statistic",
+      children: o$1(ValueSelectorComponent, {
+        className: "statistic__level-selector",
+        value: gameLevelForStatistic.value,
+        increase: increaseStatisticLevel,
+        degrees: degreesStatisticLevel
+      })
     }), o$1(CardComponent, {
       title: "Game Statistic",
       children: o$1(KeyValueListComponent, {
@@ -484,6 +511,7 @@ class GameStateService {
     this.currentState = a("init");
     this.openCardsIds = a([]);
     this.cardsFlipCount = a(0);
+    this.showDebugInfo = a(false);
     this.cardsMap = p$1(() => this.cards.value.reduce((acc, card) => {
       acc.set(card.id, card);
       return acc;
@@ -513,7 +541,7 @@ class GameStateService {
     this.currentTimestamp = a(null);
     this.mainButton = getMainButton();
     this.logger = new Logger("GameStateService");
-    this.start = () => {
+    this.restart = () => {
       this.currentState.value = "init";
     };
     this.openCard = (card) => {
@@ -545,18 +573,20 @@ class GameStateService {
       const value = this.gameLevel.value + 1;
       if (value <= MAX_GAME_LEVEL) {
         this.gameLevel.value = value;
+        this.initGame();
       }
     };
     this.degreesLevel = () => {
       const value = this.gameLevel.value - 1;
       if (value > 0) {
         this.gameLevel.value = value;
+        this.initGame();
       }
     };
     this.mainButtonClickHandler = () => {
       if (this.currentState.value === "game_over") {
         this.increaseLevel();
-        this.start();
+        this.restart();
         return;
       }
       if (this.currentState.value !== "menu") {
@@ -564,6 +594,9 @@ class GameStateService {
       } else {
         this.currentState.value = "run";
       }
+    };
+    this.toggleShowDebugInfo = () => {
+      this.showDebugInfo.value = !this.showDebugInfo.value;
     };
     this.mainButton.show();
     this.mainButton.onClick(this.mainButtonClickHandler);
@@ -650,18 +683,18 @@ class GameStateService {
 const AMOUNT_OF_SAVED_RESULTS = 5;
 class StatisticService {
   constructor() {
-    this.gameLevel = a(1);
+    this.gameLevelForStatistic = a(1);
     this.statistic = a({});
     this.lastGameStatistic = a(null);
     this.currentLevelStatistic = p$1(() => {
-      return this.statistic.value[this.gameLevel.value] ?? [];
+      return this.statistic.value[this.gameLevelForStatistic.value] ?? [];
     });
     // TODO too big, move to function
     this.averageTimeSpentInSeconds = p$1(() => {
-      if (!this.gameLevel.value) {
+      if (!this.gameLevelForStatistic.value) {
         return null;
       }
-      const statsByLevel = this.statistic.value[this.gameLevel.value] || [];
+      const statsByLevel = this.statistic.value[this.gameLevelForStatistic.value] || [];
       if (statsByLevel.length === 0) {
         return null;
       }
@@ -670,10 +703,10 @@ class StatisticService {
     });
     // TODO too big, move to function
     this.averageCardFlipsCount = p$1(() => {
-      if (!this.gameLevel.value) {
+      if (!this.gameLevelForStatistic.value) {
         return null;
       }
-      const statsByLevel = this.statistic.value[this.gameLevel.value] || [];
+      const statsByLevel = this.statistic.value[this.gameLevelForStatistic.value] || [];
       if (statsByLevel.length === 0) {
         return null;
       }
@@ -682,15 +715,15 @@ class StatisticService {
     });
     this.logger = new Logger("StatisticService");
     this.increaseStatisticLevel = () => {
-      const value = this.gameLevel.value + 1;
+      const value = this.gameLevelForStatistic.value + 1;
       if (value <= MAX_GAME_LEVEL) {
-        this.gameLevel.value = value;
+        this.gameLevelForStatistic.value = value;
       }
     };
     this.degreesStatisticLevel = () => {
-      const value = this.gameLevel.value - 1;
+      const value = this.gameLevelForStatistic.value - 1;
       if (value > 0) {
-        this.gameLevel.value = value;
+        this.gameLevelForStatistic.value = value;
       }
     };
     this.addGameStatistic = async (level, statistic) => {

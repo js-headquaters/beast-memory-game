@@ -3,6 +3,16 @@
   background-color: transparent;
   perspective: 1500px;
   transition: opacity 0.5s;
+  position: relative;
+}
+
+.game-card__animal-type {
+  position: absolute;
+  bottom: 0.4rem;
+  left: 0.4rem;
+  color: var(--theme-button-text-color);
+  z-index: 99;
+  font-size: 0.8rem;
 }
 
 .game-card_active {
@@ -144,7 +154,8 @@
 }
 
 .statistic__level-selector {
-  max-width: 10rem;
+  margin: 0 auto;
+  max-width: 6rem;
 }
 .game {
   display: flex;
