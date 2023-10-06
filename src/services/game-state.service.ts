@@ -10,7 +10,7 @@ import {
   GameLevel,
   GameState,
 } from "@interfaces/index";
-import { computed, effect, signal } from "@preact/signals";
+import { computed, effect, signal, untracked } from "@preact/signals";
 import { Logger } from "@utils/logger.utils";
 import { getMainButton } from "@utils/telegram.utils";
 
@@ -101,21 +101,23 @@ export class GameStateService {
       const state = this.currentState.value;
       this.logger.log(`game state changed to "${state}"`);
 
-      if (state === "init") {
-        this.initGame();
-        this.currentState.value = "run";
-        return;
-      }
+      untracked(() => {
+        if (state === "init") {
+          this.initGame();
+          this.currentState.value = "run";
+          return;
+        }
 
-      if (state === "run") {
-        this.startTimer();
-        return;
-      }
+        if (state === "run") {
+          this.startTimer();
+          return;
+        }
 
-      if (state === "menu" || state === "game_over") {
-        this.stopTimer();
-        return;
-      }
+        if (state === "menu" || state === "game_over") {
+          this.stopTimer();
+          return;
+        }
+      });
     });
   }
 
@@ -261,6 +263,7 @@ export class GameStateService {
   }
 
   private initGame() {
+    this.currentTimestamp.value = Date.now();
     this.openCardsIds.value = [];
     this.cardsFlipCount.value = 0;
     const { horizontalCardsCount, pairsCount } = gameDifficultyMap.get(
