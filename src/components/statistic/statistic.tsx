@@ -12,6 +12,7 @@ import {
   ThemeContext,
 } from "../../interfaces/context";
 import "./statistic.css";
+import {HistoryComponent} from "@components/history/history";
 
 const debugClickCount = signal(0);
 const isDebugActive = computed(() => {
@@ -95,23 +96,7 @@ export function StatisticComponent() {
       </CardComponent>
 
       <CardComponent title="Game history">
-        {/* TODO make history component */}
-        {currentLevelStatistic.value.length > 0 ? (
-          <KeyValueListComponent>
-            <div>Time</div>
-            <div>Flips</div>
-            {currentLevelStatistic.value?.map(
-              ({ timeSpentInSeconds, cardFlipsCount }) => (
-                <Fragment>
-                  <div>{timeSpentInSeconds}</div>
-                  <div>{cardFlipsCount}</div>
-                </Fragment>
-              ),
-            )}
-          </KeyValueListComponent>
-        ) : (
-          <div>No data for this level</div>
-        )}
+        <HistoryComponent gameStatistic={currentLevelStatistic.value} />
       </CardComponent>
 
       {isDebugActive.value && showDebugInfo.value && (
