@@ -558,7 +558,6 @@ class GameStateService {
       }
       this.openCardsIds.value = [...this.openCardsIds.value, card.id];
       this.cardsFlipCount.value += 1;
-      this.feedback.impactOccurred("light");
       this.logger.log(`opened "${card.animalType}" card`);
       if (this.openCardsIds.value.length < 2) {
         return;
@@ -644,7 +643,7 @@ class GameStateService {
         return;
       }
       this.logger.log(`card "${firstCard.animalType}" match card "${secondCard.animalType}"`);
-      this.feedback.impactOccurred("heavy");
+      this.feedback.impactOccurred("light");
       firstCard.isActive = false;
       secondCard.isActive = false;
       this.cards.value = [...this.cards.value];
@@ -653,7 +652,7 @@ class GameStateService {
         return;
       }
       setTimeout(() => {
-        this.feedback.notificationOccurred("success");
+        this.feedback.impactOccurred("heavy");
         this.currentState.value = "game_over";
       }, CARD_FLIP_ANIMATION_TIME);
     }, CARD_FLIP_ANIMATION_TIME);
