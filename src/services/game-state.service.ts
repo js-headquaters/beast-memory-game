@@ -136,7 +136,6 @@ export class GameStateService {
 
     this.openCardsIds.value = [...this.openCardsIds.value, card.id];
     this.cardsFlipCount.value += 1;
-    this.feedback.impactOccurred("light");
 
     this.logger.log(`opened "${card.animalType}" card`);
 
@@ -223,7 +222,7 @@ export class GameStateService {
         `card "${firstCard.animalType}" match card "${secondCard.animalType}"`
       );
 
-      this.feedback.impactOccurred("heavy");
+      this.feedback.impactOccurred("light");
 
       firstCard.isActive = false;
       secondCard.isActive = false;
@@ -237,7 +236,7 @@ export class GameStateService {
 
       // Wait till card flip animation ends
       setTimeout(() => {
-        this.feedback.notificationOccurred("success");
+        this.feedback.impactOccurred("heavy");
         this.currentState.value = "game_over";
       }, CARD_FLIP_ANIMATION_TIME);
     }, CARD_FLIP_ANIMATION_TIME);
