@@ -25,6 +25,7 @@ export function StatisticComponent() {
     gameLevelForStatistic,
     increaseStatisticLevel,
     degreesStatisticLevel,
+    resetStatistics,
     currentLevelStatistic,
   } = useContext(StatisticContext);
   const { toggleTheme, theme } = useContext(ThemeContext);
@@ -65,6 +66,7 @@ export function StatisticComponent() {
               increase={toggleShowDebugInfo}
               degrees={toggleShowDebugInfo}
             />
+            <a className={'statistic__reset-link'} href="#" onClick={() => resetStatistics()}>Reset statistics</a>
           </KeyValueListComponent>
         </CardComponent>
       )}
@@ -114,7 +116,7 @@ export function StatisticComponent() {
 
       {isDebugActive.value && showDebugInfo.value && (
         <CardComponent title="Debug Info">
-          <div class="statistic__debug">{getWebAppData()}</div>
+          <div className="statistic__debug">{getWebAppData()}</div>
         </CardComponent>
       )}
     </ModalComponent>

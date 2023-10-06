@@ -11,3 +11,7 @@
   margin: 0 auto;
   max-width: 6rem;
 }
+
+.statistic__reset-link {
+  grid-column: 1 / -1;
+}

@@ -44,6 +44,19 @@ export class StatisticService {
     }
   };
 
+  resetStatistics = async () => {
+    this.statistic.value = {} as GameStatisticMap;
+    try {
+      await this.setItemToCloudStorage(
+          "results",
+          JSON.stringify(this.statistic.value),
+      );
+      this.logger.log("statistics was reset")
+    } catch {
+      this.logger.error("error during statistics reset")
+    }
+  }
+
   addGameStatistic = async (level: GameLevel, statistic: GameStatistic) => {
     this.statistic.value = {
       ...this.statistic.value,
