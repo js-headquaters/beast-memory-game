@@ -1,12 +1,12 @@
-import { PanelComponent } from "@components/shared/panel/panel";
 import { KeyValueComponent } from "@components/shared/key-value-list/key-value";
 import { KeyValueListComponent } from "@components/shared/key-value-list/key-value-list";
 import { ModalComponent } from "@components/shared/modal/modal";
+import { PanelComponent } from "@components/shared/panel/panel";
+import { GameStateContext, StatisticContext } from "@interfaces/context";
+import { cardMidResImageMap } from "@utils/card-image.utils";
 import { getRandomCongratulation } from "@utils/text.utils";
 import { useContext, useRef } from "preact/compat";
-import { GameStateContext, StatisticContext } from "@interfaces/context";
 import "./game-over.css";
-import { cardImageMap } from "@utils/card-image.utils";
 
 /**
  * GameOverComponent is presented to the user upon the completion of a game. It displays
@@ -21,7 +21,7 @@ export function GameOverComponent() {
     useContext(StatisticContext);
 
   const headerMessage = useRef(getRandomCongratulation());
-  const lastCardType = cardImageMap.get(lastOpenedCardType.value);
+  const lastCardType = cardMidResImageMap.get(lastOpenedCardType.value);
 
   return (
     <ModalComponent title={headerMessage.current} className="game-over">
