@@ -22,6 +22,7 @@
 .game-over__last-card-image {
   border: 4px solid var(--theme-border-color);
   overflow: hidden;
-  height: 200px;
+  width: 150px;
+  height: 216px;
   border-radius: 1rem;
 }
