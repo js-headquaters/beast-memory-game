@@ -15,8 +15,8 @@
 
 🎮 **Play Now**:
 
-- [Telegram WebApp](https://t.me/BeastMemoryBot/game)
-- [Web](https://js-headquaters.github.io/beast-memory-game/)
+- [Telegram WebApp](https://t.me/BeastMemoryBot/game) Click on the link or find our bot in Telegram `@BeastMemoryBot`
+- [Web](https://js-headquaters.github.io/beast-memory-game/) Remember that the application was developed for mobile devices and to operate within the context of Telegram
 
 Embark on your journey of fun and cognitive enhancement with BeastMemory today!
 
@@ -26,6 +26,7 @@ Embark on your journey of fun and cognitive enhancement with BeastMemory today!
 2. [Game Concept](#game-concept)
 3. [Technology Stack](#technology-stack)
 4. [Dive into Project Details](#dive-into-project-details)
+5. [Challenges Encountered with Telegram's API](#challenges-encountered-with-telegrams-api)
 
 ## Running BeastMemory Locally
 
