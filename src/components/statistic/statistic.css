@@ -12,6 +12,6 @@
   max-width: 6rem;
 }
 
-.statistic__reset-link {
+.statistic__reset-button {
   grid-column: 1 / -1;
 }

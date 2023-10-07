@@ -4,3 +4,11 @@ body {
   background: var(--theme-background);
   color: var(--theme-text-main-color);
 }
+
+button {
+  background-color: var(--theme-button-background);
+  color: var(--theme-button-text-color);
+  border: none;
+  border-radius: 0.3125rem;
+  padding: 0.5rem;
+}

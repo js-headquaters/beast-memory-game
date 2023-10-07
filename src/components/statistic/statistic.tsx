@@ -67,18 +67,13 @@ export function StatisticComponent() {
               increase={toggleShowDebugInfo}
               decrease={toggleShowDebugInfo}
             />
-            <a
-              className={"statistic__reset-link"}
-              href="#"
-              onClick={() => resetStatistics()}
-            >
-              Reset statistics
-            </a>
+            <button class="statistic__reset-button" onClick={resetStatistics}>
+              Reset Statistic
+            </button>
           </KeyValueListComponent>
         </CardComponent>
       )}
 
-      {/* TODO make it better */}
       <CardComponent title="Show data for level">
         <ValueSelectorComponent
           className="statistic__level-selector"
@@ -108,7 +103,7 @@ export function StatisticComponent() {
         />
       </CardComponent>
 
-      {isDebugActive.value && showDebugInfo.value && (
+      {showDebugInfo.value && (
         <CardComponent title="Debug Info">
           <div className="statistic__debug">{getWebAppData()}</div>
         </CardComponent>
