@@ -56,7 +56,7 @@ export class GameStateService {
       acc.set(card.id, card);
 
       return acc;
-    }, new Map<GameCard["id"], GameCard>())
+    }, new Map<GameCard["id"], GameCard>()),
   );
 
   readonly timeSpentInSeconds = computed<number>(() => {
@@ -212,14 +212,14 @@ export class GameStateService {
 
       if (!isCardMatched) {
         this.logger.log(
-          `card "${firstCard.animalType}" do not match card "${secondCard.animalType}"`
+          `card "${firstCard.animalType}" do not match card "${secondCard.animalType}"`,
         );
 
         return;
       }
 
       this.logger.log(
-        `card "${firstCard.animalType}" match card "${secondCard.animalType}"`
+        `card "${firstCard.animalType}" match card "${secondCard.animalType}"`,
       );
 
       this.feedback.impactOccurred("heavy");
@@ -245,7 +245,7 @@ export class GameStateService {
   private createGameCards(pairsCount: number): GameCard[] {
     const createCard = (
       animalType: CardAnimalType,
-      idSuffix: number
+      idSuffix: number,
     ): GameCard => {
       return {
         animalType,
@@ -285,7 +285,7 @@ export class GameStateService {
     this.openCardsIds.value = [];
     this.cardsFlipCount.value = 0;
     const { horizontalCardsCount, pairsCount } = gameDifficultyMap.get(
-      this.gameLevel.value
+      this.gameLevel.value,
     );
     this.cards.value = this.createGameCards(pairsCount);
     this.horizontalCardsCount.value = horizontalCardsCount;

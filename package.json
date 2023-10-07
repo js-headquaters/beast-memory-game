@@ -1,27 +1,29 @@
 {
-	"name": "beast-memory",
-	"description": "BeastMemory is a mysterious memory card game adorned with enigmatic and otherworldly animal spirits, perfect for all ages and an excellent tool for enhancing memory skills",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"build": "vite build",
-		"preview": "vite preview",
-		"build-github-pages": "vite build --base=https://js-headquaters.github.io/beast-memory-game/"
-	},
-	"dependencies": {
-		"@preact/signals": "^1.2.1",
-		"preact": "^10.13.1"
-	},
-	"devDependencies": {
-		"@preact/preset-vite": "^2.5.0",
-		"@twa-dev/types": "^6.9.0",
-		"eslint": "^8.50.0",
-		"eslint-config-preact": "^1.3.0",
-		"i": "^0.3.7",
-		"npm": "^10.1.0",
-		"typescript": "^5.2.2",
-		"vite": "^4.3.2",
-		"vite-tsconfig-paths": "^4.2.1"
-	}
+  "name": "beast-memory",
+  "description": "BeastMemory is a mysterious memory card game adorned with enigmatic and otherworldly animal spirits, perfect for all ages and an excellent tool for enhancing memory skills",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "build-github-pages": "vite build --base=https://js-headquaters.github.io/beast-memory-game/",
+    "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,md}\""
+  },
+  "dependencies": {
+    "@preact/signals": "^1.2.1",
+    "preact": "^10.13.1"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.5.0",
+    "@twa-dev/types": "^6.9.0",
+    "eslint": "^8.50.0",
+    "eslint-config-preact": "^1.3.0",
+    "i": "^0.3.7",
+    "npm": "^10.1.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2",
+    "vite": "^4.3.2",
+    "vite-tsconfig-paths": "^4.2.1"
+  }
 }
