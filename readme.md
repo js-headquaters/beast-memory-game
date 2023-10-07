@@ -114,8 +114,6 @@ By choosing these technologies and platforms, we ensure an efficient, enjoyable,
 
 ## TODO
 
-- clean code
-- clean styles
 - clean readme
 - add more data to readme
 

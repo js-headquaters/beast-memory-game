@@ -121,22 +121,8 @@ export class StatisticService {
       }
 
       const cloudStatistic = value ? JSON.parse(value) : [];
+      this.statistic.value = cloudStatistic;
       this.logger.log("loaded statistic from cloud storage", cloudStatistic);
-
-      const isCloudHasMoreData = Object.entries(this.statistic.value).every(
-        ([level, data]) => {
-          return data.length < cloudStatistic[level].length;
-        }
-      );
-      if (isCloudHasMoreData) {
-        this.statistic.value = cloudStatistic;
-        this.logger.log("cloud storage has more data used it", cloudStatistic);
-      } else {
-        this.logger.log(
-          "cloud storage has less data so using local data",
-          cloudStatistic
-        );
-      }
     });
   }
 
