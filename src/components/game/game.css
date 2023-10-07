@@ -28,3 +28,8 @@
 .game__fallback-menu {
   margin-top: 0.5rem;
 }
+
+.game__image-preload {
+  width: 0;
+  height: 0;
+}

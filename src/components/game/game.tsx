@@ -12,6 +12,7 @@ import {
   ThemeContext,
 } from "@interfaces/context";
 import "./game.css";
+import { cardMidResImageMap } from "@utils/card-image.utils";
 
 const gameThemeService = new ThemeService();
 const gameStatisticService = new StatisticService();
@@ -30,6 +31,8 @@ effect(() => {
     });
   }
 });
+
+const allMidResImages = [...cardMidResImageMap.values()];
 
 /**
  * GameComponent serves as the root component for the game. It is responsible for defining
@@ -65,6 +68,15 @@ export function GameComponent() {
               )}
             </div>
             <div class="game__spacer"></div>
+
+            {/* A workaround to preload all medium-resolution card images, ensuring users see them instantly upon completing a level. */}
+            {allMidResImages.map((imageSrc) => (
+              <img
+                class="game__image-preload"
+                src={imageSrc}
+                loading="lazy"
+              ></img>
+            ))}
           </div>
         </ThemeContext.Provider>
       </StatisticContext.Provider>
