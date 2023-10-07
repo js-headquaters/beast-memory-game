@@ -4,7 +4,7 @@
   height: 100vh;
   width: 100vw;
 
-  --game-card-width: 4rem;
+  --game-card-width: 4.1rem;
   --game-card-height: 6rem;
   --game-card-gap: 0.5rem;
   --game-card-total-width: calc(var(--game-card-width) + var(--game-card-gap));
