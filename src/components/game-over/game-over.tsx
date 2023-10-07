@@ -25,25 +25,25 @@ export function GameOverComponent() {
       <CardComponent title="Time spent in second">
         <KeyValueListComponent>
           <KeyValueComponent
-            name="This Game:"
+            name="This game:"
             value={timeSpentInSeconds.value}
           />
         </KeyValueListComponent>
         <KeyValueListComponent>
           <KeyValueComponent
-            name="You Average:"
+            name="Your average:"
             value={averageTimeSpentInSeconds.value}
           />
         </KeyValueListComponent>
       </CardComponent>
 
-      <CardComponent title="Card Flips Count">
+      <CardComponent title="Card flips count">
         <KeyValueListComponent>
-          <KeyValueComponent name="This Game:" value={cardsFlipCount.value} />
+          <KeyValueComponent name="This game:" value={cardsFlipCount.value} />
         </KeyValueListComponent>
         <KeyValueListComponent>
           <KeyValueComponent
-            name="You Average:"
+            name="Your average:"
             value={averageCardFlipsCount.value}
           />
         </KeyValueListComponent>

@@ -89,7 +89,7 @@ export function StatisticComponent() {
         />
       </CardComponent>
 
-      <CardComponent title="Game Statistic">
+      <CardComponent title="Game statistic">
         <KeyValueListComponent>
           <KeyValueComponent
             name="Average Time:"
