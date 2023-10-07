@@ -4,7 +4,7 @@ import { ModalComponent } from "@components/shared/modal/modal";
 import { PanelComponent } from "@components/shared/panel/panel";
 import { GameStateContext, StatisticContext } from "@interfaces/context";
 import { cardMidResImageMap } from "@utils/card-image.utils";
-import { getRandomCongratulation } from "@utils/text.utils";
+import { getAnimalPhrase, getRandomCongratulation } from "@utils/text.utils";
 import { useContext, useRef } from "preact/compat";
 import "./game-over.css";
 
@@ -22,6 +22,7 @@ export function GameOverComponent() {
 
   const headerMessage = useRef(getRandomCongratulation());
   const lastCardType = cardMidResImageMap.get(lastOpenedCardType.value);
+  const encouragingPhrase = getAnimalPhrase(lastOpenedCardType.value);
 
   return (
     <ModalComponent title={headerMessage.current} className="game-over">
@@ -31,6 +32,7 @@ export function GameOverComponent() {
           src={lastCardType}
           alt="animal card"
         />
+        {encouragingPhrase}
       </div>
 
       <PanelComponent title="Time spent in seconds">
