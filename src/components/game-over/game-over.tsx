@@ -33,8 +33,8 @@ export function GameOverComponent() {
           alt="animal card"
           loading="eager"
         />
-        {encouragingPhrase}
       </div>
+      <div className="game-over__animal-phrase">{encouragingPhrase}</div>
 
       <PanelComponent title="Time spent in seconds">
         <KeyValueListComponent>

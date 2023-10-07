@@ -1,7 +1,6 @@
 .modal {
   display: flex;
   flex-flow: column nowrap;
-  gap: 0.5rem;
   overflow: auto;
   background-color: var(--theme-modal-background);
   padding: 1rem;
@@ -18,4 +17,8 @@
 }
 
 .modal__content {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 0;
+  flex: 1 1 auto;
 }
