@@ -7,6 +7,7 @@ import {
   WebAppUser,
 } from "@twa-dev/types";
 
+// TODO don't we want to output user somehow?
 export function getWebAppUser(): WebAppUser | undefined {
   return window.Telegram.WebApp.initDataUnsafe?.user;
 }
@@ -15,6 +16,7 @@ export function getMainButton(): MainButton {
   return window.Telegram.WebApp.MainButton;
 }
 
+// TODO does not need it?
 export function getBackButton(): BackButton {
   return window.Telegram.WebApp.BackButton;
 }

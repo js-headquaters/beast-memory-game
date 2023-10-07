@@ -1,6 +1,6 @@
 import { GameCardComponent } from "./game-card/game-card";
 import { useContext } from "preact/compat";
-import { GameStateContext } from "../../interfaces/context";
+import { GameStateContext } from "@interfaces/context";
 import "./game-field.css";
 
 /**

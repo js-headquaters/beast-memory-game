@@ -1,4 +1,4 @@
-import { CardComponent } from "@components/shared/card/card";
+import { PanelComponent } from "@components/shared/panel/panel";
 import { KeyValueComponent } from "@components/shared/key-value-list/key-value";
 import { KeyValueListComponent } from "@components/shared/key-value-list/key-value-list";
 import { ModalComponent } from "@components/shared/modal/modal";
@@ -10,7 +10,7 @@ import {
   GameStateContext,
   StatisticContext,
   ThemeContext,
-} from "../../interfaces/context";
+} from "@interfaces/context";
 import { HistoryComponent } from "./history/history";
 import "./statistic.css";
 
@@ -53,7 +53,7 @@ export function StatisticComponent() {
       }}
     >
       {isDebugActive.value && (
-        <CardComponent title="Settings">
+        <PanelComponent title="Settings">
           <KeyValueListComponent>
             <div>Current Level:</div>
             <ValueSelectorComponent
@@ -77,42 +77,42 @@ export function StatisticComponent() {
               Reset Statistic
             </button>
           </KeyValueListComponent>
-        </CardComponent>
+        </PanelComponent>
       )}
 
-      <CardComponent title="Show data for level">
+      <PanelComponent title="Show data for level">
         <ValueSelectorComponent
           className="statistic__level-selector"
           value={gameLevelForStatistic.value}
           increase={increaseStatisticLevel}
           decrease={decreaseStatisticLevel}
         />
-      </CardComponent>
+      </PanelComponent>
 
-      <CardComponent title="Game statistic">
+      <PanelComponent title="Game statistic">
         <KeyValueListComponent>
           <KeyValueComponent
-            name="Average Time:"
+            name="Average time:"
             value={averageTimeSpentInSeconds.value}
           />
           <KeyValueComponent
-            name="Average Flips:"
+            name="Average flips:"
             value={averageCardFlipsCount.value}
           />
         </KeyValueListComponent>
-      </CardComponent>
+      </PanelComponent>
 
-      <CardComponent title="Game history">
+      <PanelComponent title="Game history">
         <HistoryComponent
           level={gameLevelForStatistic.value}
           gameStatistic={currentLevelStatistic.value}
         />
-      </CardComponent>
+      </PanelComponent>
 
       {showDebugInfo.value && (
-        <CardComponent title="Debug Info">
+        <PanelComponent title="Debug Info">
           <div className="statistic__debug">{getWebAppData()}</div>
-        </CardComponent>
+        </PanelComponent>
       )}
     </ModalComponent>
   );

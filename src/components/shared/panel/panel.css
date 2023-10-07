@@ -1,19 +1,19 @@
-.card {
+.panel {
   border: 1px solid var(--theme-border-color);
   border-radius: 0.5rem;
 }
 
-.card + .card {
+.panel + .panel {
   margin-top: 0.5rem;
 }
 
-.card__title {
+.panel__title {
   text-align: center;
   color: var(--theme-text-highlight-color);
   border-bottom: 1px solid var(--theme-border-color);
   padding: 0.5rem;
 }
 
-.card__content {
+.panel__content {
   padding: 0.5rem;
 }

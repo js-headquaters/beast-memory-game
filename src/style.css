@@ -13,6 +13,9 @@ button {
   padding: 0.5rem;
 }
 
+/**
+ * This is needed to disable zoom on double tap on mobile devices.
+ */
 * {
   touch-action: manipulation;
 }

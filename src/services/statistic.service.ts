@@ -24,7 +24,7 @@ const EMPTY_STATISTIC: GameStatisticMap = {
 /**
  * This service is dedicated to preserving the history of past games, recording each game's data
  * and computing average statistics. While its primary storage mechanism is cloud storage, it
- * conveniently falls back to using localStorage for local development purposes.
+ * conveniently falls back to using localStorage for local development purposes or if CloudStorage is not available.
  */
 export class StatisticService {
   private canUseCloud = hasStorageApi();

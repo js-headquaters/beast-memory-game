@@ -78,6 +78,7 @@ export class GameStateService {
     return this.gameLevel.value < MAX_GAME_LEVEL;
   });
 
+  // TODO unused. error or remove this?
   readonly canDecreaseLevel = computed(() => {
     return this.gameLevel.value > 1;
   });

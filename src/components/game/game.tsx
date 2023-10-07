@@ -10,7 +10,7 @@ import {
   GameStateContext,
   StatisticContext,
   ThemeContext,
-} from "../../interfaces/context";
+} from "@interfaces/context";
 import "./game.css";
 
 const gameThemeService = new ThemeService();

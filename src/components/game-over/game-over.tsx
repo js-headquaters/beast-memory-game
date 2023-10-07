@@ -1,10 +1,10 @@
-import { CardComponent } from "@components/shared/card/card";
+import { PanelComponent } from "@components/shared/panel/panel";
 import { KeyValueComponent } from "@components/shared/key-value-list/key-value";
 import { KeyValueListComponent } from "@components/shared/key-value-list/key-value-list";
 import { ModalComponent } from "@components/shared/modal/modal";
 import { getRandomCongratulation } from "@utils/text.utils";
 import { useContext, useRef } from "preact/compat";
-import { GameStateContext, StatisticContext } from "../../interfaces/context";
+import { GameStateContext, StatisticContext } from "@interfaces/context";
 import "./game-over.css";
 import { cardImageMap } from "@utils/card-image.utils";
 
@@ -33,32 +33,28 @@ export function GameOverComponent() {
         />
       </div>
 
-      <CardComponent title="Time spent in second">
+      <PanelComponent title="Time spent in seconds">
         <KeyValueListComponent>
           <KeyValueComponent
             name="This game:"
             value={timeSpentInSeconds.value}
           />
-        </KeyValueListComponent>
-        <KeyValueListComponent>
           <KeyValueComponent
             name="Your average:"
             value={averageTimeSpentInSeconds.value}
           />
         </KeyValueListComponent>
-      </CardComponent>
+      </PanelComponent>
 
-      <CardComponent title="Card flips count">
+      <PanelComponent title="Card flips count">
         <KeyValueListComponent>
           <KeyValueComponent name="This game:" value={cardsFlipCount.value} />
-        </KeyValueListComponent>
-        <KeyValueListComponent>
           <KeyValueComponent
             name="Your average:"
             value={averageCardFlipsCount.value}
           />
         </KeyValueListComponent>
-      </CardComponent>
+      </PanelComponent>
     </ModalComponent>
   );
 }
