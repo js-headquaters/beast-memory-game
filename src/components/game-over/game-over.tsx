@@ -1,12 +1,11 @@
-import { useSignal } from "@preact/signals";
 import { CardComponent } from "@components/shared/card/card";
 import { KeyValueComponent } from "@components/shared/key-value-list/key-value";
 import { KeyValueListComponent } from "@components/shared/key-value-list/key-value-list";
+import { ModalComponent } from "@components/shared/modal/modal";
 import { getRandomCongratulation } from "@utils/text.utils";
-import { useContext, useRef, useState } from "preact/compat";
+import { useContext, useRef } from "preact/compat";
 import { GameStateContext, StatisticContext } from "../../interfaces/context";
 import "./game-over.css";
-import { ModalComponent } from "@components/shared/modal/modal";
 
 export function GameOverComponent() {
   const { timeSpentInSeconds, cardsFlipCount } = useContext(GameStateContext);

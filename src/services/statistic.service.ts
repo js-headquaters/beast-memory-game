@@ -10,20 +10,35 @@ import {
 
 const AMOUNT_OF_SAVED_RESULTS = 100;
 const AMOUNT_OF_RESULTS_FOR_STATS = 5;
+const STORAGE_KEY_FOR_RESULT = "results";
+
+const DEFAULT_STATISTIC: GameStatisticMap = {
+  1: [],
+  2: [],
+  3: [],
+  4: [],
+  5: [],
+  6: [],
+};
 
 export class StatisticService {
+  private canUseCloud = hasStorageApi();
+
   constructor() {
-    this.loadGameStatistic();
+    this.loadStatisticFromStorage();
   }
 
   readonly gameLevelForStatistic = signal<GameLevel>(1);
-  readonly statistic = signal<GameStatisticMap>({} as GameStatisticMap);
+  readonly statistic = signal<GameStatisticMap>({ ...DEFAULT_STATISTIC });
+
   readonly currentLevelStatistic = computed(() => {
     return this.statistic.value[this.gameLevelForStatistic.value] ?? [];
   });
+
   readonly averageTimeSpentInSeconds = computed(() => {
     return this.getAverageTimeSpentInSeconds();
   });
+
   readonly averageCardFlipsCount = computed(() => {
     return this.getAverageCardFlipsCount();
   });
@@ -45,53 +60,85 @@ export class StatisticService {
   };
 
   resetStatistics = async () => {
-    this.statistic.value = {} as GameStatisticMap;
-    try {
-      await this.setItemToCloudStorage(
-        "results",
-        JSON.stringify(this.statistic.value)
-      );
-      this.logger.log("statistics was reset");
-    } catch {
-      this.logger.error("error during statistics reset");
-    }
+    this.statistic.value = { ...DEFAULT_STATISTIC };
+    this.logger.log("reset game statistic", this.statistic.value);
+    this.saveStatisticToStorage();
   };
 
-  addGameStatistic = async (level: GameLevel, statistic: GameStatistic) => {
+  addGameStatistic = (level: GameLevel, statistic: GameStatistic) => {
+    const savedStatistic = this.statistic.value?.[level] || [];
+
     this.statistic.value = {
       ...this.statistic.value,
-      [level]: [statistic, ...(this.statistic.value?.[level] || [])].slice(
-        0,
-        AMOUNT_OF_SAVED_RESULTS
-      ),
+      [level]: [statistic, ...savedStatistic].slice(0, AMOUNT_OF_SAVED_RESULTS),
     };
-    try {
-      await this.setItemToCloudStorage(
-        "results",
-        JSON.stringify(this.statistic.value)
-      );
-      this.logger.log("added new game statistic", this.statistic.value);
-    } catch {
-      this.logger.error("error happened during adding new game statistic");
-    }
+
+    this.logger.log("added new game statistic", this.statistic.value);
+    this.saveStatisticToStorage();
   };
 
-  loadGameStatistic = async () => {
-    try {
-      const localStorageResults = JSON.parse(
-        (await this.getItemFromCloudStorage("results")) || "{}"
-      );
-      this.statistic.value = localStorageResults;
+  private saveStatisticToStorage() {
+    const json = JSON.stringify(this.statistic.value);
+
+    localStorage.setItem(STORAGE_KEY_FOR_RESULT, json);
+    this.logger.log("saved game statistic to local storage");
+
+    if (!this.canUseCloud) {
       this.logger.log(
-        "loaded game statistic from cloud storage",
-        localStorageResults
+        "cloud storage is not available, so we cant save data to it"
       );
-    } catch {
-      this.logger.error(
-        "error happened during loading game statistic from cloud storage"
-      );
+
+      return;
     }
-  };
+
+    setItemToCloudStorage(STORAGE_KEY_FOR_RESULT, json, (error, isStored) => {
+      if (error) {
+        this.logger.error("cannot save to cloud storage", error);
+        return;
+      }
+
+      this.logger.log("saved game statistic to cloud storage", isStored);
+    });
+  }
+
+  private loadStatisticFromStorage() {
+    const json = localStorage.getItem(STORAGE_KEY_FOR_RESULT);
+    const statistic = json ? JSON.parse(json) : [];
+    this.statistic.value = statistic;
+
+    this.logger.log("loaded game statistic from local storage", statistic);
+
+    if (!this.canUseCloud) {
+      this.logger.log(
+        "cloud storage is not available, so we cant load data from it"
+      );
+      return;
+    }
+
+    getItemFromCloudStorage(STORAGE_KEY_FOR_RESULT, (error, value) => {
+      if (error) {
+        this.logger.error("cannot load statistic from cloud storage", error);
+      }
+
+      const cloudStatistic = value ? JSON.parse(value) : [];
+      this.logger.log("loaded statistic from cloud storage", cloudStatistic);
+
+      const isCloudHasMoreData = Object.entries(this.statistic.value).every(
+        ([level, data]) => {
+          return data.length < cloudStatistic[level].length;
+        }
+      );
+      if (isCloudHasMoreData) {
+        this.statistic.value = cloudStatistic;
+        this.logger.log("cloud storage has more data used it", cloudStatistic);
+      } else {
+        this.logger.log(
+          "cloud storage has less data so using local data",
+          cloudStatistic
+        );
+      }
+    });
+  }
 
   private getAverageTimeSpentInSeconds() {
     if (!this.gameLevelForStatistic.value) {
@@ -126,46 +173,5 @@ export class StatisticService {
       .slice(0, AMOUNT_OF_RESULTS_FOR_STATS)
       .reduce((acc, value) => (acc += value.cardFlipsCount), 0);
     return Math.floor(total / statsByLevel.length);
-  }
-
-  private async setItemToCloudStorage(key, value): Promise<boolean> {
-    if (!hasStorageApi()) {
-      localStorage.setItem(key, value);
-      return;
-    }
-
-    return new Promise((resolve, reject) => {
-      setItemToCloudStorage(key, value, (err, isStored) => {
-        if (err) {
-          this.logger.error(">> error happened during SET", err);
-          reject(err);
-          return;
-        }
-        resolve(isStored);
-      });
-    });
-  }
-
-  private async getItemFromCloudStorage(key): Promise<string | undefined> {
-    if (!hasStorageApi()) {
-      return localStorage.getItem(key);
-    }
-
-    return new Promise((resolve, reject) => {
-      // this fallback is needed to prevent infinite loading (I got this issue on Telegram for macOS Beta)
-      const timerId = setTimeout(() => {
-        resolve(localStorage.getItem(key));
-      }, 3000);
-
-      getItemFromCloudStorage(key, (err, value) => {
-        clearTimeout(timerId);
-        if (err) {
-          console.error(">> omg error happened during CloudStorage GET", err);
-          reject(err);
-          return;
-        }
-        resolve(value);
-      });
-    });
   }
 }

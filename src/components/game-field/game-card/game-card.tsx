@@ -1,11 +1,11 @@
 import darkBackImage from "@assets/back-dark.jpg";
 import lightBackImage from "@assets/back-light.jpg";
+import { CARD_FLIP_ANIMATION_TIME, MILLISECONDS_IN_SECOND } from "@constants";
 import { GameCard } from "@interfaces/index";
 import { cardImageMap } from "@utils/card-image.utils";
 import { useContext } from "preact/compat";
 import { GameStateContext, ThemeContext } from "../../../interfaces/context";
 import "./game-card.css";
-import { CARD_FLIP_ANIMATION_TIME, MILLISECONDS_IN_SECOND } from "@constants";
 
 type Props = {
   card: GameCard;

@@ -5,14 +5,14 @@ import { ModalComponent } from "@components/shared/modal/modal";
 import { ValueSelectorComponent } from "@components/shared/value-selector/value-selector";
 import { computed, signal } from "@preact/signals";
 import { getWebAppData } from "@utils/telegram.utils";
-import { Fragment, useContext } from "preact/compat";
+import { useContext } from "preact/compat";
 import {
   GameStateContext,
   StatisticContext,
   ThemeContext,
 } from "../../interfaces/context";
+import { HistoryComponent } from "./history/history";
 import "./statistic.css";
-import { HistoryComponent } from "@components/history/history";
 
 const debugClickCount = signal(0);
 const isDebugActive = computed(() => {
@@ -79,7 +79,7 @@ export function StatisticComponent() {
       )}
 
       {/* TODO make it better */}
-      <CardComponent title="Choose level for statistic">
+      <CardComponent title="Show data for level">
         <ValueSelectorComponent
           className="statistic__level-selector"
           value={gameLevelForStatistic.value}
@@ -102,7 +102,10 @@ export function StatisticComponent() {
       </CardComponent>
 
       <CardComponent title="Game history">
-        <HistoryComponent gameStatistic={currentLevelStatistic.value} />
+        <HistoryComponent
+          level={gameLevelForStatistic.value}
+          gameStatistic={currentLevelStatistic.value}
+        />
       </CardComponent>
 
       {isDebugActive.value && showDebugInfo.value && (

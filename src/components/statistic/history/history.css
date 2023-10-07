@@ -1,0 +1,10 @@
+.history {
+  display: grid;
+  display: grid;
+  grid-template-columns: 2rem 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.history__cell {
+  text-align: center;
+}
