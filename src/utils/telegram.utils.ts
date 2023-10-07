@@ -16,11 +16,6 @@ export function getMainButton(): MainButton {
   return window.Telegram.WebApp.MainButton;
 }
 
-// TODO does not need it?
-export function getBackButton(): BackButton {
-  return window.Telegram.WebApp.BackButton;
-}
-
 export function getWebAppData(): string {
   return JSON.stringify(window.Telegram.WebApp, null, 2);
 }
