@@ -25,7 +25,7 @@ Embark on your journey of fun and cognitive enhancement with BeastMemory today!
 1. [Running BeastMemory Locally](#running-beastmemory-locally)
 2. [Game Concept](#game-concept)
 3. [Technology Stack](#technology-stack)
-4. [TODO](#todo)
+4. [Dive into Project Details](#dive-into-project-details)
 
 ## Running BeastMemory Locally
 
@@ -100,17 +100,37 @@ The deployment script can be found [here](.github/workflows/deploy.yml).
 
 By choosing these technologies and platforms, we ensure an efficient, enjoyable, and productive development and gaming experience with **BeastMemory**.
 
-## Project structure
+## Dive into Project Details
 
-- лучше начать изучение с game state service
+### Let's Get Started: Simple Steps
 
-## TODO
+If you're just diving in, here’s the quick path:
 
-- clean readme
-- add more data to readme
+1. **Understand the Game Mechanics**: Start with [`GameStateService`](src/services/game-state.service.ts).
+2. **See the Game**: Jump to [`GameFieldComponent`](src/components/game-field/game-field.tsx) and see how it comes alive.
+3. **Explore Individual Elements**: Visit [`GameCardComponent`](src/components/game-field/game-card/game-card.tsx) to understand how each card flips and interacts.
 
-## Useful
+### Services
 
-- main button is always visible
-- main button color is not support hex8
-- telegram client on macos uses safari, so better to check layout in safari
+Now, let's peel back the layers and see what makes our game tick in the background:
+
+- **[`GameStateService`](src/services/game-state.service.ts)**: The maestro of our game, orchestrating everything that happens, from the shuffle of the cards to what happens when a pair is matched.
+- **[`StatisticService`](src/services/statistic.service.ts)**: This service acts as the game's memory, storing data from previous games and calculating average statistics for overall performance.
+- **[`ThemeService`](src/services/theme.service.ts)**: This service helps switch themes. It keeps the current theme's details and sets the right CSS for the whole game, making sure it looks good.
+
+### Components
+
+And now, let's have a closer look at our game's visible parts:
+
+- **[`GameFieldComponent`](src/components/game-field/game-field.tsx)**: This component manages the main game layout. It organizes and adjusts the game field to display all cards optimally based on screen size.
+- **[`GameCardComponent`](src/components/game-field/game-card/game-card.tsx)**: Represents an individual game card. Handles card flipping animation and displays the card's front and back designs.
+- **[`GameOverComponent`](src/components/game-over/game-over.tsx)**: Displayed after the game ends. It presents the end-of-game statistics.
+- **[`StatisticComponent`](src/components/statistic/statistic.tsx)**: Provides an overview of previous game results and displays average gameplay statistics.
+
+## Challenges Encountered with Telegram's API
+
+- Encountered challenges with cloud storage responsiveness in the Telegram beta on macOS.
+- Style application to the main button and back button is limited to JS, restricting a complete reliance on CSS variables.
+- The main button doesn't support HEX8 color formats, necessitating alternative color format considerations.
+- For optimal compatibility, it's advisable to validate layouts in Safari as the macOS Telegram client utilizes its browser engine.
+- Based on our informal tests among acquaintances, Haptic Feedback might not be consistent across all devices; some reported no vibration feedback at all.
