@@ -12,3 +12,7 @@ button {
   border-radius: 0.3125rem;
   padding: 0.5rem;
 }
+
+* {
+  touch-action: manipulation;
+}
