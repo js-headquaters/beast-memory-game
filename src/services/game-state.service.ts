@@ -4,7 +4,7 @@ import {
   MILLISECONDS_IN_SECOND,
 } from "@constants";
 import {
-  CardAnimalType,
+  AnimalType,
   GameCard,
   GameInitParams,
   GameLevel,
@@ -14,7 +14,7 @@ import { computed, effect, signal } from "@preact/signals";
 import { Logger } from "@utils/logger.utils";
 import { getHapticFeedback, getMainButton } from "@utils/telegram.utils";
 
-const animalCardTypes: CardAnimalType[] = [
+const animalCardTypes: AnimalType[] = [
   "bear",
   "owl",
   "cat",
@@ -56,13 +56,14 @@ export class GameStateService {
   readonly openCardsIds = signal<GameCard["id"][]>([]);
   readonly cardsFlipCount = signal<number>(0);
   readonly showDebugInfo = signal<boolean>(false);
+  readonly lastOpenedCardType = signal<AnimalType | null>(null);
 
   readonly cardsMap = computed(() =>
     this.cards.value.reduce((acc, card) => {
       acc.set(card.id, card);
 
       return acc;
-    }, new Map<GameCard["id"], GameCard>()),
+    }, new Map<GameCard["id"], GameCard>())
   );
 
   readonly timeSpentInSeconds = computed<number>(() => {
@@ -142,6 +143,7 @@ export class GameStateService {
 
     this.openCardsIds.value = [...this.openCardsIds.value, card.id];
     this.cardsFlipCount.value += 1;
+    this.lastOpenedCardType.value = card.animalType;
 
     this.logger.log(`opened "${card.animalType}" card`);
 
@@ -218,14 +220,14 @@ export class GameStateService {
 
       if (!isCardMatched) {
         this.logger.log(
-          `card "${firstCard.animalType}" do not match card "${secondCard.animalType}"`,
+          `card "${firstCard.animalType}" do not match card "${secondCard.animalType}"`
         );
 
         return;
       }
 
       this.logger.log(
-        `card "${firstCard.animalType}" match card "${secondCard.animalType}"`,
+        `card "${firstCard.animalType}" match card "${secondCard.animalType}"`
       );
 
       this.feedback.impactOccurred("heavy");
@@ -249,10 +251,7 @@ export class GameStateService {
   }
 
   private createGameCards(pairsCount: number): GameCard[] {
-    const createCard = (
-      animalType: CardAnimalType,
-      idSuffix: number,
-    ): GameCard => {
+    const createCard = (animalType: AnimalType, idSuffix: number): GameCard => {
       return {
         animalType,
         isActive: true,
@@ -282,7 +281,7 @@ export class GameStateService {
     return arrayClone;
   }
 
-  private getRandomAnimalTypes(count: number): CardAnimalType[] {
+  private getRandomAnimalTypes(count: number): AnimalType[] {
     return this.getShuffledArray(animalCardTypes).slice(0, count);
   }
 
@@ -291,7 +290,7 @@ export class GameStateService {
     this.openCardsIds.value = [];
     this.cardsFlipCount.value = 0;
     const { horizontalCardsCount, pairsCount } = gameDifficultyMap.get(
-      this.gameLevel.value,
+      this.gameLevel.value
     );
     this.cards.value = this.createGameCards(pairsCount);
     this.horizontalCardsCount.value = horizontalCardsCount;

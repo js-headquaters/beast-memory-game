@@ -8,3 +8,16 @@
   gap: 1rem;
   justify-content: center;
 }
+
+.game-over__last-card {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.game-over__last-card-image {
+  border-radius: 1rem;
+  border: 4px solid var(--theme-border-color);
+  overflow: hidden;
+  max-width: 100px;
+}

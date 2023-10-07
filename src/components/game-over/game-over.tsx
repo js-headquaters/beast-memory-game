@@ -6,6 +6,7 @@ import { getRandomCongratulation } from "@utils/text.utils";
 import { useContext, useRef } from "preact/compat";
 import { GameStateContext, StatisticContext } from "../../interfaces/context";
 import "./game-over.css";
+import { cardImageMap } from "@utils/card-image.utils";
 
 /**
  * GameOverComponent is presented to the user upon the completion of a game. It displays
@@ -14,14 +15,24 @@ import "./game-over.css";
  * achievements.
  */
 export function GameOverComponent() {
-  const { timeSpentInSeconds, cardsFlipCount } = useContext(GameStateContext);
+  const { timeSpentInSeconds, cardsFlipCount, lastOpenedCardType } =
+    useContext(GameStateContext);
   const { averageCardFlipsCount, averageTimeSpentInSeconds } =
     useContext(StatisticContext);
 
   const headerMessage = useRef(getRandomCongratulation());
+  const lastCardType = cardImageMap.get(lastOpenedCardType.value);
 
   return (
     <ModalComponent title={headerMessage.current} className="game-over">
+      <div class="game-over__last-card">
+        <img
+          class="game-over__last-card-image"
+          src={lastCardType}
+          alt="animal card"
+        />
+      </div>
+
       <CardComponent title="Time spent in second">
         <KeyValueListComponent>
           <KeyValueComponent

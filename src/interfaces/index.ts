@@ -1,6 +1,6 @@
 export interface GameCard {
-  id: `${CardAnimalType}-${number}`;
-  animalType: CardAnimalType;
+  id: `${AnimalType}-${number}`;
+  animalType: AnimalType;
   isActive: boolean;
 }
 
@@ -11,7 +11,7 @@ export interface GameInitParams {
 
 export type GameState = "init" | "run" | "game_over" | "menu";
 
-export type CardAnimalType =
+export type AnimalType =
   | "dog"
   | "cat"
   | "chicken"

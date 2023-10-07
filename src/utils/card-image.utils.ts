@@ -13,9 +13,9 @@ import pigImage from "@assets/pig.jpg";
 import rabbitImage from "@assets/rabbit.jpg";
 import sheepImage from "@assets/sheep.jpg";
 import turtleImage from "@assets/turtle.jpg";
-import { CardAnimalType } from "@interfaces/index";
+import { AnimalType } from "@interfaces/index";
 
-export const cardImageMap = new Map<CardAnimalType, string>([
+export const cardImageMap = new Map<AnimalType, string>([
   ["bear", bearImage],
   ["duck", duckImage],
   ["cat", catImage],
