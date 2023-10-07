@@ -20,8 +20,8 @@
 }
 
 .game-over__last-card-image {
-  border-radius: 1rem;
   border: 4px solid var(--theme-border-color);
   overflow: hidden;
-  max-width: 150px;
+  height: 200px;
+  border-radius: 1rem;
 }

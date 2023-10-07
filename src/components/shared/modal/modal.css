@@ -14,7 +14,7 @@
   color: var(--theme-text-highlight-color);
   font-size: 1.25rem;
   text-shadow: 0 0 0.5rem var(--theme-text-highlight-color);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .modal__content {

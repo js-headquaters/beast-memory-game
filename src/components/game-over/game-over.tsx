@@ -31,6 +31,7 @@ export function GameOverComponent() {
           class="game-over__last-card-image"
           src={lastCardType}
           alt="animal card"
+          loading="eager"
         />
         {encouragingPhrase}
       </div>
