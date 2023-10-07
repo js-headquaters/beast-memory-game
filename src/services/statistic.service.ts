@@ -12,7 +12,7 @@ const AMOUNT_OF_SAVED_RESULTS = 100;
 const AMOUNT_OF_RESULTS_FOR_STATS = 5;
 const STORAGE_KEY_FOR_RESULT = "results";
 
-const DEFAULT_STATISTIC: GameStatisticMap = {
+const EMPTY_STATISTIC: GameStatisticMap = {
   1: [],
   2: [],
   3: [],
@@ -29,7 +29,7 @@ export class StatisticService {
   }
 
   readonly gameLevelForStatistic = signal<GameLevel>(1);
-  readonly statistic = signal<GameStatisticMap>({ ...DEFAULT_STATISTIC });
+  readonly statistic = signal<GameStatisticMap>({ ...EMPTY_STATISTIC });
 
   readonly currentLevelStatistic = computed(() => {
     return this.statistic.value[this.gameLevelForStatistic.value] ?? [];
@@ -60,8 +60,8 @@ export class StatisticService {
   };
 
   resetStatistics = async () => {
-    this.statistic.value = { ...DEFAULT_STATISTIC };
-    this.logger.log("reset game statistic", this.statistic.value);
+    this.logger.log("reset game statistic");
+    this.statistic.value = { ...EMPTY_STATISTIC };
     this.saveStatisticToStorage();
   };
 
@@ -80,14 +80,9 @@ export class StatisticService {
   private saveStatisticToStorage() {
     const json = JSON.stringify(this.statistic.value);
 
-    localStorage.setItem(STORAGE_KEY_FOR_RESULT, json);
-    this.logger.log("saved game statistic to local storage");
-
     if (!this.canUseCloud) {
-      this.logger.log(
-        "cloud storage is not available, so we cant save data to it"
-      );
-
+      localStorage.setItem(STORAGE_KEY_FOR_RESULT, json);
+      this.logger.log("saved game statistic to local storage");
       return;
     }
 
@@ -102,16 +97,11 @@ export class StatisticService {
   }
 
   private loadStatisticFromStorage() {
-    const json = localStorage.getItem(STORAGE_KEY_FOR_RESULT);
-    const statistic = json ? JSON.parse(json) : [];
-    this.statistic.value = statistic;
-
-    this.logger.log("loaded game statistic from local storage", statistic);
-
     if (!this.canUseCloud) {
-      this.logger.log(
-        "cloud storage is not available, so we cant load data from it"
-      );
+      const json = localStorage.getItem(STORAGE_KEY_FOR_RESULT);
+      const statistic = json ? JSON.parse(json) : [];
+      this.statistic.value = statistic;
+      this.logger.log("loaded game statistic from local storage", statistic);
       return;
     }
 
