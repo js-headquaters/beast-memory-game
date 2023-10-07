@@ -191,7 +191,11 @@ export class GameStateService {
 
   mainButtonClickHandler = () => {
     if (this.currentState.value === "game_over") {
-      this.increaseLevel();
+      if (this.gameLevel.value === 6) {
+        this.gameLevel.value = 1;
+      } else {
+        this.increaseLevel();
+      }
       this.restart();
       return;
     }
