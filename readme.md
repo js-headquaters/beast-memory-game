@@ -26,7 +26,7 @@ Embark on your journey of fun and cognitive enhancement with BeastMemory today!
 2. [Game Concept](#game-concept)
 3. [Technology Stack](#technology-stack)
 4. [Dive into Project Details](#dive-into-project-details)
-5. [Challenges Encountered with Telegram's API](#challenges-encountered-with-telegrams-api)
+5. [Feedback on Developing Telegram's WebApp](#feedback-on-developing-telegrams-webapp)
 
 ## Running BeastMemory Locally
 
@@ -128,10 +128,20 @@ And now, let's have a closer look at our game's visible parts:
 - **[`GameOverComponent`](src/components/game-over/game-over.tsx)**: Displayed after the game ends. It presents the end-of-game statistics.
 - **[`StatisticComponent`](src/components/statistic/statistic.tsx)**: Provides an overview of previous game results and displays average gameplay statistics.
 
-## Challenges Encountered with Telegram's API
+## Feedback on Developing Telegram's WebApp
 
-- Encountered challenges with cloud storage responsiveness in the Telegram beta on macOS.
-- Style application to the main button and back button is limited to JS, restricting a complete reliance on CSS variables.
-- The main button doesn't support HEX8 color formats, necessitating alternative color format considerations.
-- For optimal compatibility, it's advisable to validate layouts in Safari as the macOS Telegram client utilizes its browser engine.
-- Based on our informal tests among acquaintances, Haptic Feedback might not be consistent across all devices; some reported no vibration feedback at all.
+### What We Appreciated
+
+- Telegram's client uses modern webViews, which lets developers use the newest JS features without worries about compatibility.
+- The "@twa-dev/types" package is very useful. It gives types for WebApp features and acts like a guide or reference.
+- The WebApp API is easy to understand and use.
+- The Telegram beta version has dev tools, making it easier to find and fix problems.
+- Working with the WebApp was free of big problems. It felt like building a regular web site.
+
+### Challenges Encountered
+
+- We had some issues with cloud storage speed in the Telegram beta for macOS.
+- Changing the style of the main and back buttons mainly uses JS, so we couldn't fully use CSS variables for theming
+- The main button doesn't know HEX8 colors. We had to think of other ways to choose colors.
+- To make sure everything works, we checked our designs in Safari. Looks like the macOS Telegram client uses Safari's engine.
+- From tests with friends, we found that the Haptic Feedback doesn't always work. Some said they didn't feel any vibration.
