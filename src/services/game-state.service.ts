@@ -41,6 +41,12 @@ const gameDifficultyMap = new Map<GameLevel, GameInitParams>([
   [6, { horizontalCardsCount: 5, pairsCount: 15 }],
 ]);
 
+/**
+ * This service acts as the central hub of our game, embodying its core essence.
+ * It meticulously maintains the current game state, from difficulty levels to the cards
+ * in play and game duration. This service is where you'll find all the foundational game
+ * logic, making it pivotal for any game-related operations.
+ */
 export class GameStateService {
   readonly gameLevel = signal<GameLevel>(1);
   readonly cards = signal<GameCard[]>([]);

@@ -16,9 +16,15 @@ import "./statistic.css";
 
 const debugClickCount = signal(0);
 const isDebugActive = computed(() => {
-  return debugClickCount.value > 3;
+  return debugClickCount.value > 10;
 });
 
+/**
+ * StatisticComponent grants the user the ability to review their recent game history.
+ * It showcases the average statistics related to the time taken to complete levels and
+ * the number of card flips made. This component serves as a performance reflection tool
+ * for users, enabling them to understand and analyze their gameplay trends.
+ */
 export function StatisticComponent() {
   const {
     averageCardFlipsCount,

@@ -15,6 +15,11 @@ const cardFlipAnimationTime = `${
   CARD_FLIP_ANIMATION_TIME / MILLISECONDS_IN_SECOND
 }s`;
 
+/**
+ * GameCardComponent is dedicated to rendering a single card. It manages the 'flip' animation
+ * of the card and sets the appropriate images for both the back and the face of
+ * the card. This component ensures that each card is visually engaging and interacts as expected.
+ */
 export function GameCardComponent({ card }: Props) {
   const {
     openCard,
@@ -23,9 +28,7 @@ export function GameCardComponent({ card }: Props) {
   } = useContext(GameStateContext);
   const { theme } = useContext(ThemeContext);
 
-  const handleClick = () => {
-    openCard(card);
-  };
+  const handleClick = () => openCard(card);
 
   const getCardClasses = (card: GameCard) => {
     return `game-card ${isCardOpen(card) && "game-card_open"} ${
@@ -34,6 +37,7 @@ export function GameCardComponent({ card }: Props) {
   };
 
   const style = `--card-flip-animation-time: ${cardFlipAnimationTime}`;
+  const backImage = theme.value === "dark" ? darkBackImage : lightBackImage;
 
   return (
     <div style={style} class={getCardClasses(card)} onClick={handleClick}>
@@ -44,7 +48,7 @@ export function GameCardComponent({ card }: Props) {
         <div class="game-card__backing">
           <img
             class="game-card__backing-image"
-            src={theme.value === "dark" ? darkBackImage : lightBackImage}
+            src={backImage}
             alt="card backing"
             loading="eager"
           />

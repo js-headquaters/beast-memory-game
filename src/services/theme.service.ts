@@ -30,6 +30,13 @@ const darkTheme: ThemeProperties = {
   themeBorderColor: "rgba(193, 113, 229, 0.5)",
 };
 
+/**
+ * This service manages the selection of the current theme, ensuring consistent and smooth
+ * theming experiences across the application. It facilitates easy access to current color
+ * values within both JS code and CSS variables. The service injects the current
+ * theme variables into the root of the document as CSS variables, allowing for a dynamic and
+ * unified theme application throughout the document.
+ */
 export class ThemeService {
   readonly theme = signal<Theme>(getWebAppTheme());
   readonly themeProperties = computed(() => {

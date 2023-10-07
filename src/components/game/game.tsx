@@ -17,6 +17,7 @@ const gameThemeService = new ThemeService();
 const gameStatisticService = new StatisticService();
 const gameStateService = new GameStateService();
 
+// When the game is finished, we should save it for statistics.
 effect(() => {
   if (gameStateService.currentState.value === "game_over") {
     untracked(() => {
@@ -30,6 +31,12 @@ effect(() => {
   }
 });
 
+/**
+ * GameComponent serves as the root component for the game. It is responsible for defining
+ * the game's primary layout and injecting essential game services into the context. This
+ * centralized provision ensures all child components can seamlessly access and utilize
+ * the services.
+ */
 export function GameComponent() {
   const { currentState, menuButtonText, mainButtonClickHandler } =
     gameStateService;
@@ -47,6 +54,7 @@ export function GameComponent() {
               {state === "game_over" && <GameOverComponent />}
               {(state === "init" || state === "run") && <GameFieldComponent />}
 
+              {/* We don't have access to the Telegram main button during local development, so this fallback button is used. */}
               {!isRunningInTelegram() && (
                 <button
                   class="game__fallback-menu"

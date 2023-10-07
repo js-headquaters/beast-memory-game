@@ -7,6 +7,12 @@ import { useContext, useRef } from "preact/compat";
 import { GameStateContext, StatisticContext } from "../../interfaces/context";
 import "./game-over.css";
 
+/**
+ * GameOverComponent is presented to the user upon the completion of a game. It displays
+ * a congratulatory message and provides statistics from the completed level. Additionally,
+ * average values are shown, enabling the user to gauge their performance and assess their
+ * achievements.
+ */
 export function GameOverComponent() {
   const { timeSpentInSeconds, cardsFlipCount } = useContext(GameStateContext);
   const { averageCardFlipsCount, averageTimeSpentInSeconds } =
