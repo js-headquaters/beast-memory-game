@@ -21,6 +21,7 @@
   display: flex;
   justify-content: center;
   height: 100%;
+  aspect-ratio: 4/6;
   min-height: 0;
   margin-bottom: 0.5rem;
   border-radius: 1rem;
