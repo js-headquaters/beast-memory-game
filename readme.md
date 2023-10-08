@@ -10,8 +10,14 @@
   Delve into a realm filled with mystical and captivating creatures that are shrouded in an aura of magic.
 - **Bewitching Experience for All Ages 🌟**
   An ethereal adventure that binds both young and old, making it the perfect activity for gatherings under the moonlit night.
-- **Enhances Memory 🧠**
-  Traverse this spectral journey, refining concentration, focus, and the ability to recollect ancient incantations and spells.
+- **Cognitive Rehabilitation 🧠**
+  Beyond entertainment, traverse this spectral journey to refine your concentration, focus, and memory—especially beneficial for those in cognitive recovery.
+- **Integrated with Telegram Bots API 🤖**
+  Featuring a native Telegram button, the game provides a seamless user experience, allowing you to dive right into the mystical world directly from the Telegram app.
+- **Cross-Platform Gameplay ☁️**
+  Thanks to CloudStorage API, share your magical BeastMemory experience across different devices. Never lose progress and continue your cognitive enhancement journey wherever you go.
+- **Progress Tracking 📊**
+  Utilizing CloudStorage API also allows you to track your memory enhancement progress, a crucial feature for those in recovery from serious diseases.
 
 🎮 **Play Now**:
 
@@ -62,7 +68,15 @@ Follow these simple steps to run BeastMemory on your local machine:
 4. **Access the Project**
    The project will be available at [http://localhost:5173/](http://localhost:5173/).
 
-Enjoy exploring and playing with BeastMemory on your local machine!
+Thank you for taking an interest in BeastMemory. When you run this project on your local machine, please note the following:
+
+**Telegram Bots API Limitation ℹ️**: Due to running outside the Telegram environment, features relying on the Telegram Bots API will be disabled.
+
+**Fallback Features 🔄**: To compensate for the lack of Telegram Bots API features, we have implemented fallbacks:
+
+HTML buttons will be used as an alternative interface.
+Data will be stored in the browser's LocalStorage.
+Feel free to explore and experiment with BeastMemory on your local setup!
 
 ## The Road to Creation
 
