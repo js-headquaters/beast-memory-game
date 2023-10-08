@@ -24,21 +24,6 @@
 - [Telegram WebApp](https://t.me/BeastMemoryBot/game), click on the link or find our bot in Telegram `@BeastMemoryBot`
 - [Web](https://js-headquaters.github.io/beast-memory-game/), remember that the application was developed for mobile devices and to operate within the context of Telegram
 
-## Our Contacts
-
-**Konstantin Poleshchuk**
-
-- [github](https://github.com/jsCommander)
-- [linkedin]()
-- [telegram](https://t.me/jscommander)
-- [gamedev chanel](https://t.me/gamedev_batya)
-
-**Vladislav Sharikov**
-
-- [github](https://github.com/sharikovvladislav)
-- [linkedin]()
-- [telegram](https://t.me/vladsharikov)
-
 ## Table of Contents
 
 1. [Running BeastMemory Locally](#running-beastmemory-locally)
@@ -46,7 +31,8 @@
 3. [Technology Stack](#technology-stack)
 4. [Dive into Project Details](#dive-into-project-details)
 5. [Creating Art with Midjonery](#creating-art-with-midjonery)
-6. [Feedback on Developing Telegram's WebApp](#feedback-on-developing-telegrams-webapp)
+6. [Our Contacts](#our-contacts)
+7. [Feedback on Developing Telegram's WebApp](#feedback-on-developing-telegrams-webapp)
 
 ## Running BeastMemory Locally
 
@@ -234,6 +220,21 @@ Realizing this approach was inefficient, I decided to limit the attempts to 10-1
 ### Final Notes
 
 In three days of diligent work, spending several hours daily on experiments, and investing a total of $15, I managed to create quality art pieces for 15 animals. Many of our acquaintances, when testing the game, highly appreciated these images. Their astonishment was priceless when they found out that the arts were generated using a neural network. Despite the current technology limitations, with the right approach and persistence, one can achieve impressive results.
+
+## Our Contacts
+
+**Konstantin Poleshchuk**
+
+- [github](https://github.com/jsCommander)
+- [linkedin]()
+- [telegram](https://t.me/jscommander)
+- [gamedev chanel](https://t.me/gamedev_batya)
+
+**Vladislav Sharikov**
+
+- [github](https://github.com/sharikovvladislav)
+- [linkedin]()
+- [telegram](https://t.me/vladsharikov)
 
 ## Feedback on Developing Telegram's WebApp
 
