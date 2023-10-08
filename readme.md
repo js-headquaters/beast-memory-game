@@ -24,16 +24,16 @@
 - [Telegram WebApp](https://t.me/BeastMemoryBot/game), click on the link or find our bot in Telegram `@BeastMemoryBot`
 - [Web](https://js-headquaters.github.io/beast-memory-game/), remember that the application was developed for mobile devices and to operate within the context of Telegram
 
-**Our contacts**
+## Our Contacts
 
-Konstantin Poleshchuk
+**Konstantin Poleshchuk**
 
 - [github](https://github.com/jsCommander)
 - [linkedin]()
 - [telegram](https://t.me/jscommander)
 - [gamedev chanel](https://t.me/gamedev_batya)
 
-Vladislav Sharikov
+**Vladislav Sharikov**
 
 - [github](https://github.com/sharikovvladislav)
 - [linkedin]()
@@ -92,6 +92,8 @@ Data will be stored in the browser's LocalStorage.
 Feel free to explore and experiment with BeastMemory on your local setup!
 
 ## The Road to Creation
+
+👋 Hi everyone! My name is Konstantin Poleshchuk. Together with my friend Vladislav Sharikov, we created this game. Below you'll find the story of how it all came together, our trials and tribulations, and how we overcame every obstacle in our journey to build this project. I hope you find it intriguing!
 
 ### Introduction
 
