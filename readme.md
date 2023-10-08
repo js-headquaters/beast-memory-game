@@ -172,10 +172,13 @@ I had already gained some experience in crafting game art when I attempted to cr
 I decided to give simpler art a try. So, I invested $10 in Midjonery and began experimenting. My initial idea was to generate a cute anime-style cat and use it as a reference. I effortlessly acquired a cat image.
 
 `anime cute cat, with smiling face, sitting and facing forward, сhubby, --ar 9:14`
+
 <img src="./art-examples/first-cat.png" alt="first cat image" height="300">
+
 This cat set the benchmark: building upon it, I managed to craft an impressive dog in the same style. But when I tried using this reference for a frog, the outcome was... a green cat that faintly resembled a frog.
 
 `cartoon frog, kawai, smiling, funny, black background, white outline --ar 9:13 --no text`
+
 <img src="./art-examples/frog.png" alt="frog image" height="300">
 
 ### Using Diverse Cartoon Shows as References
@@ -185,12 +188,15 @@ After unsuccessful attempts at crafting other animal art using the cat as a refe
 I then opted to use frames from my favorite cartoons "Steven Universe" and "Adventure Time" hoping that showcasing multiple characters in a single image would help the neural network grasp the overall style without fixating on specific character details. This method proved to be quite successful: the animals began to look more expressive and in the desired style.
 
 `individual digital asset, cartoon wolf, with smiling face, sitting and facing forward, сhubby, black background, --ar 9:13 --no text --no shadows`
+
 <img src="./art-examples/ad-wolf.png" alt="wolf adventure time" height="300" />
 
 `individual digital asset, cute cat, with smiling face, sitting and facing forward, сhubby --ar 9:13 --no text --no shadows`
+
 <img src="./art-examples/ad-cat.png" alt="cat adventure time" height="300" />
 
 `cute cartoon cat, black background  --ar 9:13 --no text --no shadows`
+
 <img src="./art-examples/su-cat.png" alt="cat steven universe" height="300" />
 
 However, a new challenge arose in an area I hadn't anticipated – the background of each image. Despite my explicit prompts like "transparent background" or "black background", the neural network would overlook them, producing backgrounds of various colors and textures every time. It's worth noting, though, that while not meeting my specific requests, the backgrounds crafted by the network were genuinely creative and colorful. Yet, their differences became too prominent and disrupted the overall perception when all the arts were showcased on a single screen.
@@ -200,12 +206,15 @@ However, a new challenge arose in an area I hadn't anticipated – the backgroun
 Recognizing the inconsistency in the backgrounds, I sought a way to harmonize them when viewed collectively. My idea was to embrace an overarching theme that would bridge these disparities. An epiphany struck: what if I gave all the arts a touch of mysticism and psychedelia? Such backgrounds would differ, but they'd be unified under a single theme – enigmatic realms and creatures. With this in mind, adding words like "fractals" and "lsd" to the prompt, I indeed began to see impressive results.
 
 `digital asset, cute cat, fractals, lsd --ar 9:13 --no text --no shadows`
+
 <img src="./art-examples/cat-fractals.png" alt="cat fractals" height="300" />
 
 `digital asset, cute cartoon pig, fractals, lsd --ar 9:13 --no text`
+
 <img src="./art-examples/pig-fractals.png" alt="pig fractals" height="300" />
 
 `digital asset, cartoon chicken, chicken, chicken, fractals, lsd --ar 9:13 --no text`
+
 <img src="./art-examples/chicken-fractals.png" alt="chicken fractals" height="300" />
 
 Soon, it became evident that this approach could be further refined by multiple generations and basic post-processing in a graphic editor, like Gimp, which I used.
