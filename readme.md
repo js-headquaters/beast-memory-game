@@ -224,6 +224,7 @@ Soon, it became evident that this approach could be further refined by multiple 
 The method worked, but finding suitable images was not straightforward. I often revisited the same animal, trying to achieve the desired outcome. For instance, with the crab, I spent about 50 generations, and despite all my efforts, I couldn't get the right art piece. All these attempts at grappling with the neural network meant that I quickly exhausted the hours allocated to me for generation.
 
 `digital asset, cartoon crab, cartoon crab, cartoon crab, fractals, lsd --ar 9:13 --no text`
+
 <img src="./art-examples/crab-1.png" alt="crab1" height="300" />
 <img src="./art-examples/crab-2.png" alt="crab2" height="300" />
 <img src="./art-examples/crab-3.png" alt="crab3" height="300" />
