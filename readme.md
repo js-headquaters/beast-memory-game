@@ -105,7 +105,7 @@ Building a prototype was straightforward – after all, I was a web developer. B
 
 ### Light at the End of the Tunnel
 
-Recalling my previous unsuccessful attempt at using neural networks for game sprites, I decided to give them another shot. After all, creating static arts is much simpler than animations. Initial attempts were flawed: the arts generated were stylistically inconsistent, leading to on-screen chaos. While individual pieces looked great, they didn’t gel together. After much trial and error, it felt like achieving a cohesive style was an elusive dream. However, I eventually managed to pin down a consistent style. The breakthrough was achieved! More details on the process can be found in the generation section.
+Recalling my previous unsuccessful attempt at using neural networks for game sprites (more details in my [gamedev chanel](https://t.me/gamedev_batya)), I decided to give them another shot. After all, creating static arts is much simpler than animations. Initial attempts were flawed: the arts generated were stylistically inconsistent, leading to on-screen chaos. While individual pieces looked great, they didn’t gel together. After much trial and error, it felt like achieving a cohesive style was an elusive dream. However, I eventually managed to pin down a consistent style. The breakthrough was achieved! More details on the process can be found in the [Creating Art with Midjonery](#creating-art-with-midjonery) section.
 
 ### The Final Push
 
