@@ -92,12 +92,15 @@ Data will be stored in the browser's LocalStorage.
 Feel free to explore and experiment with BeastMemory on your local setup!
 
 ### Debug menu
+
 There is a debug menu available. To enter a debug mode:
+
 1. Start the game
 2. Go to the Statistic page
 3. Click on the Statistic header 10 times
 
 In the debug mode, you can:
+
 - change levels to test different test cases
 - change theme (light and dark) immediately
 - reset statistic
@@ -168,11 +171,12 @@ I had already gained some experience in crafting game art when I attempted to cr
 
 I decided to give simpler art a try. So, I invested $10 in Midjonery and began experimenting. My initial idea was to generate a cute anime-style cat and use it as a reference. I effortlessly acquired a cat image.
 
-![first cat image](./art-examples/first-cat.png)
-`anime cute cat, with smiling face, sitting and facing forward, сhubby, --ar 9:14`,
+<img src="./art-examples/first-cat.png" alt="first cat image" width="200">
+`anime cute cat, with smiling face, sitting and facing forward, сhubby, --ar 9:14`
 
 This cat set the benchmark: building upon it, I managed to craft an impressive dog in the same style. But when I tried using this reference for a frog, the outcome was... a green cat that faintly resembled a frog.
-![frog image](./art-examples/frog.png)
+
+<img src="./art-examples/frog.png" alt="frog image" width="200">
 `cartoon frog, kawai, smiling, funny, black background, white outline --ar 9:13 --no text`
 
 ### Using Diverse Cartoon Shows as References
