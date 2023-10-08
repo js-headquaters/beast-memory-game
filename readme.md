@@ -69,17 +69,14 @@ Enjoy exploring and playing with BeastMemory on your local machine!
 ### Introduction
 
 It's always been a challenge for me to see things through. Like many developers, I'd get excited about an idea, create a prototype, and then my attention would wane. There were so many projects that felt pointless. However, everything shifted when my wife suffered a stroke. This period was tough, and we worked tirelessly to recover her memory. The most helpful exercise was matching paired cards. I realized most apps out there were overly complicated when we just needed something straightforward. So, when Vlad shared information about the competition, I knew this was my calling.
-Development
 
 ### Prototype and Hurdles
 
 Building a prototype was straightforward – after all, I was a web developer. But design? That was another story. My wife adores bright colors, and I wanted to craft something special for her. I had no artist contacts, and hiring a professional would cost a fortune, not to mention the uncertainty of tight deadlines. Doubts about the project's viability began to cloud my mind.
-Climax
 
 ### Light at the End of the Tunnel
 
 Recalling my previous unsuccessful attempt at using neural networks for game sprites, I decided to give them another shot. After all, creating static arts is much simpler than animations. Initial attempts were flawed: the arts generated were stylistically inconsistent, leading to on-screen chaos. While individual pieces looked great, they didn’t gel together. After much trial and error, it felt like achieving a cohesive style was an elusive dream. However, I eventually managed to pin down a consistent style. The breakthrough was achieved! More details on the process can be found in the generation section.
-Conclusion
 
 ### The Final Push
 
