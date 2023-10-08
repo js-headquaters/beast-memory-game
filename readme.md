@@ -23,10 +23,11 @@ Embark on your journey of fun and cognitive enhancement with BeastMemory today!
 ## Table of Contents
 
 1. [Running BeastMemory Locally](#running-beastmemory-locally)
-2. [Game Concept](#game-concept)
+2. [The Road to Creation](#the-road-to-creation)
 3. [Technology Stack](#technology-stack)
 4. [Dive into Project Details](#dive-into-project-details)
-5. [Feedback on Developing Telegram's WebApp](#feedback-on-developing-telegrams-webapp)
+5. [Creating Art with Midjonery](#creating-art-with-midjonery)
+6. [Feedback on Developing Telegram's WebApp](#feedback-on-developing-telegrams-webapp)
 
 ## Running BeastMemory Locally
 
@@ -63,32 +64,26 @@ Follow these simple steps to run BeastMemory on your local machine:
 
 Enjoy exploring and playing with BeastMemory on your local machine!
 
-## Game Concept
+## The Road to Creation
 
-The Memory Card Game is a top-notch tool designed to enhance memory retention. It's a recommended tool for both children and adults, especially those recovering from cognitive impairments such as post-stroke conditions. We realized the gap in the market for a simple, free application of this nature, which inspired us to create this game for the Telegram contest.
+### Introduction
 
-**Key Features:**
+It's always been a challenge for me to see things through. Like many developers, I'd get excited about an idea, create a prototype, and then my attention would wane. There were so many projects that felt pointless. However, everything shifted when my wife suffered a stroke. This period was tough, and we worked tirelessly to recover her memory. The most helpful exercise was matching paired cards. I realized most apps out there were overly complicated when we just needed something straightforward. So, when Vlad shared information about the competition, I knew this was my calling.
+Development
 
-1. **Daily Trainer:** Designed to be a daily cognitive exercise, the game gradually increases in complexity to challenge and improve your memory.
-2. **Progressive Levels:** Start at a beginner's level with 6 cards, and watch the number of cards increase as you advance through the game.
-3. **Performance Tracking:** Our game keeps track of your performance statistics, allowing users to monitor and witness their improvement over time.
+### Prototype and Hurdles
 
-## Technology Stack
+Building a prototype was straightforward – after all, I was a web developer. But design? That was another story. My wife adores bright colors, and I wanted to craft something special for her. I had no artist contacts, and hiring a professional would cost a fortune, not to mention the uncertainty of tight deadlines. Doubts about the project's viability began to cloud my mind.
+Climax
 
-During the development of **BeastMemory**, we adhered to the following principles:
+### Light at the End of the Tunnel
 
-- **Developer-Friendly**: The development process should be convenient and understandable for most developers.
-- **Easy Auto-Deploy**: Application should auto-deploy on push, without additional setup.
-- **Fast Loading**: The application should load as quickly as possible to enhance the user experience.
+Recalling my previous unsuccessful attempt at using neural networks for game sprites, I decided to give them another shot. After all, creating static arts is much simpler than animations. Initial attempts were flawed: the arts generated were stylistically inconsistent, leading to on-screen chaos. While individual pieces looked great, they didn’t gel together. After much trial and error, it felt like achieving a cohesive style was an elusive dream. However, I eventually managed to pin down a consistent style. The breakthrough was achieved! More details on the process can be found in the generation section.
+Conclusion
 
-### Framework: Preact
+### The Final Push
 
-Given these principles, we chose [Preact](https://preactjs.com/) as the main framework for its notable advantages:
-
-- **Small Size**: Ensures fast application loading and quick browser parsing.
-- **Reactive System**: Allows easy description of complex interactions.
-- **Similarity to React**: Familiarity for most developers as React is an industry standard.
-- **Fast Rebuilding with Vite**: Practically instantaneous, enhancing developer experience.
+Even with the arts ready and the prototype functioning, the daunting task of refinement lay ahead. This phase has always been my Achilles' heel. This is when Vlad became my anchor. He tested, gathered feedback, suggested improvements, and simply stood by my side. Thanks to his assistance, we concluded the project, leaving a couple of brilliant ideas for the future while concentrating on meticulous testing of what was already crafted.
 
 ### Deployment: GitHub Pages
 
@@ -128,6 +123,8 @@ And now, let's have a closer look at our game's visible parts:
 - **[`GameOverComponent`](src/components/game-over/game-over.tsx)**: Displayed after the game ends. It presents the end-of-game statistics.
 - **[`StatisticComponent`](src/components/statistic/statistic.tsx)**: Provides an overview of previous game results and displays average gameplay statistics.
 
+## Creating Art with Midjonery
+
 ## Feedback on Developing Telegram's WebApp
 
 ### What We Appreciated
@@ -145,3 +142,4 @@ And now, let's have a closer look at our game's visible parts:
 - The main button doesn't know HEX8 colors. We had to think of other ways to choose colors.
 - To make sure everything works, we checked our designs in Safari. Looks like the macOS Telegram client uses Safari's engine.
 - From tests with friends, we found that the Haptic Feedback doesn't always work. Some said they didn't feel any vibration.
+- For some reason, web apps are not working at all on the Telegram client for Ubuntu.
