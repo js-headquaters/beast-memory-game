@@ -165,23 +165,21 @@ And now, let's have a closer look at our game's visible parts:
 
 ## Creating Art with Midjonery
 
-I had already gained some experience in crafting game art when I attempted to create complex animated sprites (you can find more details on my [channel](https://t.me/gamedev_batya)). However, creating character animation proved to be more challenging than anticipated, and I couldn't achieve satisfactory results.
+I had already gained some experience in crafting game art when I attempted to create complex animated sprites (you can find more details on my [channel](https://t.me/gamedev_batya). However, creating character animation proved to be more challenging than anticipated, and I couldn't achieve satisfactory results.
 
 ### First Steps with Midjonery
 
 I decided to give simpler art a try. So, I invested $10 in Midjonery and began experimenting. My initial idea was to generate a cute anime-style cat and use it as a reference. I effortlessly acquired a cat image.
 
 <img src="./art-examples/first-cat.png" alt="first cat image" height="300">
-```
-anime cute cat, with smiling face, sitting and facing forward, сhubby, --ar 9:14
-```
+
+`anime cute cat, with smiling face, sitting and facing forward, сhubby, --ar 9:14`
 
 This cat set the benchmark: building upon it, I managed to craft an impressive dog in the same style. But when I tried using this reference for a frog, the outcome was... a green cat that faintly resembled a frog.
 
 <img src="./art-examples/frog.png" alt="frog image" height="300">
-```
-cartoon frog, kawai, smiling, funny, black background, white outline --ar 9:13 --no text
-```
+
+`cartoon frog, kawai, smiling, funny, black background, white outline --ar 9:13 --no text`
 
 ### Using Diverse Cartoon Shows as References
 
