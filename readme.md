@@ -187,23 +187,34 @@ After unsuccessful attempts at crafting other animal art using the cat as a refe
 
 I then opted to use frames from my favorite cartoons "Steven Universe" and "Adventure Time" hoping that showcasing multiple characters in a single image would help the neural network grasp the overall style without fixating on specific character details. This method proved to be quite successful: the animals began to look more expressive and in the desired style.
 
-![wolf adventure time](./art-examples/wolf.png)
+<img src="./art-examples/wolf.png" alt="wolf adventure time" height="300" />
+
 `individual digital asset, cartoon wolf, with smiling face, sitting and facing forward, сhubby, black background, --ar 9:13 --no text --no shadows`
-![cat adventure time](./art-examples/ad-cat.png)
+
+<img src="./art-examples/ad-cat.png" alt="cat adventure time" height="300" />
+
 `individual digital asset, cute cat, with smiling face, sitting and facing forward, сhubby --ar 9:13 --no text --no shadows`
-![cat steven universe](./art-examples/su-cat.png)
+
+<img src="./art-examples/su-cat.png" alt="cat steven universe" height="300" />
+
 `cute cartoon cat, black background  --ar 9:13 --no text --no shadows`
+
 However, a new challenge arose in an area I hadn't anticipated – the background of each image. Despite my explicit prompts like "transparent background" or "black background", the neural network would overlook them, producing backgrounds of various colors and textures every time. It's worth noting, though, that while not meeting my specific requests, the backgrounds crafted by the network were genuinely creative and colorful. Yet, their differences became too prominent and disrupted the overall perception when all the arts were showcased on a single screen.
 
 ### Hallucinations as the Solution
 
 Recognizing the inconsistency in the backgrounds, I sought a way to harmonize them when viewed collectively. My idea was to embrace an overarching theme that would bridge these disparities. An epiphany struck: what if I gave all the arts a touch of mysticism and psychedelia? Such backgrounds would differ, but they'd be unified under a single theme – enigmatic realms and creatures. With this in mind, adding words like "fractals" and "lsd" to the prompt, I indeed began to see impressive results.
 
-![cat fractals](./art-examples/cat-fractals.png)
+<img src="./art-examples/cat-fractals.png" alt="cat fractals" height="300" />
+
 `digital asset, cute cat, fractals, lsd --ar 9:13 --no text --no shadows`
-![pig fractals](./art-examples/pig-fractals.png)
-`digital asset, cute cartoon pig, fractals, lsd --ar 9:13 --no text -`
-![chicken fractals](./art-examples/chicken-fractals.png)
+
+<img src="./art-examples/pig-fractals.png" alt="pig fractals" height="300" />
+
+`digital asset, cute cartoon pig, fractals, lsd --ar 9:13 --no text`
+
+<img src="./art-examples/chicken-fractals.png" alt="chicken fractals" height="300" />
+
 `digital asset, cartoon chicken, chicken, chicken, fractals, lsd --ar 9:13 --no text`
 
 Soon, it became evident that this approach could be further refined by multiple generations and basic post-processing in a graphic editor, like Gimp, which I used.
@@ -212,9 +223,10 @@ Soon, it became evident that this approach could be further refined by multiple 
 
 The method worked, but finding suitable images was not straightforward. I often revisited the same animal, trying to achieve the desired outcome. For instance, with the crab, I spent about 50 generations, and despite all my efforts, I couldn't get the right art piece. All these attempts at grappling with the neural network meant that I quickly exhausted the hours allocated to me for generation.
 
-![crab1](./art-examples/crab-1.png)
-![crab2](./art-examples/crab-2.png)
-![crab3](./art-examples/crab-3.png)
+<img src="./art-examples/crab-1.png" alt="crab1" height="300" />
+<img src="./art-examples/crab-2.png" alt="crab2" height="300" />
+<img src="./art-examples/crab-3.png" alt="crab3" height="300" />
+
 `digital asset, cartoon crab, cartoon crab, cartoon crab, fractals, lsd --ar 9:13 --no text`
 
 Realizing this approach was inefficient, I decided to limit the attempts to 10-15 generations for each animal. If I didn't get the desired result after this, I'd switch to another animal. This tactic proved more productive, but due to exhausting the hour limit on the Midjonery service, I had to invest an additional $4 to continue building my art collection.
