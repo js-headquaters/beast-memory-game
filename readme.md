@@ -226,14 +226,14 @@ In three days of diligent work, spending several hours daily on experiments, and
 **Konstantin Poleshchuk**
 
 - [github](https://github.com/jsCommander)
-- [linkedin]()
+- [linkedin](https://www.linkedin.com/in/konstantin-poleshchuk-1155ba167)
 - [telegram](https://t.me/jscommander)
 - [gamedev chanel](https://t.me/gamedev_batya)
 
 **Vladislav Sharikov**
 
 - [github](https://github.com/sharikovvladislav)
-- [linkedin]()
+- [linkedin](https://www.linkedin.com/in/vlad-sharikov-57a264113)
 - [telegram](https://t.me/vladsharikov)
 
 ## Feedback on Developing Telegram's WebApp
