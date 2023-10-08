@@ -171,13 +171,17 @@ I had already gained some experience in crafting game art when I attempted to cr
 
 I decided to give simpler art a try. So, I invested $10 in Midjonery and began experimenting. My initial idea was to generate a cute anime-style cat and use it as a reference. I effortlessly acquired a cat image.
 
-<img src="./art-examples/first-cat.png" alt="first cat image" width="200">
-`anime cute cat, with smiling face, sitting and facing forward, сhubby, --ar 9:14`
+<img src="./art-examples/first-cat.png" alt="first cat image" height="300">
+```
+anime cute cat, with smiling face, sitting and facing forward, сhubby, --ar 9:14
+```
 
 This cat set the benchmark: building upon it, I managed to craft an impressive dog in the same style. But when I tried using this reference for a frog, the outcome was... a green cat that faintly resembled a frog.
 
-<img src="./art-examples/frog.png" alt="frog image" width="200">
-`cartoon frog, kawai, smiling, funny, black background, white outline --ar 9:13 --no text`
+<img src="./art-examples/frog.png" alt="frog image" height="300">
+```
+cartoon frog, kawai, smiling, funny, black background, white outline --ar 9:13 --no text
+```
 
 ### Using Diverse Cartoon Shows as References
 
