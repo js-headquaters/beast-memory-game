@@ -16,7 +16,7 @@ import "./statistic.css";
 
 const debugClickCount = signal(0);
 const isDebugActive = computed(() => {
-  return debugClickCount.value > 10;
+  return debugClickCount.value >= 10;
 });
 
 /**

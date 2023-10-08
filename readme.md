@@ -91,6 +91,17 @@ HTML buttons will be used as an alternative interface.
 Data will be stored in the browser's LocalStorage.
 Feel free to explore and experiment with BeastMemory on your local setup!
 
+### Debug menu
+There is a debug menu available. To enter a debug mode:
+1. Start the game
+2. Go to the Statistic page
+3. Click on the Statistic header 10 times
+
+In the debug mode, you can:
+- change levels to test different test cases
+- change theme (light and dark) immediately
+- reset statistic
+
 ## The Road to Creation
 
 👋 Hi everyone! My name is Konstantin Poleshchuk. Together with my friend Vladislav Sharikov, we created this game. Below you'll find the story of how it all came together, our trials and tribulations, and how we overcame every obstacle in our journey to build this project. I hope you find it intriguing!
