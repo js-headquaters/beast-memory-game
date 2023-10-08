@@ -162,6 +162,61 @@ And now, let's have a closer look at our game's visible parts:
 
 ## Creating Art with Midjonery
 
+I had already gained some experience in crafting game art when I attempted to create complex animated sprites (you can find more details on my [channel](https://t.me/gamedev_batya)). However, creating character animation proved to be more challenging than anticipated, and I couldn't achieve satisfactory results.
+
+### First Steps with Midjonery
+
+I decided to give simpler art a try. So, I invested $10 in Midjonery and began experimenting. My initial idea was to generate a cute anime-style cat and use it as a reference. I effortlessly acquired a cat image.
+
+![first cat image](./art-examples/first-cat.png)
+`anime cute cat, with smiling face, sitting and facing forward, сhubby, --ar 9:14`,
+
+This cat set the benchmark: building upon it, I managed to craft an impressive dog in the same style. But when I tried using this reference for a frog, the outcome was... a green cat that faintly resembled a frog.
+![frog image](./art-examples/frog.png)
+`cartoon frog, kawai, smiling, funny, black background, white outline --ar 9:13 --no text`
+
+### Using Diverse Cartoon Shows as References
+
+After unsuccessful attempts at crafting other animal art using the cat as a reference, it became clear that I needed a different approach. The problem was that while I wanted to retain the cat's aesthetic for other animals, the neural network perceived the specific features of the cat as part of the style, making it challenging to generate a recognizable frog, for instance.
+
+I then opted to use frames from my favorite cartoons "Steven Universe" and "Adventure Time" hoping that showcasing multiple characters in a single image would help the neural network grasp the overall style without fixating on specific character details. This method proved to be quite successful: the animals began to look more expressive and in the desired style.
+
+![wolf adventure time](./art-examples/wolf.png)
+`individual digital asset, cartoon wolf, with smiling face, sitting and facing forward, сhubby, black background, --ar 9:13 --no text --no shadows`
+![cat adventure time](./art-examples/ad-cat.png)
+`individual digital asset, cute cat, with smiling face, sitting and facing forward, сhubby --ar 9:13 --no text --no shadows`
+![cat steven universe](./art-examples/su-cat.png)
+`cute cartoon cat, black background  --ar 9:13 --no text --no shadows`
+However, a new challenge arose in an area I hadn't anticipated – the background of each image. Despite my explicit prompts like "transparent background" or "black background", the neural network would overlook them, producing backgrounds of various colors and textures every time. It's worth noting, though, that while not meeting my specific requests, the backgrounds crafted by the network were genuinely creative and colorful. Yet, their differences became too prominent and disrupted the overall perception when all the arts were showcased on a single screen.
+
+### Hallucinations as the Solution
+
+Recognizing the inconsistency in the backgrounds, I sought a way to harmonize them when viewed collectively. My idea was to embrace an overarching theme that would bridge these disparities. An epiphany struck: what if I gave all the arts a touch of mysticism and psychedelia? Such backgrounds would differ, but they'd be unified under a single theme – enigmatic realms and creatures. With this in mind, adding words like "fractals" and "lsd" to the prompt, I indeed began to see impressive results.
+
+![cat fractals](./art-examples/cat-fractals.png)
+`digital asset, cute cat, fractals, lsd --ar 9:13 --no text --no shadows`
+![pig fractals](./art-examples/pig-fractals.png)
+`digital asset, cute cartoon pig, fractals, lsd --ar 9:13 --no text -`
+![chicken fractals](./art-examples/chicken-fractals.png)
+`digital asset, cartoon chicken, chicken, chicken, fractals, lsd --ar 9:13 --no text`
+
+Soon, it became evident that this approach could be further refined by multiple generations and basic post-processing in a graphic editor, like Gimp, which I used.
+
+### Selecting the Right Images
+
+The method worked, but finding suitable images was not straightforward. I often revisited the same animal, trying to achieve the desired outcome. For instance, with the crab, I spent about 50 generations, and despite all my efforts, I couldn't get the right art piece. All these attempts at grappling with the neural network meant that I quickly exhausted the hours allocated to me for generation.
+
+![crab1](./art-examples/crab-1.png)
+![crab2](./art-examples/crab-2.png)
+![crab3](./art-examples/crab-3.png)
+`digital asset, cartoon crab, cartoon crab, cartoon crab, fractals, lsd --ar 9:13 --no text`
+
+Realizing this approach was inefficient, I decided to limit the attempts to 10-15 generations for each animal. If I didn't get the desired result after this, I'd switch to another animal. This tactic proved more productive, but due to exhausting the hour limit on the Midjonery service, I had to invest an additional $4 to continue building my art collection.
+
+### Final Notes
+
+In three days of diligent work, spending several hours daily on experiments, and investing a total of $15, I managed to create quality art pieces for 15 animals. Many of our acquaintances, when testing the game, highly appreciated these images. Their astonishment was priceless when they found out that the arts were generated using a neural network. Despite the current technology limitations, with the right approach and persistence, one can achieve impressive results.
+
 ## Feedback on Developing Telegram's WebApp
 
 ### What We Appreciated
