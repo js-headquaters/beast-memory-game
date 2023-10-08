@@ -13,7 +13,7 @@
   display: flex;
   justify-content: center;
   margin-bottom: 0.5rem;
-  flex: 1 1 431px;
+  flex: 0 1 431px;
   min-height: 0;
 }
 

@@ -1,5 +1,5 @@
 import { Fragment } from "preact/jsx-runtime";
-import './key-value.css';
+import "./key-value.css";
 
 type Props = {
   name: string;
