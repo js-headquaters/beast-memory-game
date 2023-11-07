@@ -28,7 +28,7 @@
 
 Thrilled to share that our creation has clinched the 🥉 **third place** in a highly competitive field!
 
-- 🎮 **Check out our Game**: [Contest Entry](https://contest.com/mini-apps/entry4428
+- 🎮 **Check out our Game**: [Contest Entry](https://contest.com/mini-apps/entry4428)
 - 👥 **Explore other Entries**: [Contestants' Projects](https://contest.com/mini-apps)
 
 ## Table of Contents
