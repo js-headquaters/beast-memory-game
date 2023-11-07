@@ -23,6 +23,14 @@
 
 - [Telegram WebApp](https://t.me/BeastMemoryBot/game), click on the link or find our bot in Telegram `@BeastMemoryBot`
 - [Web](https://js-headquaters.github.io/beast-memory-game/), remember that the application was developed for mobile devices and to operate within the context of Telegram
+🏆 Contest Achievement 🏆
+
+**🏆 Contest Achievement 🏆**
+
+Thrilled to share that our creation has clinched the 🥉 **third place** in a highly competitive field!
+
+🎮 **Check out our Game**: [Contest Entry](https://contest.com/mini-apps/entry4428
+👥 **Explore other Entries**: [Contestants' Projects](https://contest.com/mini-apps)
 
 ## Table of Contents
 
